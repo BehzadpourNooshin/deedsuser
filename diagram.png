@@ -1,0 +1,2190 @@
+@startuml
+set namespaceSeparator ::
+
+class "deedsuser::bindings::bindings.dart::MyBindings" {
+  +void dependencies()
+}
+
+"get::get_instance::src::bindings_interface.dart::Bindings" <|-- "deedsuser::bindings::bindings.dart::MyBindings"
+
+class "deedsuser::controllers::accounts_controller.dart::AccountsController" {
+ 
+}
+
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<dynamic>>"
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<AccountModel>"
+"deedsuser::controllers::accounts_controller.dart::AccountsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::accounts_controller.dart::AccountsController"
+
+class "deedsuser::controllers::apicall_controller.dart::APICallController" {
+ 
+}
+
+"deedsuser::controllers::apicall_controller.dart::APICallController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::apicall_controller.dart::APICallController"
+
+class "deedsuser::controllers::basereport_controller.dart::BaseReportController" {
+ 
+}
+
+"deedsuser::controllers::basereport_controller.dart::BaseReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<BaseReportModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::basereport_controller.dart::BaseReportController"
+
+class "deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController" {
+ 
+}
+
+"deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<BasicDashboardInfoModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController"
+
+class "deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" {
+ 
+}
+
+"deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<CategoryAndReportModel>"
+"deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::categoryandreport_controller.dart::CategoryandReportController"
+
+class "deedsuser::controllers::category_controller.dart::CategoryController" {
+ 
+}
+
+"deedsuser::controllers::category_controller.dart::CategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::category_controller.dart::CategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::category_controller.dart::CategoryController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::category_controller.dart::CategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<CategoryModel>"
+"deedsuser::controllers::category_controller.dart::CategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxMap<String, dynamic>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::category_controller.dart::CategoryController"
+
+class "deedsuser::controllers::chartreport_controller.dart::ChartReportController" {
+ 
+}
+
+"deedsuser::controllers::chartreport_controller.dart::ChartReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ChartReportModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::chartreport_controller.dart::ChartReportController"
+
+class "deedsuser::controllers::chart_controller.dart::ChartController" {
+ 
+}
+
+"deedsuser::controllers::chart_controller.dart::ChartController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::chart_controller.dart::ChartController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<dynamic>>"
+"deedsuser::controllers::chart_controller.dart::ChartController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::chart_controller.dart::ChartController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::chart_controller.dart::ChartController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ChartModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::chart_controller.dart::ChartController"
+
+class "deedsuser::controllers::columns_controller.dart::ColumnController" {
+ 
+}
+
+"deedsuser::controllers::columns_controller.dart::ColumnController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::columns_controller.dart::ColumnController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::columns_controller.dart::ColumnController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ColumnModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::columns_controller.dart::ColumnController"
+
+class "deedsuser::controllers::cornometer_controller.dart::CornometerController" {
+ 
+}
+
+"deedsuser::controllers::cornometer_controller.dart::CornometerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<Duration>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::cornometer_controller.dart::CornometerController"
+
+class "deedsuser::controllers::datafortable_controller.dart::DataForTableController" {
+  
+}
+
+"deedsuser::controllers::datafortable_controller.dart::DataForTableController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<DataForTableModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::datafortable_controller.dart::DataForTableController"
+
+class "deedsuser::controllers::datatime_controller.dart::DateTimeController" {
+ 
+}
+
+"deedsuser::controllers::datatime_controller.dart::DateTimeController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::datatime_controller.dart::DateTimeController"
+
+class "deedsuser::controllers::dropdown_controller.dart::DropdownController" {
+ 
+}
+
+"deedsuser::controllers::dropdown_controller.dart::DropdownController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxMap<String, String>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::dropdown_controller.dart::DropdownController"
+
+class "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController" {
+ 
+}
+
+"deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController"
+
+class "deedsuser::controllers::expantion_controller.dart::ExpantionController" {
+  +RxList<String> selectedCategory
+  +void resetSelectedCategory()
+}
+
+"deedsuser::controllers::expantion_controller.dart::ExpantionController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<String>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::expantion_controller.dart::ExpantionController"
+
+class "deedsuser::controllers::filter_controller.dart::FilterController" {
+ 
+}
+
+"deedsuser::controllers::filter_controller.dart::FilterController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::filter_controller.dart::FilterController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::filter_controller.dart::FilterController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<FilterModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::filter_controller.dart::FilterController"
+
+class "deedsuser::controllers::full_report_controller.dart::FullReportController" {
+ 
+}
+
+"deedsuser::controllers::full_report_controller.dart::FullReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<FullReportModel>"
+"deedsuser::controllers::full_report_controller.dart::FullReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::full_report_controller.dart::FullReportController"
+
+class "deedsuser::controllers::json_controller.dart::JsonController" {
+ 
+}
+
+"deedsuser::controllers::json_controller.dart::JsonController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::json_controller.dart::JsonController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::json_controller.dart::JsonController"
+
+class "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" {
+ 
+}
+
+"deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<LoginResponseModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController"
+
+class "deedsuser::controllers::login_controller.dart::LoginController" {
+ 
+}
+
+"deedsuser::controllers::login_controller.dart::LoginController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::login_controller.dart::LoginController" o-- "deedsuser::models::login_model.dart::LoginModel"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::login_controller.dart::LoginController"
+
+class "deedsuser::controllers::MenuAppController.dart::MenuAppController" {
+ 
+}
+
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::MenuAppController.dart::MenuAppController"
+
+class "deedsuser::controllers::menu_controller.dart::SideMenusController" {
+ 
+}
+
+"deedsuser::controllers::menu_controller.dart::SideMenusController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::menu_controller.dart::SideMenusController"
+
+class "deedsuser::controllers::mydatatable_controller.dart::MyDataTableController" {
+  
+}
+
+"dc_datatable_paginator::src::dc_datatable_controller.dart::DcDataTableController" <|-- "deedsuser::controllers::mydatatable_controller.dart::MyDataTableController"
+
+class "deedsuser::controllers::offlinemenu_controller.dart::MyOfflineReportsController" {
+  
+}
+
+"deedsuser::controllers::offlinemenu_controller.dart::MyOfflineReportsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::offlinemenu_controller.dart::MyOfflineReportsController"
+
+class "deedsuser::controllers::onlinemenu_controller.dart::MyOnlineReportController" {
+   
+}
+
+"deedsuser::controllers::onlinemenu_controller.dart::MyOnlineReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::onlinemenu_controller.dart::MyOnlineReportController"
+
+class "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController" {
+  
+}
+
+"deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<PersonalSettingModel>"
+"deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController"
+
+class "deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" {
+ 
+}
+
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<dynamic>>"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<TableModel>>"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<FilterModel>>"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<SettingsModel>>"
+"deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ReportBaseCategoryModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController"
+
+class "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" {
+  
+}
+
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ReportsByCategoryModel>"
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ReportNameModel>"
+"deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxMap<String, dynamic>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController"
+
+class "deedsuser::controllers::report_controller.dart::ReportController" {
+   
+}
+
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<dynamic>>"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<TableModel>>"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<FilterModel>>"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<SettingsModel>>"
+"deedsuser::controllers::report_controller.dart::ReportController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ReportModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::report_controller.dart::ReportController"
+
+class "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" {
+  
+}
+
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<DataColumn>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<DataRow>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ColumnChartModel>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<LineChartModel>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<PieChartModel>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<Widget>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ResultSearchModel>"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController"
+
+class "deedsuser::controllers::search_controller.dart::OptionSearchController" {
+  +RxList<SearchModel> searchs
+  +RxList<ServiceInputFinalModel> fullsearchapi
+  +RxList<ServiceInputModel> searchapi
+  +RxList<SearchDetail> searchDetail
+  +RxList<SearchModel> searchForProperties
+  +RxList<SearchDetail> searcDetailhForProperties
+}
+
+"deedsuser::controllers::search_controller.dart::OptionSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<SearchModel>"
+"deedsuser::controllers::search_controller.dart::OptionSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ServiceInputFinalModel>"
+"deedsuser::controllers::search_controller.dart::OptionSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ServiceInputModel>"
+"deedsuser::controllers::search_controller.dart::OptionSearchController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<SearchDetail>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::search_controller.dart::OptionSearchController"
+
+class "deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" {
+ 
+}
+
+"deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ServiceInputModel>"
+"deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<String>"
+"deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ServiceInputFinalModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController"
+
+class "deedsuser::controllers::setting_controller.dart::SettingController" {
+ 
+}
+
+"deedsuser::controllers::setting_controller.dart::SettingController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::setting_controller.dart::SettingController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::setting_controller.dart::SettingController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<SettingModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::setting_controller.dart::SettingController"
+
+class "deedsuser::controllers::showfilterformcontroller.dart::MyFilterFormController" {
+ 
+}
+
+"deedsuser::controllers::showfilterformcontroller.dart::MyFilterFormController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::showfilterformcontroller.dart::MyFilterFormController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::showfilterformcontroller.dart::MyFilterFormController"
+
+class "deedsuser::controllers::table_controller.dart::TableController" {
+ 
+}
+
+"deedsuser::controllers::table_controller.dart::TableController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"deedsuser::controllers::table_controller.dart::TableController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::controllers::table_controller.dart::TableController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::controllers::table_controller.dart::TableController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<TableModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::table_controller.dart::TableController"
+
+class "deedsuser::controllers::textediting_controller.dart::TextFieldController" {
+ 
+}
+
+"deedsuser::controllers::textediting_controller.dart::TextFieldController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::textediting_controller.dart::TextFieldController"
+
+class "deedsuser::controllers::updatenote_controller.dart::UpdateNoteController" {
+  +RxList<UpdatenotesModel> updateNotes
+  +RxInt updateUserNote
+}
+
+"deedsuser::controllers::updatenote_controller.dart::UpdateNoteController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<UpdatenotesModel>"
+"deedsuser::controllers::updatenote_controller.dart::UpdateNoteController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::updatenote_controller.dart::UpdateNoteController"
+
+class "deedsuser::controllers::updateuser_controller.dart::UpdateUserController" {
+   
+}
+
+"deedsuser::controllers::updateuser_controller.dart::UpdateUserController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::updateuser_controller.dart::UpdateUserController"
+
+class "deedsuser::controllers::user_controller.dart::UserController" {
+  
+}
+
+"deedsuser::controllers::user_controller.dart::UserController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::controllers::user_controller.dart::UserController"
+
+class "deedsuser::main.dart::MyApp" {
+  +Widget build()
+  {static} +void changeColor()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::main.dart::MyApp"
+
+class "deedsuser::models::accounts_model.dart::AccountModel" {
+ 
+}
+
+class "deedsuser::models::accounts_model.dart::TempRecentUsers" {
+ 
+}
+
+class "deedsuser::models::basereport_model.dart::BaseReportModel" {
+ 
+}
+
+class "deedsuser::models::basicinfo_model.dart::BasicDashboardInfoModel" {
+  
+}
+
+class "deedsuser::models::categoryandreport_model.dart::CategoryAndReportModel" {
+ 
+}
+
+class "deedsuser::models::category_model.dart::CategoryModel" {
+ 
+}
+
+class "deedsuser::models::chartdata_model.dart::ColumnChartModel" {
+  +List<MyColumnChartData> dataSource
+  {static} +List<ColumnChartModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::chartdata_model.dart::LineChartModel" {
+  +List<MyLineChartData> dataSource
+  {static} +List<LineChartModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::chartdata_model.dart::PieChartModel" {
+  +List<MyPieChartData> dataSource
+  +double groupTo
+  {static} +List<PieChartModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::chartreport_model.dart::ChartReportModel" {
+  +String reportTitle
+  +String chartType
+  +List<Map<String, dynamic>> chartFields
+  {static} +List<ChartReportModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::charts_model.dart::ChartModel" {
+  +String chartType
+  +List<dynamic> chartFields
+  +bool active
+  {static} +List<ChartModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::column_model.dart::ColumnModel" {
+  +String columnTitle
+  +String columnDBFieldName
+  +String hasSortLink
+  +bool active
+  {static} +List<ColumnModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::datafortable_model.dart::DataForTableModel" {
+  +int offset
+  +int limit
+  +String datatablename
+  +List<Map<String, dynamic>> search
+  +List<dynamic> result
+  {static} +List<DataForTableModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::datafortable_model.dart::TempRecentUsers" {
+  +String? firstname
+  +String? lastname
+  +String? email
+  +String? password
+  +String? address
+  +String? mobileNumber
+  +String? gender
+  +String? role
+}
+
+class "deedsuser::models::datashow_model.dart::ModelExample" {
+  +int id
+  +String name
+  +String description
+  +int hashCode
+  +bool ==()
+}
+
+class "deedsuser::models::filters_models.dart::FilterModel" {
+  +String formItemTitle
+  +String formItemDisplayTitle
+  +String formItemType
+  +String formItemInputType
+  +String formItemValidationType
+  +String formItemInputTypeHint
+  +String lookupName
+  +String search
+  +List<dynamic> items
+  +List<dynamic> itemsTitle
+  +TextEditingController textEditingController
+  {static} +List<FilterModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+"deedsuser::models::filters_models.dart::FilterModel" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+
+class "deedsuser::models::fullreport_model.dart::FullReportModel" {
+  +BaseReportModel report
+  +List<TableModel> table
+  +List<ChartModel> chart
+  +List<FilterModel> filters
+  {static} +List<FullReportModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+"deedsuser::models::fullreport_model.dart::FullReportModel" o-- "deedsuser::models::basereport_model.dart::BaseReportModel"
+
+class "deedsuser::models::fullreport_model.dart::SettingsModel" {
+}
+
+class "deedsuser::models::loginresponse_model.dart::LoginResponseModel" {
+  +String code
+  +String accesstoken
+  +String refreshtoken
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::login_model.dart::LoginModel" {
+  +String email
+  +String password
+  +String role
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::personalsetting_model.dart::PersonalSettingModel" {
+  +String userEmail
+  +String reportTitle
+  +String reportDisplayTitle
+  +bool viewChart
+  +bool viewInHomePage
+  +bool active
+  {static} +List<PersonalSettingModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::personalsetting_model.dart::SettingsModel" {
+}
+
+class "deedsuser::models::RecentFile.dart::RecentFile" {
+  +String? icon
+  +String? title
+  +String? date
+  +String? size
+}
+
+class "deedsuser::models::reportbasecategory_model.dart::ReportBaseCategoryModel" {
+  +String reporttitle
+  +String reportdesc
+  +int categoryid
+  +String categorytitle
+  +int reportid
+  +bool hasExcelExport
+  +bool hasPDFExport
+  +bool hasChart
+  {static} +List<ReportBaseCategoryModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::reportsbycategory_model.dart::ReportsByCategoryModel" {
+  +String categoryName
+  +String categoryDisplayTitle
+  +List<ReportNameModel> reports
+  {static} +List<ReportsByCategoryModel> listFromJson()
+  {static} +List<dynamic> idFromTitle()
+  +Map<String, dynamic> toJson()
+  +dynamic map()
+}
+
+class "deedsuser::models::reports_model.dart::ReportModel" {
+  +String reporttitle
+  +String reportdesc
+  +int categoryid
+  +String categorytitle
+  +int reportid
+  +bool hasExcelExport
+  +bool hasPDFExport
+  +bool hasChart
+  {static} +List<ReportModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::reports_model.dart::SettingsModel" {
+}
+
+class "deedsuser::models::report_model.dart::ReportNameModel" {
+  +String reportName
+  +String displayTitle
+  +bool active
+  {static} +List<ReportNameModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::resultsearch_model.dart::ResultSearchModel" {
+  +List<dynamic> header
+  +List<dynamic> rows
+  +int totalPages
+  +int totalElements
+  +bool last
+  +int number
+  {static} +List<ResultSearchModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::searchdetail_model.dart::SearchDetail" {
+  +String formItemTitle
+  +List<dynamic> value
+  +String from
+  +String to
+  {static} +List<SearchDetail> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::search_model.dart::SearchModel" {
+  +String dbTableName
+  +String reportName
+  +List<SearchDetail> filterFormDtoList
+  +RxInt pageSize
+  +RxInt pageNumber
+  +RxString sortType
+  +RxString sortColumn
+  {static} +List<SearchModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+"deedsuser::models::search_model.dart::SearchModel" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"deedsuser::models::search_model.dart::SearchModel" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+
+class "deedsuser::models::serviceinputfinal_model.dart::ServiceInputFinalModel" {
+  +String reportName
+  +RxList<ServiceInputModel> inputFormInfoFieldsDtoList
+  {static} +List<ServiceInputFinalModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+"deedsuser::models::serviceinputfinal_model.dart::ServiceInputFinalModel" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<ServiceInputModel>"
+
+class "deedsuser::models::serviceinput_model.dart::ServiceInputModel" {
+  +String parameterName
+  +String parameterType
+  +String parameterInputType
+  +String parameterValue
+  {static} +List<ServiceInputModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::settings_model.dart::SettingModel" {
+  +String hasExcelExport
+  +String hasPDFExport
+  +String hasChart
+  {static} +List<SettingModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::tables_model.dart::TableModel" {
+  +String dbTableName
+  +List<ColumnModel> fields
+  +bool active
+  {static} +List<TableModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::updatenotes_model.dart::UpdatenotesModel" {
+  +String version
+  +String description
+  {static} +List<UpdatenotesModel> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::updatenotes_model.dart::UpdatenotesModelGroupByVersion" {
+  +String version
+  +List<String> description
+  {static} +List<UpdatenotesModelGroupByVersion> listFromJson()
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::updateuser_model.dart::UpdateUserModel" {
+  +String email
+  +String password
+  +String firstname
+  +String lastname
+  +String address
+  +String gender
+  +String mobileNumber
+  +String refreshtoken
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::models::user_model.dart::UserModel" {
+  +String email
+  +String password
+  +String role
+  +String accesstoken
+  +String refreshtoken
+  +String firstlogin
+  +int expirytoken
+  +String expirytime
+  +Map<String, dynamic> toJson()
+}
+
+class "deedsuser::providers::user_data_provider.dart::StorageKeys" {
+  +String username
+  +String userProfileImageUrl
+}
+
+class "deedsuser::providers::user_data_provider.dart::UserDataProvider" {
+  -String _userProfileImageUrl
+  -String _username
+  +String userProfileImageUrl
+  +String username
+  +dynamic loadAsync()
+  +dynamic setUserDataAsync()
+  +dynamic clearUserDataAsync()
+  +bool isUserLoggedIn()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "deedsuser::providers::user_data_provider.dart::UserDataProvider"
+
+class "deedsuser::route::authmiddleware.dart::AuthMiddleware" {
+  +RouteSettings? redirect()
+}
+
+"get::get_navigation::src::routes::route_middleware.dart::GetMiddleware" <|-- "deedsuser::route::authmiddleware.dart::AuthMiddleware"
+
+class "deedsuser::route::routes.dart::Routes" {
+  {static} +List<GetPage<dynamic>> pages
+}
+
+class "deedsuser::theme::themes.dart::AppThemeData" {
+  {static} -AppThemeData _instance
+  {static} +AppThemeData instance
+  +ThemeData light()
+  +ThemeData dark()
+}
+
+"deedsuser::theme::themes.dart::AppThemeData" o-- "deedsuser::theme::themes.dart::AppThemeData"
+
+class "deedsuser::theme::theme_extensions::app_button_theme.dart::AppButtonTheme" {
+  +ButtonStyle primaryElevated
+  +ButtonStyle secondaryElevated
+  +ButtonStyle errorElevated
+  +ButtonStyle successElevated
+  +ButtonStyle infoElevated
+  +ButtonStyle warningElevated
+  +ButtonStyle primaryOutlined
+  +ButtonStyle secondaryOutlined
+  +ButtonStyle errorOutlined
+  +ButtonStyle successOutlined
+  +ButtonStyle infoOutlined
+  +ButtonStyle warningOutlined
+  +ButtonStyle primaryText
+  +ButtonStyle secondaryText
+  +ButtonStyle errorText
+  +ButtonStyle successText
+  +ButtonStyle infoText
+  +ButtonStyle warningText
+  +ThemeExtension<AppButtonTheme> copyWith()
+  +ThemeExtension<AppButtonTheme> lerp()
+}
+
+"deedsuser::theme::theme_extensions::app_button_theme.dart::AppButtonTheme" o-- "flutter::src::material::button_style.dart::ButtonStyle"
+"flutter::src::material::theme_data.dart::ThemeExtension" <|-- "deedsuser::theme::theme_extensions::app_button_theme.dart::AppButtonTheme"
+
+class "deedsuser::theme::theme_extensions::app_color_scheme.dart::AppColorScheme" {
+  +Color primary
+  +Color secondary
+  +Color error
+  +Color success
+  +Color info
+  +Color warning
+  +Color hyperlink
+  +Color buttonTextBlack
+  +Color buttonTextDisabled
+  +ThemeExtension<AppColorScheme> copyWith()
+  +ThemeExtension<AppColorScheme> lerp()
+}
+
+"deedsuser::theme::theme_extensions::app_color_scheme.dart::AppColorScheme" o-- "dart::ui::Color"
+"flutter::src::material::theme_data.dart::ThemeExtension" <|-- "deedsuser::theme::theme_extensions::app_color_scheme.dart::AppColorScheme"
+
+class "deedsuser::theme::theme_extensions::app_data_table_theme.dart::AppDataTableTheme" {
+  +CardTheme cardTheme
+  +DataTableThemeData dataTableThemeData
+  +ThemeExtension<AppDataTableTheme> copyWith()
+  +ThemeExtension<AppDataTableTheme> lerp()
+}
+
+"deedsuser::theme::theme_extensions::app_data_table_theme.dart::AppDataTableTheme" o-- "flutter::src::material::card_theme.dart::CardTheme"
+"deedsuser::theme::theme_extensions::app_data_table_theme.dart::AppDataTableTheme" o-- "flutter::src::material::data_table_theme.dart::DataTableThemeData"
+"flutter::src::material::theme_data.dart::ThemeExtension" <|-- "deedsuser::theme::theme_extensions::app_data_table_theme.dart::AppDataTableTheme"
+
+class "deedsuser::theme::theme_extensions::app_sidebar_theme.dart::AppSidebarTheme" {
+  +Color backgroundColor
+  +Color foregroundColor
+  +double sidebarWidth
+  +double sidebarLeftPadding
+  +double sidebarTopPadding
+  +double sidebarRightPadding
+  +double sidebarBottomPadding
+  +double headerUserProfileRadius
+  +double headerUsernameFontSize
+  +double headerTextButtonFontSize
+  +double menuFontSize
+  +double menuBorderRadius
+  +double menuLeftPadding
+  +double menuTopPadding
+  +double menuRightPadding
+  +double menuBottomPadding
+  +Color menuHoverColor
+  +Color menuSelectedFontColor
+  +Color menuSelectedBackgroundColor
+  +Color menuExpandedBackgroundColor
+  +Color menuExpandedHoverColor
+  +double menuExpandedChildLeftPadding
+  +double menuExpandedChildTopPadding
+  +double menuExpandedChildRightPadding
+  +double menuExpandedChildBottomPadding
+  +ThemeExtension<AppSidebarTheme> copyWith()
+  +ThemeExtension<AppSidebarTheme> lerp()
+}
+
+"deedsuser::theme::theme_extensions::app_sidebar_theme.dart::AppSidebarTheme" o-- "dart::ui::Color"
+"flutter::src::material::theme_data.dart::ThemeExtension" <|-- "deedsuser::theme::theme_extensions::app_sidebar_theme.dart::AppSidebarTheme"
+
+class "deedsuser::utils::api_service.dart::Network" {
+  +String baseUrl
+  +String fixUrl
+  {static} +bool isConnect
+  +LoginResponseController loginresponsecontroller
+  +ReportController reportController
+  +JsonController jsonController
+  +CategoryController categoryController
+  +UserController userController
+  +FilterController filterController
+  +APICallController apiCallController
+  +AccountsController accountController
+  +TableController dataTableController
+  +ChartController chartController
+  +BasicDashboardInfoController basicDashboardInfoController
+  +UpdateNoteController updateNoteController
+  +ColumnController columnController
+  +FullReportController fullReportController
+  +ErrorhandelingController errorhandelingController
+  +ReportsByCategoryController reportsByCategoryController
+  +DataForTableController dataForTableController
+  +BaseReportController baseReportController
+  -ResultSearchController _resultSearchController
+  +ServiceInputController serviceInputController
+  +CornometerController cornometerController
+  {static} +Map<String, dynamic> makeAccountBody()
+  +dynamic makeErrorHandling()
+  +dynamic makeErrorHandlingWithHttpStatus()
+  {static} +Map<String, dynamic> makeLoginBody()
+  {static} +Map<String, dynamic> makeSetInputService()
+  {static} +Map<String, dynamic> makeSearchBody()
+  {static} +Map<String, dynamic> makeUpdateUserBody()
+  {static} +Map<String, dynamic> makePersonalSettingsBody()
+  {static} +Map<String, dynamic> makeGetReportByName()
+  {static} +Uri urlWithProperties()
+  {static} +Uri urlWithPropertiesQueryParam()
+  {static} +dynamic checkInternet()
+  {static} +void showInternetError()
+  {static} +void showSuccessCall()
+  {static} +void onOkButtonPressed()
+  +dynamic reportbasetcategory()
+  +dynamic allreportbasetcategory()
+  +dynamic getUpdateNotesUser()
+  +dynamic getUpdateNotes()
+  +dynamic getBasiInfo()
+  +dynamic logout()
+  +dynamic setpersonalsettings()
+  +dynamic updatepersonalsettings()
+  +dynamic getpersonalsetting()
+  +dynamic deletepersoanlsetting()
+  +dynamic getreportbyname()
+  +dynamic getData()
+  +dynamic getDataForProperties()
+  +dynamic getDataJson()
+  +dynamic grouplookupname()
+  +dynamic login()
+  +dynamic refreshToken()
+  +dynamic getUser()
+  +dynamic changePassword()
+  +dynamic updateUser()
+}
+
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::report_controller.dart::ReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::json_controller.dart::JsonController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::category_controller.dart::CategoryController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::user_controller.dart::UserController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::filter_controller.dart::FilterController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::apicall_controller.dart::APICallController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::accounts_controller.dart::AccountsController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::table_controller.dart::TableController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::chart_controller.dart::ChartController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::updatenote_controller.dart::UpdateNoteController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::columns_controller.dart::ColumnController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::full_report_controller.dart::FullReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::datafortable_controller.dart::DataForTableController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::basereport_controller.dart::BaseReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::cornometer_controller.dart::CornometerController"
+
+class "deedsuser::utils::constant.dart::ErrortHandeling" {
+  +String apiFailureTableNotFoundMessage
+  +String apiFailureTableNotFoundMessageEnglish
+  +String apiFailureReportNotFoundMessage
+  +String apiFailureReportNotFoundMessageEnglish
+  +String apiFailurePersonalSettingNotFoundMessage
+  +String apiFailurePersonalSettingNotFoundMessageEnglish
+  +String apiFailureReportroleReportNotFoundMessage
+  +String apiFailureReportroleReportNotFoundMessageEnglish
+  +String apiFailureReportroleEmailNotFoundMessage
+  +String apiFailureReportroleEmailNotFoundMessageEnglish
+  +String apiFailureEmailPasswordNotFoundMessage
+  +String apiFailureEmailPasswordNotFoundMessageEnglish
+  +String apiFailureLookupNotFoundMessage
+  +String apiFailureLookupNotFoundMessageEnglish
+  +String apiFailureLookupNotFoundGroupTitleMessage
+  +String apiFailureLookupNotFoundGroupTitleMessageEnglish
+  +String apiFailureUserNotFoundMessage
+  +String apiFailureUserNotFoundMessageEnglish
+  +String apiFailureDatabaseNotFoundMessage
+  +String apiFailureDatabaseNotFoundMessageEnglish
+  +String apiFailureDataNotFoundMessage
+  +String apiFailureDataNotFoundMessageEnglish
+  +String apiFailureRecordNotFoundMessage
+  +String apiFailureRecordNotFoundMessageEnglish
+  +String apiFailurePSDatabaseNotFoundMessage
+  +String apiFailurePSDatabaseNotFoundMessageEnglish
+  +String apiFailureFileNotFoundMessage
+  +String apiFailurePSDataNotFoundMessage
+  +String apiFailurePSDataNotFoundMessageEnglish
+  +String apiFailureFileNotFoundMessageEnglish
+  +String apiFailureUserTokenNotFoundMessage
+  +String apiFailureUserTokenNotFoundMessageEnglish
+  +String apiFailureDefault404Message
+  +String apiFailureCSVPermissionMessage
+  +String apiFailureCSVPermissionMessageEnglish
+  +String apiFailureReportPermissionMessage
+  +String apiFailureReportPermissionMessageEnglish
+  +String apiFailureDefault403Message
+  +String apiFailureTokenExpiredMessage
+  +String apiFailureTokenExpiredMessageEnglish
+  +String apiFailureTokenInvalidMessage
+  +String apiFailureTokenInvalidMessageEnglish
+  +String apiFailureDefault401Message
+  +String apiFailureConnectToDatabaseMessage
+  +String apiFailureConnectToDatabaseMessageEnglish
+  +String apiFailureDuplicateUserMessage
+  +String apiFailureDuplicateUserMessageEnglish
+  +String apiFailureDuplicateLookupMessage
+  +String apiFailureDuplicateLookupMessageEnglish
+  +String apiFailureDuplicateReportRoleMessage
+  +String apiFailureDuplicateReportRoleMessageEnglish
+  +String apiFailureDuplicateSessionMessage
+  +String apiFailureDuplicateSessionMessageEnglish
+  +String apiFailureDuplicateReportMessage
+  +String apiFailureDuplicateReportMessageEnglish
+  +String apiFailureDefault409Message
+  +String apiFailureReadFileMessage
+  +String apiFailureReadFileMessageEnglish
+  +String apiFailureReadContentFileMessage
+  +String apiFailureReadContentFileMessageEnglish
+  +String apiFailureCreateContentFileMessage
+  +String apiFailureCreateContentFileMessageEnglish
+  +String apiFailureCurrentPasswordIsIncorrectMessage
+  +String apiFailureCurrentPasswordIsIncorrectMessageEnglish
+  +String apiFailureFormatAPIMessage
+  +String apiFailureFormatAPIMessageEnglish
+  +String apiFailureCreateJsonFileMessage
+  +String apiFailureCreateJsonFileMessageEnglish
+  +String apiFailureRequiredParamMessage
+  +String apiFailureRequiredParamMessageEnglish
+  +String apiFailureTimeOut
+  +String apiFailureDefaultMessage
+}
+
+class "deedsuser::utils::constant.dart::GeneralConstant" {
+  +String apiCallSuccessdDeactiveMessage
+  +String apiCallFailureMessage
+  +String apiCallForbiddenMessage
+  +String apiCallSuccessUpdateMessage
+  +String apiCallSuccessSubmitMessage
+  +String apiFailureExpirationToken
+  +String apiFailureDuplicationSession
+  +String apiCallSuccessDeleteMessage
+  +String permissiontMessage
+  +String permissiontSubMessage
+  +String cancelText
+  +String submitText
+  +String searchText
+  +String snackbarErrorTitle
+  +String snackbarSuccessTitle
+  +String snackbarEmptyError
+  +String waitingApiCall
+  +double distanceHeight
+}
+
+class "deedsuser::utils::constant.dart::ChartConstant" {
+  +Map<String, dynamic> dialog
+}
+
+class "deedsuser::utils::constant.dart::TablesConstant" {
+  +String excelText
+  +String pdfText
+  +String chartText
+  +String createUser
+  +String updateUser
+  +String actionText
+  +String permissionText
+  +String reportsText
+  +String groupRportsText
+  +String genderText
+  +String activeText
+  +String mobileNumberText
+  +String roleText
+  +String passwordText
+  +String currentPasswordText
+  +String confirmPasswordText
+  +String newPasswordText
+  +String returnToAccountTable
+  +String emailText
+  +String lastNameText
+  +String addressText
+  +String firstNameText
+  +double tableHeight
+  +double boxDecorationRadius
+  +String toolTipDeactive
+  +String toolTipEdit
+  +String toolTipAccessReport
+  +String newButtonText
+  +String searchButtonText
+  +double searchWidth
+  +double buttonhWidth
+  +double buttonhHeight
+  +double searchHieght
+  +double boxDecorationSearchRadius
+  +String toolTipActiveAccess
+  +String toolTipDeactiveAccess
+}
+
+class "deedsuser::utils::constant.dart::ChangePasswordConstantText" {
+  +String currentPasswordTextField
+  +String currentPasswordError
+  +String newPasswordTextField
+  +String newPasswordError
+  +String confirmPasswordEmptyError
+  +String confirmPasswordTextField
+  +String confirmPasswordError
+}
+
+class "deedsuser::utils::constant.dart::LoginPageConstantText" {
+  +String mainTitle
+  +String userNameTextField
+  +String userNameError
+  +String passwordTextField
+  +String passwordError
+  +String apiErrorTitle
+  +String apiEmptySubTitle
+  +String apiIncorrectSubTitle
+  +String loginButton
+  +Icon userNameIcon
+  +TextDirection userNameDirection
+  +TextAlign userNameTextAlign
+  +Icon passwordIcon
+  +TextDirection passwordDirection
+  +TextAlign passwordTextAlign
+}
+
+"deedsuser::utils::constant.dart::LoginPageConstantText" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::utils::constant.dart::LoginPageConstantText" o-- "dart::ui::TextDirection"
+"deedsuser::utils::constant.dart::LoginPageConstantText" o-- "dart::ui::TextAlign"
+
+class "deedsuser::utils::constant.dart::HeaderConstantText" {
+  +String title
+  +String subtitle
+  +String logoPath
+  +String userNameError
+  +String passwordTextField
+  +String passwordError
+  +String apiErrorTitle
+  +String apiEmptySubTitle
+  +String apiIncorrectSubTitle
+  +String loginButton
+}
+
+class "deedsuser::utils::constant.dart::DashboardConstant" {
+}
+
+class "deedsuser::utils::constant.dart::MainPageConstant" {
+  +int headerDuration
+  +int sideMenuDeuration
+  +double openWidthOneSideMenuMainPage
+  +double openWidthOneSideMenu
+  +double openWidthOneSideMenuMainPageReportView
+  +double closeWidthOneSideMenuMainPageReportView
+  +double closeWidthOneSideMenuMainPage
+  +double closeWidthOneSideMenu
+  +double openWidthBothSideMenuMainPage
+  +double closeWidthBothSideMenuMainPage
+}
+
+class "deedsuser::utils::constant.dart::NoteConstant" {
+  +String notification
+  +Map<String, dynamic> notes
+  +String version
+}
+
+class "deedsuser::utils::constant.dart::SideMenuConstant" {
+  +double heightButton
+  +double transform
+  +int millisec
+  +Map<String, dynamic> dashboard
+  +Map<String, dynamic> account
+  +Icon closeSideMenu
+  +Icon openSideMenu
+  +Map<String, dynamic> exit
+  +Map<String, dynamic> report
+  +String apiErrorTitle
+  +String apiEmptySubTitle
+  +String apiEmptyFilter
+  +String accountproperties
+  +String timer
+  +Divider sidemenudivider
+  +SizedBox sizedBoxSideMenu
+  +double scrollbarTickness
+  +double heightInternal
+  +Map<String, dynamic> changePassword
+  +Map<String, dynamic> currentPassword
+  +Map<String, dynamic> newPassword
+  +Map<String, dynamic> confirmPassword
+  +Map<String, dynamic> dialogPassword
+  +Map<String, dynamic> dialog
+  +Map<String, dynamic> firstname
+  +Map<String, dynamic> lastname
+  +Map<String, dynamic> mobile
+  +Map<String, dynamic> email
+  +Map<String, dynamic> password
+  +Map<String, dynamic> address
+  +Map<String, dynamic> myfavorite
+  +Map<String, dynamic> myhitory
+  +String validateUpdateAccount
+  +String editAccountButton
+  +String editAccountButtonToggle
+  +String updateUserError
+  +String updateUserSuccess
+  +double iconSize
+}
+
+"deedsuser::utils::constant.dart::SideMenuConstant" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::utils::constant.dart::SideMenuConstant" o-- "flutter::src::material::divider.dart::Divider"
+"deedsuser::utils::constant.dart::SideMenuConstant" o-- "flutter::src::widgets::basic.dart::SizedBox"
+
+class "deedsuser::utils::constant.dart::Styles" {
+  +ButtonStyle mainStyleButton
+  +ButtonStyle disableStyleButton
+  +ButtonStyle mainEndSideMenuStyleButton
+  +ButtonStyle mainStyleButtonToggle
+  +ButtonStyle sideBarStyleButton
+  +ButtonStyle dateTimeStyleButton
+  +ButtonStyle mainSearchPageStyleButton
+  +ButtonStyle mainPageStyleButton
+}
+
+"deedsuser::utils::constant.dart::Styles" o-- "flutter::src::material::button_style.dart::ButtonStyle"
+
+class "deedsuser::utils::responsive.dart::Responsive" {
+  +Widget mobile
+  +Widget? tablet
+  +Widget desktop
+  {static} +bool isMobile()
+  {static} +bool isTablet()
+  {static} +bool isDesktop()
+  +Widget build()
+}
+
+"deedsuser::utils::responsive.dart::Responsive" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::utils::responsive.dart::Responsive"
+
+class "deedsuser::utils::responsive.dart::FontSize" {
+  +double fontSizeBigTitrDesktop
+  +double fontSizeMiddleTitrDesktop
+  +double fontSizeDesktop
+  +double fontSizeTablet
+  +double fontSizeMobile
+}
+
+class "deedsuser::utils::responsive.dart::CustomTextStyle" {
+  +TextStyle textStyleDesktopCourierKprimaryColor
+  +TextStyle textStyleDesktopCouriersuccessColor
+  +TextStyle textStyleDesktopCourierKerrorColor
+  +TextStyle textStyleDesktopCourierkCardColorSideMenu
+  +TextStyle textStyleTabletCourierkCardColorSideMenu
+  +TextStyle textStyleDesktopCourierkCardColor
+  +TextStyle textStyleDesktopCourierkSecondrayColor
+  +TextStyle textStyleDesktopCourierkBlackColor
+  +TextStyle textStyleTabletCouriersuccessColor
+  +TextStyle textStyleTabletCourierKerrorColor
+  +TextStyle textStyleTabletCourierKprimaryColor
+  +TextStyle textStyleTabletCourierkCardColor
+  +TextStyle textStyleTabletCourierkSecondrayColor
+  +TextStyle textStyleTabletCourierkBlackColor
+  +TextStyle textStyleMobileCouriersuccessColor
+  +TextStyle textStyleMobileCourierKprimaryColor
+  +TextStyle textStyleMobileCourierKerrorColor
+  +TextStyle textStyleMobileCourierkCardColor
+  +TextStyle textStyleMobileCourierkSecondrayColor
+  +TextStyle textStyleMobileCourierkBlackColor
+  +TextStyle textStyleDesktopKprimaryColorTitrdrop
+  +TextStyle textStyleDesktopKprimaryColorTitr
+  +TextStyle textStyleDesktopKprimaryColor
+  +TextStyle textStyleDesktopBigTitrKcardColorColor
+  +TextStyle textStyleDesktopBigTitrKprimaryColor
+  +TextStyle textStyleDesktopBigTitrKblackcolor
+  +TextStyle textStyleDesktopKsuccessColorTitr
+  +TextStyle textStyleDesktopsuccessColor
+  +TextStyle textStyleDesktopKerrorColorTitr
+  +TextStyle textStyleDesktopKerrorColor
+  +TextStyle textStyleDesktopkCardColorSideMenu
+  +TextStyle textStyleTabletkCardColorSideMenu
+  +TextStyle textStyleDesktopkCardColor
+  +TextStyle textStyleDesktopkCardColorTitr
+  +TextStyle textStyleDesktopkSecondrayColorTitr
+  +TextStyle textStyleDesktopkSecondrayColor
+  +TextStyle textStyleDesktopkBlackColorTitr
+  +TextStyle textStyleDesktopkBlackColor
+  +TextStyle textStyleTabletKprimaryColorTitr
+  +TextStyle textStyleTabletKsuccessColorTitr
+  +TextStyle textStyleTabletsuccessColor
+  +TextStyle textStyleTabletKerrorColorTitr
+  +TextStyle textStyleTabletKerrorColor
+  +TextStyle textStyleTabletKprimaryColor
+  +TextStyle textStyleTabletkCardColor
+  +TextStyle textStyleTabletkCardColorTitr
+  +TextStyle textStyleTabletkSecondrayColorTitr
+  +TextStyle textStyleTabletkSecondrayColor
+  +TextStyle textStyleTabletkBlackColorTitr
+  +TextStyle textStyleTabletkBlackColor
+  +TextStyle textStyleMobileKprimaryColorTitr
+  +TextStyle textStyleMobileKsuccessColorTitr
+  +TextStyle textStyleMobilesuccessColor
+  +TextStyle textStyleMobileKprimaryColor
+  +TextStyle textStyleMobileKerrorColorTitr
+  +TextStyle textStyleMobileKerrorColor
+  +TextStyle textStyleMobilekCardColor
+  +TextStyle textStyleMobilekCardColorTitr
+  +TextStyle textStyleMobilekSecondrayColorTitr
+  +TextStyle textStyleMobilekSecondrayColor
+  +TextStyle textStyleMobilekBlackColorTitr
+  +TextStyle textStyleMobilekBlackColor
+}
+
+"deedsuser::utils::responsive.dart::CustomTextStyle" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "deedsuser::utils::responsive.dart::ResponsiveSizedBox" {
+  +double largeDistanceWidgetHeight
+  +double middleDistanceWidgetHeight
+  +double smallDistanceWidgetHeight
+  +double smallDistanceWidgetwidth
+  +double middleDistanceWidgetwidth
+  +double middleDistancePopupWidgetwidth
+  +double largeDistanceWidgetwidth
+  +double middleSizeBoxWidth
+  +double middleSizeBoxHeight
+  +double largSizeBoxWidth
+  +double largSizeBoxHeight
+}
+
+class "deedsuser::utils::responsive.dart::ResponsivePadding" {
+  +double largePaddingHeight
+  +double largePaddingWidth
+}
+
+class "deedsuser::utils::responsive.dart::ResponsiveSideBody" {
+  +double margin
+  +double radius
+  +double sizeBodyNotCollapsed
+  +double sizeBodyCollapsed
+  +double sizeSideNotCollapsed
+  +double sizeSideBodyCollapsed
+}
+
+class "deedsuser::views::pages::dashboardpage.dart::DashboardShowPage" {
+  -PageController _pageController
+  +Widget build()
+  +Widget buildDot()
+}
+
+"deedsuser::views::pages::dashboardpage.dart::DashboardShowPage" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::dashboardpage.dart::DashboardShowPage"
+
+class "deedsuser::views::pages::favoritpage.dart::FavoritePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::favoritpage.dart::FavoritePage"
+
+class "deedsuser::views::pages::loginpage.dart::LoginPage" {
+  +Widget build()
+  +ElevatedButton loginMethod()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::loginpage.dart::LoginPage"
+
+class "deedsuser::views::pages::portal.dart::PortalMasterLayout" {
+  +Widget body
+  +SideMenusController sideMenuController
+  +Widget build()
+}
+
+"deedsuser::views::pages::portal.dart::PortalMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::pages::portal.dart::PortalMasterLayout" o-- "deedsuser::controllers::menu_controller.dart::SideMenusController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::portal.dart::PortalMasterLayout"
+
+class "deedsuser::views::pages::reportmarketplace.dart::ReporMarketPlacePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::reportmarketplace.dart::ReporMarketPlacePage"
+
+class "deedsuser::views::pages::reportview.dart::MyReportView" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::reportview.dart::MyReportView"
+
+class "deedsuser::views::widgets::angledonuatchart.dart::MyDoughnutChartData" {
+  +String x
+  +double y
+}
+
+class "deedsuser::views::widgets::angledonuatchart.dart::MyDoughnutChartWidget" {
+  +List<MyDoughnutChartData> dataSource
+  +ChartTitle title
+  +Widget build()
+}
+
+"deedsuser::views::widgets::angledonuatchart.dart::MyDoughnutChartWidget" o-- "syncfusion_flutter_charts::src::charts::common::title.dart::ChartTitle"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::angledonuatchart.dart::MyDoughnutChartWidget"
+
+class "deedsuser::views::widgets::card.dart::CardHeader" {
+  +String title
+  +Color? kDarktBlueColor
+  +Color? kInfoColor
+  +bool showDivider
+  +EdgeInsets padding
+  +Widget build()
+}
+
+"deedsuser::views::widgets::card.dart::CardHeader" o-- "dart::ui::Color"
+"deedsuser::views::widgets::card.dart::CardHeader" o-- "flutter::src::painting::edge_insets.dart::EdgeInsets"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::card.dart::CardHeader"
+
+class "deedsuser::views::widgets::card.dart::CardBody" {
+  +Widget child
+  +EdgeInsets padding
+  +Color? kSecondaryColor
+  +Widget build()
+}
+
+"deedsuser::views::widgets::card.dart::CardBody" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::widgets::card.dart::CardBody" o-- "flutter::src::painting::edge_insets.dart::EdgeInsets"
+"deedsuser::views::widgets::card.dart::CardBody" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::card.dart::CardBody"
+
+class "deedsuser::views::widgets::card.dart::FullCard" {
+  +Widget child
+  +EdgeInsets padding
+  +String title
+  +Color? kInfoColor
+  +bool showDivider
+  +Widget build()
+}
+
+"deedsuser::views::widgets::card.dart::FullCard" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::widgets::card.dart::FullCard" o-- "flutter::src::painting::edge_insets.dart::EdgeInsets"
+"deedsuser::views::widgets::card.dart::FullCard" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::card.dart::FullCard"
+
+class "deedsuser::views::widgets::chart.dart::Chart" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::chart.dart::Chart"
+
+class "deedsuser::views::widgets::columnchart.dart::MyColumnChartData" {
+  +String x
+  +double y
+}
+
+class "deedsuser::views::widgets::columnchart.dart::MyColumnChartWidget" {
+  +List<MyColumnChartData> dataSource
+  +String title
+  +bool isString
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::columnchart.dart::MyColumnChartWidget"
+
+class "deedsuser::views::widgets::dashboardshowcard.dart::ShowCards" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::dashboardshowcard.dart::ShowCards"
+
+class "deedsuser::views::widgets::datatablechart.dart::MyDataTableChart" {
+  -bool _sortAscending
+  -void _onChartTabSelected()
+  +Widget build()
+  -List<DataRow> _buildRows()
+  -void _onSortColumn()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::datatablechart.dart::MyDataTableChart"
+
+class "deedsuser::views::widgets::datatablefom.dart::DataTableForm" {
+  +Widget build()
+  +void onSortColumn()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::datatablefom.dart::DataTableForm"
+
+class "deedsuser::views::widgets::datatablewithoutchart.dart::MyDataTable" {
+  -bool _sortAscending
+  +Widget build()
+  -List<DataRow> _buildRows()
+  -void _onSortColumn()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::datatablewithoutchart.dart::MyDataTable"
+
+class "deedsuser::views::widgets::endsidemenu.dart::EndSideMenu" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::endsidemenu.dart::EndSideMenu"
+
+class "deedsuser::views::widgets::header.dart::Header" {
+  +Size preferredSize
+  +Widget build()
+}
+
+"deedsuser::views::widgets::header.dart::Header" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::header.dart::Header"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "deedsuser::views::widgets::header.dart::Header"
+
+class "deedsuser::views::widgets::headerwb.dart::HeaderWB" {
+  +Size preferredSize
+  +Widget build()
+}
+
+"deedsuser::views::widgets::headerwb.dart::HeaderWB" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::headerwb.dart::HeaderWB"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "deedsuser::views::widgets::headerwb.dart::HeaderWB"
+
+class "deedsuser::views::widgets::jsonviewer.dart::MyJsonViewr" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::jsonviewer.dart::MyJsonViewr"
+
+class "deedsuser::views::widgets::jsonviewtable.dart::MyJsonViewrTable" {
+  +Widget build()
+  -List<DataRow> _buildRowsJson()
+  -dynamic _generatePdfJson()
+  -dynamic _exportToExcelJson()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::jsonviewtable.dart::MyJsonViewrTable"
+
+class "deedsuser::views::widgets::linechart.dart::MyLineChartData" {
+  +dynamic x
+  +dynamic y
+}
+
+class "deedsuser::views::widgets::linechart.dart::MyLineChart" {
+  +List<MyLineChartData> dataSource
+  +bool isString
+  +String title
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::linechart.dart::MyLineChart"
+
+class "deedsuser::views::widgets::mychoicebox.dart::MyChoiceBox" {
+  +String labelTitle
+  +String nameCheckBox
+  +String hintTitle
+  +String errorTitle
+  +TextEditingController myController
+  +List<dynamic> myItems
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mychoicebox.dart::MyChoiceBox" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mychoicebox.dart::MyChoiceBox"
+
+class "deedsuser::views::widgets::mychoiceboxtwo.dart::MyChoiceBox2" {
+  +String labelTitle
+  +String nameCheckBox
+  +String hintTitle
+  +String errorTitle
+  +TextEditingController myController
+  +List<dynamic> myItems
+  +bool initialValue
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mychoiceboxtwo.dart::MyChoiceBox2" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mychoiceboxtwo.dart::MyChoiceBox2"
+
+class "deedsuser::views::widgets::mydrawheadersidebar.dart::MyDrawHeaderSideBar" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mydrawheadersidebar.dart::MyDrawHeaderSideBar"
+
+class "deedsuser::views::widgets::mydropdownwidget.dart::MyFormBuilderDropdown" {
+  +String labelTitle
+  +String nameDropDown
+  +String hintTitle
+  +String errorTitle
+  +TextEditingController myController
+  +List<dynamic> myItems
+  +DropdownController controller
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mydropdownwidget.dart::MyFormBuilderDropdown" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mydropdownwidget.dart::MyFormBuilderDropdown" o-- "deedsuser::controllers::dropdown_controller.dart::DropdownController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mydropdownwidget.dart::MyFormBuilderDropdown"
+
+class "deedsuser::views::widgets::mydropdownwidgetpagesize.dart::MyFormBuilderDropdownPageSize" {
+  +String labelTitle
+  +String nameDropDown
+  +String hintTitle
+  +String errorTitle
+  +TextEditingController myController
+  +List<dynamic> myItems
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mydropdownwidgetpagesize.dart::MyFormBuilderDropdownPageSize" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mydropdownwidgetpagesize.dart::MyFormBuilderDropdownPageSize"
+
+class "deedsuser::views::widgets::mydropdownwidgetsidemenu.dart::MySideMenuFormBuilderDropdown" {
+  +String labelTitle
+  +String nameDropDown
+  +String errorTitle
+  +TextEditingController myController
+  +dynamic myItems
+  +String hintTitle
+  +UpdateUserController updateUserController
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mydropdownwidgetsidemenu.dart::MySideMenuFormBuilderDropdown" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mydropdownwidgetsidemenu.dart::MySideMenuFormBuilderDropdown" o-- "deedsuser::controllers::updateuser_controller.dart::UpdateUserController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mydropdownwidgetsidemenu.dart::MySideMenuFormBuilderDropdown"
+
+class "deedsuser::views::widgets::myformswitchwidget.dart::MyFormBuilderSwitch" {
+  +String labelTitle
+  +String myName
+  +TextEditingController myController
+  +Widget build()
+}
+
+"deedsuser::views::widgets::myformswitchwidget.dart::MyFormBuilderSwitch" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::myformswitchwidget.dart::MyFormBuilderSwitch"
+
+class "deedsuser::views::widgets::mymultichoiceboxwidget.dart::MyFormBuilderFilterChip" {
+  +List<dynamic> items
+  +TextEditingController myController
+  +String labelTitle
+  +String name
+  +String hintTitle
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mymultichoiceboxwidget.dart::MyFormBuilderFilterChip" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mymultichoiceboxwidget.dart::MyFormBuilderFilterChip"
+
+class "deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton" {
+  +String title
+  +IconData myicon
+  +Color iconcolor
+  +Color bordercolor
+  +dynamic Function() function
+  +TextStyle mystyle
+  +Widget build()
+}
+
+"deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton" o-- "dart::ui::Color"
+"deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton" o-- "null::dynamic Function()"
+"deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton" o-- "flutter::src::painting::text_style.dart::TextStyle"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::myoutlinebutton.dart::MyOutlineButton"
+
+class "deedsuser::views::widgets::myportaltextbutton.dart::MyTextButtonPoratl" {
+  +String name
+  +Icon myicon
+  +dynamic Function() function
+  +Widget build()
+}
+
+"deedsuser::views::widgets::myportaltextbutton.dart::MyTextButtonPoratl" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::myportaltextbutton.dart::MyTextButtonPoratl" o-- "null::dynamic Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::myportaltextbutton.dart::MyTextButtonPoratl"
+
+class "deedsuser::views::widgets::myradiobutton.dart::MyFormBuilderRadioGroup" {
+  +List<dynamic> items
+  +TextEditingController myController
+  +String labelTitle
+  +String name
+  +Widget build()
+}
+
+"deedsuser::views::widgets::myradiobutton.dart::MyFormBuilderRadioGroup" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::myradiobutton.dart::MyFormBuilderRadioGroup"
+
+class "deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::myrangesliderwidget.dart::MyRangeSliderWidget"
+
+class "deedsuser::views::widgets::mysearchabledropdown.dart::MySearchableDropDown" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +TextEditingController myController
+  +List<dynamic> myItems
+  +String nameDropDown
+  +DropdownController controller
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mysearchabledropdown.dart::MySearchableDropDown" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mysearchabledropdown.dart::MySearchableDropDown" o-- "deedsuser::controllers::dropdown_controller.dart::DropdownController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mysearchabledropdown.dart::MySearchableDropDown"
+
+class "deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +dynamic Function(String) myFunction
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "null::dynamic Function(String)"
+"deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mysearchtextformfieldwidget.dart::MySearchTextFormField"
+
+class "deedsuser::views::widgets::mysidebartextbutton.dart::MyTextButtonSideBar" {
+  +String name
+  +Icon myicon
+  +dynamic Function() function
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mysidebartextbutton.dart::MyTextButtonSideBar" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mysidebartextbutton.dart::MyTextButtonSideBar" o-- "null::dynamic Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mysidebartextbutton.dart::MyTextButtonSideBar"
+
+class "deedsuser::views::widgets::mytextfilterformfieldwidgetdigit.dart::MyTextFormFilterFieldDigit" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +bool secureText
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextfilterformfieldwidgetdigit.dart::MyTextFormFilterFieldDigit"
+
+class "deedsuser::views::widgets::mytextfilterformfieldwidgetsearchreport.dart::MyTextFormFilterFieldSearchReport" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +int maxLine
+  +bool validate
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextfilterformfieldwidgetsearchreport.dart::MyTextFormFilterFieldSearchReport" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextfilterformfieldwidgetsearchreport.dart::MyTextFormFilterFieldSearchReport" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextfilterformfieldwidgetsearchreport.dart::MyTextFormFilterFieldSearchReport" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextfilterformfieldwidgetsearchreport.dart::MyTextFormFilterFieldSearchReport"
+
+class "deedsuser::views::widgets::mytextfilterformfieldwidgetsecure.dart::MyTextFormFilterFieldSecure" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +bool secureText
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextfilterformfieldwidgetsecure.dart::MyTextFormFilterFieldSecure"
+
+class "deedsuser::views::widgets::mytextfilterformfieldwidgetstring.dart::MyTextFormFilterFieldString" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +bool secureText
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextfilterformfieldwidgetstring.dart::MyTextFormFilterFieldString"
+
+class "deedsuser::views::widgets::mytextformfielddatetimewidget.dart::MyTextFormFilterFieldDateTime" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +String validation
+  +TextEditingController dateTimeController
+  +bool secureText
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfielddatetimewidget.dart::MyTextFormFilterFieldDateTime" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfielddatetimewidget.dart::MyTextFormFilterFieldDateTime"
+
+class "deedsuser::views::widgets::mytextformfielddatetimewidgetmulti.dart::MyMultiTypeTextFormFilterFieldDateTime" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +String validation
+  +String name
+  +TextEditingController dateTimeController
+  +bool secureText
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfielddatetimewidgetmulti.dart::MyMultiTypeTextFormFilterFieldDateTime" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfielddatetimewidgetmulti.dart::MyMultiTypeTextFormFilterFieldDateTime"
+
+class "deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::GDateTimeController" {
+  +RxString selectedStartDate
+  +RxString selectedEndDate
+}
+
+"deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::GDateTimeController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::GDateTimeController"
+
+class "deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::MyTextFormFilterFieldDateTime" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +String validation
+  +TextEditingController dateTimeController
+  +bool secureText
+  -void _selectDate()
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::MyTextFormFilterFieldDateTime" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::MyTextFormFilterFieldDateTime"
+
+class "deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidget.dart::MyTextFormField"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetaddress.dart::MyTextFormFieldAddress"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +int maxLine
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetchangepassword.dart::MyTextFormFieldChangePassword"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetfirstname.dart::MyTextFormFieldFirstName"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetlastname.dart::MyTextFormFieldLastName"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +int maxLine
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetmobile.dart::MyTextFormFilterFieldMobile"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +int maxLine
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetnewpassword.dart::MyTextFormFieldNewPassword"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +int maxLine
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetpassword.dart::MyTextFormFieldPassword"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +String newPassword
+  +int maxLine
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim" o-- "dart::ui::TextDirection"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetpasswordconfirm.dart::MyTextFormFieldPasswordConfrim"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetsidemenu.dart::MyTextFormFieldSideMenu"
+
+class "deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" {
+  +String labelTitle
+  +String hintTitle
+  +String errorTitle
+  +Icon myicon
+  +TextEditingController myController
+  +TextAlign alignment
+  +TextDirection directionText
+  +bool secureText
+  +bool enable
+  +TextInputType textInputType
+  +Widget build()
+}
+
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" o-- "flutter::src::widgets::icon.dart::Icon"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" o-- "dart::ui::TextAlign"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" o-- "dart::ui::TextDirection"
+"deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit" o-- "flutter::src::services::text_input.dart::TextInputType"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::mytextformfieldwidgetsidemenudigit.dart::MyTextFormFieldSideMenuDigit"
+
+class "deedsuser::views::widgets::paginitationdatatable.dart::PaginationGrid" {
+  -ScrollController _scrollController
+  -int _perPage
+  -RxInt _currentPage
+  +Widget build()
+}
+
+"deedsuser::views::widgets::paginitationdatatable.dart::PaginationGrid" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"deedsuser::views::widgets::paginitationdatatable.dart::PaginationGrid" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::paginitationdatatable.dart::PaginationGrid"
+
+class "deedsuser::views::widgets::persiandatetimepicker.dart::StartEndWidget" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::persiandatetimepicker.dart::StartEndWidget"
+
+class "deedsuser::views::widgets::piechartwidget.dart::MyPieChartData" {
+  +String x
+  +double y
+}
+
+class "deedsuser::views::widgets::piechartwidget.dart::MyPieChartWidget" {
+  +List<MyPieChartData> dataSource
+  +String title
+  +bool isString
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::piechartwidget.dart::MyPieChartWidget"
+
+class "deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" {
+  +Widget body
+  +bool autoSelectMenu
+  +String? selectedMenuUri
+  +void Function(bool)? onDrawerChanged
+  +Widget? floatingActionButton
+  +FloatingActionButtonLocation? floatingActionButtonLocation
+  +FloatingActionButtonAnimator? floatingActionButtonAnimator
+  +List<Widget>? persistentFooterButtons
+  +Widget build()
+}
+
+"deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" o-- "null::void Function(bool)"
+"deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" o-- "flutter::src::material::floating_action_button_location.dart::FloatingActionButtonLocation"
+"deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" o-- "flutter::src::material::floating_action_button_location.dart::FloatingActionButtonAnimator"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout"
+
+class "deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout" {
+  +Widget body
+  +Widget build()
+}
+
+"deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout"
+
+class "deedsuser::views::widgets::reportmarketplacewidget.dart::Reportmarketplace" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::reportmarketplacewidget.dart::Reportmarketplace"
+
+class "deedsuser::views::widgets::reportmarketplacewidget.dart::CategoryExpansionTile" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::reportmarketplacewidget.dart::CategoryExpansionTile"
+
+class "deedsuser::views::widgets::save_file_web.dart::FileSaveHelper" {
+  {static} +dynamic saveAndLaunchFile()
+}
+
+class "deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" {
+  +ScrollController scrollController
+  +PersonalSettingController settingController
+  +TextEditingController searchVal
+  +Widget build()
+  +List<DataRow> myDataRow()
+}
+
+"deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" o-- "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController"
+"deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::settingspage.dart::PersonalSettingTable"
+
+class "deedsuser::views::widgets::settingspage.dart::MySearchAppBar" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::settingspage.dart::MySearchAppBar"
+
+class "deedsuser::views::widgets::showfilterform.dart::FilterFormShow" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::showfilterform.dart::FilterFormShow"
+
+class "deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" {
+  +SideMenusController sideMenusController
+  +PersonalSettingController personalSettingController
+  +OptionSearchController optionSearchController
+  +ResultSearchController resultSearchController
+  +MyOnlineReportController myOnlineReportController
+  +MyOfflineReportsController myOfflineReportsController
+  +ReportBaseCategoryController reportBaseCategoryController
+  +JsonController jsonController
+  +DateTimeController dateTimeController
+  +CategoryController categoryController
+  +ReportController reportController
+  +UserController userController
+  +LoginResponseController loginResponseController
+  +ErrorhandelingController errorhandelingController
+  +ReportsByCategoryController reportsByCategoryController
+  +FullReportController fullReportController
+  +ScrollController mainScrollController
+  +FilterController formController
+  +UpdateUserController updateUserController
+  +APICallController apiCallController
+  +ExpantionController expantionController
+  +Widget build()
+  +dynamic buildReports()
+  +List<dynamic> idFromTitle()
+}
+
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::menu_controller.dart::SideMenusController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::search_controller.dart::OptionSearchController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::onlinemenu_controller.dart::MyOnlineReportController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::offlinemenu_controller.dart::MyOfflineReportsController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::json_controller.dart::JsonController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::datatime_controller.dart::DateTimeController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::category_controller.dart::CategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::report_controller.dart::ReportController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::user_controller.dart::UserController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::full_report_controller.dart::FullReportController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::filter_controller.dart::FilterController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::updateuser_controller.dart::UpdateUserController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::apicall_controller.dart::APICallController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::expantion_controller.dart::ExpantionController"
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar"
+
+class "deedsuser::views::widgets::summarycard.dart::SummaryCard" {
+  +String title
+  +Widget value
+  +IconData icon
+  +Color backgroundColor
+  +Color textColor
+  +Color iconColor
+  +double width
+  +Widget build()
+}
+
+"deedsuser::views::widgets::summarycard.dart::SummaryCard" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::widgets::summarycard.dart::SummaryCard" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"deedsuser::views::widgets::summarycard.dart::SummaryCard" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::summarycard.dart::SummaryCard"
+
+class "deedsuser::views::widgets::summarycard.dart::SummaryCardInfoReport" {
+  +String value
+  +String category
+  +Color backgroundColor
+  +Color textColor
+  +Color iconColor
+  +double width
+  +Widget build()
+}
+
+"deedsuser::views::widgets::summarycard.dart::SummaryCardInfoReport" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::summarycard.dart::SummaryCardInfoReport"
+
+class "deedsuser::views::widgets::tempdatatablefordemo.dart::Table" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::tempdatatablefordemo.dart::Table"
+
+
+@enduml

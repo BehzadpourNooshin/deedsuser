@@ -1,0 +1,502 @@
+@startuml
+set namespaceSeparator ::
+
+class "deedsuser::controllers::accounts_controller.dart::AccountsController" {
+  +bool isAdd
+  +int index
+  +List<dynamic> accountsrolecontrollerlist
+  +List<dynamic> accountsgenfercontrollerlist
+  +void validatePassword()
+  +void updateCountOfAccounts()
+  +void compareAccount()
+  +void validationPassword()
+  +void validationAccount()
+  +void resetCountOfAccounts()
+  +void updateCountOfAccountsShow()
+  +void resetCountOfAccountsShow()
+  +void updateCountOfAccountsFiltered()
+  +void resetCountOfAccountsFiltered()
+}
+
+class "deedsuser::controllers::apicall_controller.dart::APICallController" {
+  +bool isLoading
+}
+
+class "deedsuser::controllers::basereport_controller.dart::BaseReportController" {
+  +bool showReport
+}
+
+class "deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController" {
+  +dynamic getBasicinfo()
+}
+
+class "deedsuser::controllers::category_controller.dart::CategoryController" {
+  +bool showReport
+}
+
+class "deedsuser::controllers::chartreport_controller.dart::ChartReportController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::chart_controller.dart::ChartController" {
+  +List<dynamic> chartFields
+  +List<dynamic> chartTypeList
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::columns_controller.dart::ColumnController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::cornometer_controller.dart::CornometerController" {
+  +void updateTimerDuration()
+  +void saveTimerDuration()
+  +void resetTimeDuration()
+  +void loadTimerDuration()
+}
+
+class "deedsuser::controllers::datafortable_controller.dart::DataForTableController" {
+  +int offset
+  +int limit
+}
+
+class "deedsuser::controllers::datatime_controller.dart::DateTimeController" {
+  +void resetDateTime()
+}
+
+class "deedsuser::controllers::dropdown_controller.dart::DropdownController" {
+  +void resetDropdowns()
+  +void resetDropdown()
+  +void setSelectedItem()
+}
+
+class "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController" {
+}
+
+class "deedsuser::controllers::expantion_controller.dart::ExpantionController" {
+  +void resetSelectedCategory()
+}
+
+class "deedsuser::controllers::filter_controller.dart::FilterController" {
+  +List<dynamic> filterValidator
+  +List<dynamic> filterDataTypes
+  +List<dynamic> filterInputType
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::full_report_controller.dart::FullReportController" {
+  +bool isAdd
+  +dynamic saveReportName()
+  +dynamic loadReportName()
+}
+
+class "deedsuser::controllers::json_controller.dart::JsonController" {
+  +List<dynamic> headers
+  +List<dynamic> datarows
+  +List<dynamic> parsedJson
+  +void setJson()
+}
+
+class "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController" {
+  +bool isAdd
+  +int index
+  +void onInit()
+  +dynamic saveAccessToken()
+  +dynamic saveIsLoggedIn()
+  +dynamic loadIsLoggedIn()
+  +dynamic loadAccessToken()
+  +dynamic login()
+  +dynamic logout()
+  +void lightLogout()
+  +dynamic checkLoginStatus()
+}
+
+class "deedsuser::controllers::login_controller.dart::LoginController" {
+  +String errorTextUserName
+  +String errorTextPassword
+  +bool isLogin
+}
+
+class "deedsuser::controllers::MenuAppController.dart::MenuAppController" {
+  +String state
+  +double sizeBody
+  +double sizeDrawer
+  +void onInit()
+  +void onReady()
+  +void onClose()
+}
+
+class "deedsuser::controllers::menu_controller.dart::SideMenusController" {
+  +void toggleDrawer()
+  +void toggleEndDrawer()
+  +void responsiveToggleEndDrawer()
+  +void responsiveToggleDrawer()
+}
+
+class "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController" {
+  +bool isAdd
+  +int index
+  +void onInit()
+  +dynamic loadSettingPages()
+  +void makeDashboardWidgtes()
+  +void mergeTwoList()
+  +void initialReports()
+  +dynamic filterAccountsRep()
+}
+
+class "deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController" {
+  +bool showReport
+  +void makeGenerateAllReports()
+}
+
+class "deedsuser::controllers::report_controller.dart::ReportController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController" {
+  +int pageNumberProperties
+  +bool isAdd
+  +int index
+  +List<dynamic> headers
+  +List<dynamic> datarows
+  +List<dynamic> headersForProperties
+  +List<dynamic> datarowsForProperties
+  +void previousPage()
+  +void nextPage()
+  +void updatePage()
+  +void resetFirstPage()
+  +void resetLastPage()
+  +void sortByColumn()
+  +void waitUpdate()
+}
+
+class "deedsuser::controllers::search_controller.dart::OptionSearchController" {
+}
+
+class "deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::setting_controller.dart::SettingController" {
+  +bool isAdd
+  +int index
+}
+
+class "deedsuser::controllers::table_controller.dart::TableController" {
+  +bool isAdd
+  +int index
+  +List<Map<String, dynamic>> data
+  +List<Map<String, String>> sortedData
+  +void onPageChanged()
+  +void sortByBar()
+}
+
+class "deedsuser::controllers::updatenote_controller.dart::UpdateNoteController" {
+}
+
+class "deedsuser::controllers::updateuser_controller.dart::UpdateUserController" {
+  +List<String> gender
+}
+
+class "deedsuser::controllers::user_controller.dart::UserController" {
+  +int expirytoken
+  +List<dynamic> usercontrollerlist
+  +void onInit()
+  +dynamic saveEmail()
+  +dynamic loadEmail()
+}
+
+class "deedsuser::utils::api_service.dart::Network" {
+  +String baseUrl
+  +String fixUrl
+  {static} +bool isConnect
+  +LoginResponseController loginresponsecontroller
+  +ReportController reportController
+  +JsonController jsonController
+  +CategoryController categoryController
+  +UserController userController
+  +FilterController filterController
+  +APICallController apiCallController
+  +AccountsController accountController
+  +TableController dataTableController
+  +ChartController chartController
+  +BasicDashboardInfoController basicDashboardInfoController
+  +UpdateNoteController updateNoteController
+  +ColumnController columnController
+  +FullReportController fullReportController
+  +ErrorhandelingController errorhandelingController
+  +ReportsByCategoryController reportsByCategoryController
+  +DataForTableController dataForTableController
+  +BaseReportController baseReportController
+  -ResultSearchController _resultSearchController
+  +ServiceInputController serviceInputController
+  +CornometerController cornometerController
+  {static} +Map<String, dynamic> makeAccountBody()
+  +dynamic makeErrorHandling()
+  +dynamic makeErrorHandlingWithHttpStatus()
+  {static} +Map<String, dynamic> makeLoginBody()
+  {static} +Map<String, dynamic> makeSetInputService()
+  {static} +Map<String, dynamic> makeSearchBody()
+  {static} +Map<String, dynamic> makeUpdateUserBody()
+  {static} +Map<String, dynamic> makePersonalSettingsBody()
+  {static} +Uri urlWithProperties()
+  {static} +Uri urlWithPropertiesQueryParam()
+  {static} +dynamic checkInternet()
+  {static} +void showInternetError()
+  {static} +void showSuccessCall()
+  {static} +void onOkButtonPressed()
+  +dynamic reportbasetcategory()
+  +dynamic allreportbasetcategory()
+  +dynamic getUpdateNotesUser()
+  +dynamic getUpdateNotes()
+  +dynamic getBasiInfo()
+  +dynamic logout()
+  +dynamic setpersonalsettings()
+  +dynamic updatepersonalsettings()
+  +dynamic getpersonalsetting()
+  +dynamic deletepersoanlsetting()
+  +dynamic getreportbyname()
+  +dynamic getData()
+  +dynamic getDataForProperties()
+  +dynamic getDataJson()
+  +dynamic grouplookupname()
+  +dynamic login()
+  +dynamic refreshToken()
+  +dynamic getUser()
+  +dynamic changePassword()
+  +dynamic updateUser()
+}
+
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::report_controller.dart::ReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::json_controller.dart::JsonController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::category_controller.dart::CategoryController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::user_controller.dart::UserController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::filter_controller.dart::FilterController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::apicall_controller.dart::APICallController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::accounts_controller.dart::AccountsController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::table_controller.dart::TableController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::chart_controller.dart::ChartController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::basicdashboard_controller.dart::BasicDashboardInfoController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::updatenote_controller.dart::UpdateNoteController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::columns_controller.dart::ColumnController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::full_report_controller.dart::FullReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::datafortable_controller.dart::DataForTableController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::basereport_controller.dart::BaseReportController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::serviceinputinfo_controller.dart::ServiceInputController"
+"deedsuser::utils::api_service.dart::Network" o-- "deedsuser::controllers::cornometer_controller.dart::CornometerController"
+
+class "deedsuser::views::pages::dashboardpage.dart::DashboardShowPage" {
+  +Widget build()
+  +Widget buildDot()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::dashboardpage.dart::DashboardShowPage"
+
+class "deedsuser::views::pages::favoritpage.dart::FavoritePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::favoritpage.dart::FavoritePage"
+
+class "deedsuser::views::pages::loginpage.dart::LoginPage" {
+  +Widget build()
+  +ElevatedButton loginMethod()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::loginpage.dart::LoginPage"
+
+class "deedsuser::views::pages::portal.dart::PortalMasterLayout" {
+  +Widget body
+  +SideMenusController sideMenuController
+  +Widget build()
+}
+
+"deedsuser::views::pages::portal.dart::PortalMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"deedsuser::views::pages::portal.dart::PortalMasterLayout" o-- "deedsuser::controllers::menu_controller.dart::SideMenusController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::portal.dart::PortalMasterLayout"
+
+class "deedsuser::views::pages::reportmarketplace.dart::ReporMarketPlacePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::pages::reportmarketplace.dart::ReporMarketPlacePage"
+
+class "deedsuser::views::widgets::card.dart::CardHeader" {
+  +String title
+  +bool showDivider
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::card.dart::CardHeader"
+
+class "deedsuser::views::widgets::card.dart::CardBody" {
+  +Widget child
+  +Widget build()
+}
+
+"deedsuser::views::widgets::card.dart::CardBody" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::card.dart::CardBody"
+
+class "deedsuser::views::widgets::chart.dart::Chart" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::chart.dart::Chart"
+
+class "deedsuser::views::widgets::datatablefom.dart::DataTableForm" {
+  +Widget build()
+  +void onSortColumn()
+}
+
+class "deedsuser::views::widgets::endsidemenu.dart::EndSideMenu" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::endsidemenu.dart::EndSideMenu"
+
+class "deedsuser::views::widgets::header.dart::Header" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::header.dart::Header"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "deedsuser::views::widgets::header.dart::Header"
+
+class "deedsuser::views::widgets::headerwb.dart::HeaderWB" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::headerwb.dart::HeaderWB"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "deedsuser::views::widgets::headerwb.dart::HeaderWB"
+
+class "deedsuser::views::widgets::mytextformfieldgeorgiandatetimewidget.dart::GDateTimeController" {
+}
+
+class "deedsuser::views::widgets::persiandatetimepicker.dart::StartEndWidget" {
+  +Widget build()
+}
+
+class "deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" {
+  +Widget body
+  +bool autoSelectMenu
+  +String? selectedMenuUri
+  +Widget? floatingActionButton
+  +List<Widget>? persistentFooterButtons
+  +Widget build()
+}
+
+"deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::portalmasterlayout.dart::PortalMasterLayout"
+
+class "deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout" {
+  +Widget body
+  +Widget build()
+}
+
+"deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::publicmasterlayout.dart::PublicMasterLayout"
+
+class "deedsuser::views::widgets::reportmarketplacewidget.dart::Reportmarketplace" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::reportmarketplacewidget.dart::Reportmarketplace"
+
+class "deedsuser::views::widgets::reportmarketplacewidget.dart::CategoryExpansionTile" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::reportmarketplacewidget.dart::CategoryExpansionTile"
+
+class "deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" {
+  +PersonalSettingController settingController
+  +Widget build()
+  +List<DataRow> myDataRow()
+}
+
+"deedsuser::views::widgets::settingspage.dart::PersonalSettingTable" o-- "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController"
+
+class "deedsuser::views::widgets::showfilterform.dart::FilterFormShow" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::showfilterform.dart::FilterFormShow"
+
+class "deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" {
+  +SideMenusController sideMenusController
+  +PersonalSettingController personalSettingController
+  +OptionSearchController optionSearchController
+  +ResultSearchController resultSearchController
+  +ReportBaseCategoryController reportBaseCategoryController
+  +JsonController jsonController
+  +DateTimeController dateTimeController
+  +CategoryController categoryController
+  +ReportController reportController
+  +UserController userController
+  +LoginResponseController loginResponseController
+  +ErrorhandelingController errorhandelingController
+  +ReportsByCategoryController reportsByCategoryController
+  +FullReportController fullReportController
+  +FilterController formController
+  +UpdateUserController updateUserController
+  +APICallController apiCallController
+  +ExpantionController expantionController
+  +Widget build()
+  +dynamic buildReports()
+  +List<dynamic> idFromTitle()
+}
+
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::menu_controller.dart::SideMenusController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::personalsetting_controller.dart::PersonalSettingController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::search_controller.dart::OptionSearchController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::resultsearch_controller.dart::ResultSearchController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::reportbasecategory_controller.dart::ReportBaseCategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::json_controller.dart::JsonController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::datatime_controller.dart::DateTimeController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::category_controller.dart::CategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::report_controller.dart::ReportController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::user_controller.dart::UserController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::loginresponse_controller.dart::LoginResponseController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::errorhandeling_controller.dart::ErrorhandelingController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::reportsbycategory_controller.dart::ReportsByCategoryController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::full_report_controller.dart::FullReportController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::filter_controller.dart::FilterController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::updateuser_controller.dart::UpdateUserController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::apicall_controller.dart::APICallController"
+"deedsuser::views::widgets::sidemenu.dart::CollapsibleSidebar" o-- "deedsuser::controllers::expantion_controller.dart::ExpantionController"
+
+class "deedsuser::views::widgets::summarycard.dart::SummaryCard" {
+  +String title
+  +Widget value
+  +double width
+  +Widget build()
+}
+
+"deedsuser::views::widgets::summarycard.dart::SummaryCard" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::summarycard.dart::SummaryCard"
+
+class "deedsuser::views::widgets::summarycard.dart::SummaryCardInfoReport" {
+  +String value
+  +String category
+  +double width
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "deedsuser::views::widgets::summarycard.dart::SummaryCardInfoReport"
+
+
+@enduml
