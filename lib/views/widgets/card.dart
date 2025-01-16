@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:deedsuser/utils/extensions.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class CardHeader extends StatelessWidget {
   final bool showDivider;
   final EdgeInsets padding;
 
-  CardHeader({
+  const CardHeader({
     super.key,
     required this.title,
     this.kDarktBlueColor,
@@ -65,7 +66,7 @@ class CardBody extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
   final Color? kSecondaryColor;
-  CardBody({
+  const CardBody({
     super.key,
     required this.child,
     this.kSecondaryColor,

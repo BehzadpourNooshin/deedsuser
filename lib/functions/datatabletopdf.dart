@@ -127,7 +127,7 @@ Future<void> generatePdf() async {
                 ),
                 pw.Container(
                   alignment: pw.Alignment.center,
-                  padding: pw.EdgeInsets.all(8),
+                  padding: const pw.EdgeInsets.all(8),
                   child: pw.Text(
                     'صفحه ${i + 1}',
                     style: pw.TextStyle(

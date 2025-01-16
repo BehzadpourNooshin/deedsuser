@@ -11,12 +11,14 @@ import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
 import 'package:deedsuser/views/widgets/endsidemenu.dart';
 import 'package:deedsuser/views/widgets/myportaltextbutton.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:deedsuser/views/widgets/sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:html' as html;
 import 'package:flutter_window_close/flutter_window_close.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:persian_tools/persian_tools.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 
 // ignore: must_be_immutable
@@ -36,7 +38,7 @@ class PortalMasterLayout extends StatelessWidget {
     BasicDashboardInfoController basicInfoDashboardController =
         Get.put(BasicDashboardInfoController());
 
-    UpdateNoteController updateNoteController = Get.put(UpdateNoteController());
+    Get.put(UpdateNoteController());
     if (!Responsive.isDesktop(context)) {
       sideMenuController.responsiveToggleEndDrawer();
       sideMenuController.responsiveToggleDrawer();
@@ -52,6 +54,7 @@ class PortalMasterLayout extends StatelessWidget {
 
     return PopScope(
       canPop: false,
+      // ignore: deprecated_member_use
       onPopInvoked: (didPop) {
         Get.currentRoute != '/' ? showExitConfirmationDialog(context) : null;
       },
@@ -76,128 +79,148 @@ class PortalMasterLayout extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Obx(() => basicInfoDashboardController
-                                            .basicDashboardInfo[0]
-                                            .numberOfUpdateNotes >
-                                        0
-                                    ? badges.Badge(
-                                        position: badges.BadgePosition.topEnd(
-                                            top: 0, end: 3),
-                                        showBadge: true,
-                                        ignorePointer: false,
-                                        onTap: () async {
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getUpdateNotes(
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) {
-                                            if (value == false) {
-                                              apiCallAfter(context);
-                                              Network.showInternetError(
-                                                  context,
-                                                  GeneralConstant()
-                                                      .apiCallFailureMessage);
-                                            } else {
-                                              apiCallAfter(context);
-
-                                              showDialogNotes(
-                                                  context,
-                                                  basicInfoDashboardController
-                                                      .basicDashboardInfo[0]
-                                                      .numberOfUpdateNotes);
-                                            }
-                                          });
-                                        },
-                                        badgeContent: Text(
-                                          basicInfoDashboardController
-                                              .basicDashboardInfo[0]
-                                              .numberOfUpdateNotes
-                                              .toString(),
-                                          style: CustomTextStyle()
-                                              .textStyleMobileCourierkCardColor,
-                                        ),
-                                        badgeAnimation: const badges
-                                            .BadgeAnimation.rotation(
-                                          animationDuration:
-                                              Duration(seconds: 1),
-                                          colorChangeAnimationDuration:
-                                              Duration(seconds: 1),
-                                          loopAnimation: false,
-                                          curve: Curves.fastOutSlowIn,
-                                          colorChangeAnimationCurve:
-                                              Curves.easeInCubic,
-                                        ),
-                                        badgeStyle: badges.BadgeStyle(
-                                          shape: badges.BadgeShape.circle,
-                                          badgeColor: kErrorColor,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          elevation: 0,
-                                        ),
-                                        child: IconButton(
-                                          tooltip: NoteConstant().notification,
-                                          icon: Icon(Icons.notifications_active,
-                                              size:
-                                                  SideMenuConstant().iconSize +
+                                        .basicDashboardInfo.isNotEmpty
+                                    ? basicInfoDashboardController
+                                                .basicDashboardInfo[0]
+                                                .numberOfUpdateNotes >
+                                            0
+                                        ? badges.Badge(
+                                            position:
+                                                badges.BadgePosition.topEnd(
+                                                    top: 0, end: 3),
+                                            showBadge: true,
+                                            ignorePointer: false,
+                                            onTap: () async {
+                                              showDialogApiCallBefore(context);
+                                              await Network().refreshToken();
+                                              await Network()
+                                                  .getUpdateNotes(
+                                                      accessToken:
+                                                          loginResponseController
+                                                              .accesstoken.text)
+                                                  ?.then((value) {
+                                                apiCallAfter(context);
+                                                if (value == false) {
+                                                  Network.showInternetError(
+                                                      context,
+                                                      GeneralConstant()
+                                                          .apiCallFailureMessage);
+                                                } else {
+                                                  showDialogNotes(
+                                                      context,
+                                                      basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes);
+                                                }
+                                              });
+                                            },
+                                            badgeContent: Text(
+                                              basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes >
+                                                      9
+                                                  ? convertEnToFa('9+')
+                                                  : convertEnToFa(
+                                                      basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes
+                                                          .toString()),
+                                              style: CustomTextStyle()
+                                                  .textStyleMobileCourierkCardColor,
+                                            ),
+                                            badgeAnimation: const badges
+                                                .BadgeAnimation.rotation(
+                                              animationDuration:
+                                                  Duration(seconds: 1),
+                                              colorChangeAnimationDuration:
+                                                  Duration(seconds: 1),
+                                              loopAnimation: false,
+                                              curve: Curves.fastOutSlowIn,
+                                              colorChangeAnimationCurve:
+                                                  Curves.easeInCubic,
+                                            ),
+                                            badgeStyle: badges.BadgeStyle(
+                                              shape: badges.BadgeShape.circle,
+                                              badgeColor: kErrorColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              elevation: 0,
+                                            ),
+                                            child: IconButton(
+                                              tooltip:
+                                                  NoteConstant().notification,
+                                              icon: Icon(
+                                                  Icons.notifications_active,
+                                                  size: SideMenuConstant()
+                                                          .iconSize +
                                                       5),
-                                          onPressed: () async {
-                                            showDialogApiCallBefore(context);
-                                            await Network().refreshToken();
-                                            await Network()
-                                                .getUpdateNotes(
-                                                    accessToken:
-                                                        loginResponseController
-                                                            .accesstoken.text)
-                                                ?.then((value) {
-                                              if (value == false) {
-                                                apiCallAfter(context);
-                                                Network.showInternetError(
-                                                    context,
-                                                    GeneralConstant()
-                                                        .apiCallFailureMessage);
-                                              } else {
-                                                apiCallAfter(context);
+                                              onPressed: () async {
+                                                showDialogApiCallBefore(
+                                                    context);
+                                                await Network().refreshToken();
+                                                await Network()
+                                                    .getUpdateNotes(
+                                                        accessToken:
+                                                            loginResponseController
+                                                                .accesstoken
+                                                                .text)
+                                                    ?.then((value) {
+                                                  if (value == false) {
+                                                    apiCallAfter(context);
+                                                    Network.showInternetError(
+                                                        context,
+                                                        GeneralConstant()
+                                                            .apiCallFailureMessage);
+                                                  } else {
+                                                    apiCallAfter(context);
 
-                                                showDialogNotes(
-                                                    context,
-                                                    basicInfoDashboardController
-                                                        .basicDashboardInfo[0]
-                                                        .numberOfUpdateNotes);
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      )
+                                                    showDialogNotes(
+                                                        context,
+                                                        basicInfoDashboardController
+                                                            .basicDashboardInfo[
+                                                                0]
+                                                            .numberOfUpdateNotes);
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          )
+                                        : IconButton(
+                                            tooltip:
+                                                NoteConstant().notification,
+                                            icon: Icon(Icons.notifications,
+                                                size: SideMenuConstant()
+                                                        .iconSize +
+                                                    5),
+                                            onPressed: () async {
+                                              showDialogApiCallBefore(context);
+                                              await Network().refreshToken();
+                                              await Network()
+                                                  .getUpdateNotes(
+                                                      accessToken:
+                                                          loginResponseController
+                                                              .accesstoken.text)
+                                                  ?.then((value) {
+                                                if (value == false) {
+                                                  apiCallAfter(context);
+                                                  Network.showInternetError(
+                                                      context,
+                                                      GeneralConstant()
+                                                          .apiCallFailureMessage);
+                                                } else {
+                                                  apiCallAfter(context);
+
+                                                  showDialogNotes(context, 0);
+                                                }
+                                              });
+                                            },
+                                          )
                                     : IconButton(
                                         tooltip: NoteConstant().notification,
                                         icon: Icon(Icons.notifications,
                                             size: SideMenuConstant().iconSize +
                                                 5),
-                                        onPressed: () async {
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getUpdateNotes(
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) {
-                                            if (value == false) {
-                                              apiCallAfter(context);
-                                              Network.showInternetError(
-                                                  context,
-                                                  GeneralConstant()
-                                                      .apiCallFailureMessage);
-                                            } else {
-                                              apiCallAfter(context);
-
-                                              showDialogNotes(context, 0);
-                                            }
-                                          });
-                                        },
-                                      )),
+                                        onPressed: null)),
                                 PopupMenuButton(
                                   tooltip: SideMenuConstant().accountproperties,
                                   popUpAnimationStyle:
@@ -293,7 +316,8 @@ class PortalMasterLayout extends StatelessWidget {
                                             name:
                                                 SideMenuConstant().exit['name'],
                                             function: () async {
-                                              loginResponseController.logout(0);
+                                              await loginResponseController
+                                                  .logout(0);
                                             },
                                           ),
                                         ),
@@ -301,46 +325,69 @@ class PortalMasterLayout extends StatelessWidget {
                                     ];
                                   },
                                 ),
-                                Obx(
-                                  () => Padding(
-                                    padding: EdgeInsets.only(
-                                        left: kDefaultPadding / 2),
-                                    child: SlideCountdown(
-                                      decoration: const BoxDecoration(
+                                GetBuilder<CornometerController>(
+                                  builder: (controller) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          left: kDefaultPadding / 2),
+                                      child: SlideCountdown(
+                                        separator: ':',
+                                        separatorStyle:
+                                            Responsive.isDesktop(context)
+                                                ? CustomTextStyle()
+                                                    .textStyleDesktopkCardColor
+                                                : CustomTextStyle()
+                                                    .textStyleTabletkCardColor,
+                                        digitsNumber: [
+                                          convertEnToFa('0'),
+                                          convertEnToFa('1'),
+                                          convertEnToFa('2'),
+                                          convertEnToFa('3'),
+                                          convertEnToFa('4'),
+                                          convertEnToFa('5'),
+                                          convertEnToFa('6'),
+                                          convertEnToFa('7'),
+                                          convertEnToFa('8'),
+                                          convertEnToFa('9')
+                                        ],
+                                        decoration: const BoxDecoration(
                                           color: kPrimaryColor,
                                           border: Border(
-                                              bottom:
-                                                  BorderSide(color: kCardColor),
-                                              top: BorderSide(
-                                                  color: kCardColor)),
+                                            bottom:
+                                                BorderSide(color: kCardColor),
+                                            top: BorderSide(color: kCardColor),
+                                          ),
                                           borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5),
-                                              bottomRight: Radius.circular(5))),
-                                      style: Responsive.isDesktop(context)
-                                          ? CustomTextStyle()
-                                              .textStyleDesktopkCardColor
-                                          : CustomTextStyle()
-                                              .textStyleTabletkCardColor,
-                                      onDone: () {
-                                        loginResponseController.logout(400);
-                                      },
-                                      duration: cornometerController
-                                          .timerDuration.value,
-                                      durationTitle: DurationTitle.id(),
-                                      icon: const Padding(
-                                        padding: EdgeInsets.only(right: 5),
-                                        child: Icon(
-                                          weight: 0.01,
-                                          grade: 1,
-                                          applyTextScaling: false,
-                                          Icons.alarm,
-                                          color: kCardColor,
-                                          size: 20,
+                                            topLeft: Radius.circular(5),
+                                            bottomRight: Radius.circular(5),
+                                          ),
+                                        ),
+                                        style: Responsive.isDesktop(context)
+                                            ? CustomTextStyle()
+                                                .textStyleDesktopkCardColor
+                                            : CustomTextStyle()
+                                                .textStyleTabletkCardColor,
+                                        onDone: () {
+                                          loginResponseController.logout(400);
+                                        },
+                                        duration:
+                                            controller.timerDuration.value,
+                                        durationTitle: DurationTitle.id(),
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(right: 5),
+                                          child: Icon(
+                                            weight: 0.01,
+                                            grade: 1,
+                                            applyTextScaling: false,
+                                            Icons.alarm,
+                                            color: kCardColor,
+                                            size: 20,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
+                                    );
+                                  },
+                                )
                               ],
                             ),
                             Row(
@@ -385,128 +432,150 @@ class PortalMasterLayout extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Obx(() => basicInfoDashboardController
-                                            .basicDashboardInfo[0]
-                                            .numberOfUpdateNotes >
-                                        0
-                                    ? badges.Badge(
-                                        position: badges.BadgePosition.topEnd(
-                                            top: 0, end: 3),
-                                        showBadge: true,
-                                        ignorePointer: false,
-                                        onTap: () async {
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getUpdateNotes(
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) {
-                                            if (value == false) {
-                                              apiCallAfter(context);
-                                              Network.showInternetError(
-                                                  context,
-                                                  GeneralConstant()
-                                                      .apiCallFailureMessage);
-                                            } else {
-                                              apiCallAfter(context);
+                                        .basicDashboardInfo.isNotEmpty
+                                    ? basicInfoDashboardController
+                                                .basicDashboardInfo[0]
+                                                .numberOfUpdateNotes >
+                                            0
+                                        ? badges.Badge(
+                                            position:
+                                                badges.BadgePosition.topEnd(
+                                                    top: 0, end: 3),
+                                            showBadge: true,
+                                            ignorePointer: false,
+                                            onTap: () async {
+                                              showDialogApiCallBefore(context);
+                                              await Network().refreshToken();
+                                              await Network()
+                                                  .getUpdateNotes(
+                                                      accessToken:
+                                                          loginResponseController
+                                                              .accesstoken.text)
+                                                  ?.then((value) {
+                                                if (value == false) {
+                                                  apiCallAfter(context);
+                                                  Network.showInternetError(
+                                                      context,
+                                                      GeneralConstant()
+                                                          .apiCallFailureMessage);
+                                                } else {
+                                                  apiCallAfter(context);
 
-                                              showDialogNotes(
-                                                  context,
-                                                  basicInfoDashboardController
-                                                      .basicDashboardInfo[0]
-                                                      .numberOfUpdateNotes);
-                                            }
-                                          });
-                                        },
-                                        badgeContent: Text(
-                                          basicInfoDashboardController
-                                              .basicDashboardInfo[0]
-                                              .numberOfUpdateNotes
-                                              .toString(),
-                                          style: CustomTextStyle()
-                                              .textStyleMobileCourierkCardColor,
-                                        ),
-                                        badgeAnimation: const badges
-                                            .BadgeAnimation.rotation(
-                                          animationDuration:
-                                              Duration(seconds: 1),
-                                          colorChangeAnimationDuration:
-                                              Duration(seconds: 1),
-                                          loopAnimation: false,
-                                          curve: Curves.fastOutSlowIn,
-                                          colorChangeAnimationCurve:
-                                              Curves.easeInCubic,
-                                        ),
-                                        badgeStyle: badges.BadgeStyle(
-                                          shape: badges.BadgeShape.circle,
-                                          badgeColor: kErrorColor,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          elevation: 0,
-                                        ),
-                                        child: IconButton(
-                                          tooltip: NoteConstant().notification,
-                                          icon: Icon(Icons.notifications_active,
-                                              size:
-                                                  SideMenuConstant().iconSize +
+                                                  showDialogNotes(
+                                                      context,
+                                                      basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes);
+                                                }
+                                              });
+                                            },
+                                            badgeContent: Text(
+                                              basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes >
+                                                      9
+                                                  ? convertEnToFa('9+')
+                                                  : convertEnToFa(
+                                                      basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes
+                                                          .toString()),
+                                              style: CustomTextStyle()
+                                                  .textStyleMobileCourierkCardColor,
+                                            ),
+                                            badgeAnimation: const badges
+                                                .BadgeAnimation.rotation(
+                                              animationDuration:
+                                                  Duration(seconds: 1),
+                                              colorChangeAnimationDuration:
+                                                  Duration(seconds: 1),
+                                              loopAnimation: false,
+                                              curve: Curves.fastOutSlowIn,
+                                              colorChangeAnimationCurve:
+                                                  Curves.easeInCubic,
+                                            ),
+                                            badgeStyle: badges.BadgeStyle(
+                                              shape: badges.BadgeShape.circle,
+                                              badgeColor: kErrorColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              elevation: 0,
+                                            ),
+                                            child: IconButton(
+                                              tooltip:
+                                                  NoteConstant().notification,
+                                              icon: Icon(
+                                                  Icons.notifications_active,
+                                                  size: SideMenuConstant()
+                                                          .iconSize +
                                                       5),
-                                          onPressed: () async {
-                                            showDialogApiCallBefore(context);
-                                            await Network().refreshToken();
-                                            await Network()
-                                                .getUpdateNotes(
-                                                    accessToken:
-                                                        loginResponseController
-                                                            .accesstoken.text)
-                                                ?.then((value) {
-                                              if (value == false) {
-                                                apiCallAfter(context);
-                                                Network.showInternetError(
-                                                    context,
-                                                    GeneralConstant()
-                                                        .apiCallFailureMessage);
-                                              } else {
-                                                apiCallAfter(context);
+                                              onPressed: () async {
+                                                showDialogApiCallBefore(
+                                                    context);
+                                                await Network().refreshToken();
+                                                await Network()
+                                                    .getUpdateNotes(
+                                                        accessToken:
+                                                            loginResponseController
+                                                                .accesstoken
+                                                                .text)
+                                                    ?.then((value) {
+                                                  if (value == false) {
+                                                    apiCallAfter(context);
+                                                    Network.showInternetError(
+                                                        context,
+                                                        GeneralConstant()
+                                                            .apiCallFailureMessage);
+                                                  } else {
+                                                    apiCallAfter(context);
 
-                                                showDialogNotes(
-                                                    context,
-                                                    basicInfoDashboardController
-                                                        .basicDashboardInfo[0]
-                                                        .numberOfUpdateNotes);
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      )
+                                                    showDialogNotes(
+                                                        context,
+                                                        basicInfoDashboardController
+                                                            .basicDashboardInfo[
+                                                                0]
+                                                            .numberOfUpdateNotes);
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          )
+                                        : IconButton(
+                                            tooltip:
+                                                NoteConstant().notification,
+                                            icon: Icon(Icons.notifications,
+                                                size: SideMenuConstant()
+                                                        .iconSize +
+                                                    5),
+                                            onPressed: () async {
+                                              showDialogApiCallBefore(context);
+                                              await Network().refreshToken();
+                                              await Network()
+                                                  .getUpdateNotes(
+                                                      accessToken:
+                                                          loginResponseController
+                                                              .accesstoken.text)
+                                                  ?.then((value) {
+                                                if (value == false) {
+                                                  apiCallAfter(context);
+                                                  Network.showInternetError(
+                                                      context,
+                                                      GeneralConstant()
+                                                          .apiCallFailureMessage);
+                                                } else {
+                                                  apiCallAfter(context);
+
+                                                  showDialogNotes(context, 0);
+                                                }
+                                              });
+                                            },
+                                          )
                                     : IconButton(
                                         tooltip: NoteConstant().notification,
                                         icon: Icon(Icons.notifications,
                                             size: SideMenuConstant().iconSize +
                                                 5),
-                                        onPressed: () async {
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getUpdateNotes(
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) {
-                                            if (value == false) {
-                                              apiCallAfter(context);
-                                              Network.showInternetError(
-                                                  context,
-                                                  GeneralConstant()
-                                                      .apiCallFailureMessage);
-                                            } else {
-                                              apiCallAfter(context);
-
-                                              showDialogNotes(context, 0);
-                                            }
-                                          });
-                                        },
-                                      )),
+                                        onPressed: null)),
                                 PopupMenuButton(
                                   tooltip: SideMenuConstant().accountproperties,
                                   popUpAnimationStyle:
@@ -610,46 +679,69 @@ class PortalMasterLayout extends StatelessWidget {
                                     ];
                                   },
                                 ),
-                                Obx(
-                                  () => Padding(
-                                    padding: EdgeInsets.only(
-                                        left: kDefaultPadding / 2),
-                                    child: SlideCountdown(
-                                      decoration: const BoxDecoration(
+                                GetBuilder<CornometerController>(
+                                  builder: (controller) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          left: kDefaultPadding / 2),
+                                      child: SlideCountdown(
+                                        separator: ':',
+                                        separatorStyle:
+                                            Responsive.isDesktop(context)
+                                                ? CustomTextStyle()
+                                                    .textStyleDesktopkCardColor
+                                                : CustomTextStyle()
+                                                    .textStyleTabletkCardColor,
+                                        digitsNumber: [
+                                          convertEnToFa('0'),
+                                          convertEnToFa('1'),
+                                          convertEnToFa('2'),
+                                          convertEnToFa('3'),
+                                          convertEnToFa('4'),
+                                          convertEnToFa('5'),
+                                          convertEnToFa('6'),
+                                          convertEnToFa('7'),
+                                          convertEnToFa('8'),
+                                          convertEnToFa('9')
+                                        ],
+                                        decoration: const BoxDecoration(
                                           color: kPrimaryColor,
                                           border: Border(
-                                              bottom:
-                                                  BorderSide(color: kCardColor),
-                                              top: BorderSide(
-                                                  color: kCardColor)),
+                                            bottom:
+                                                BorderSide(color: kCardColor),
+                                            top: BorderSide(color: kCardColor),
+                                          ),
                                           borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5),
-                                              bottomRight: Radius.circular(5))),
-                                      style: Responsive.isDesktop(context)
-                                          ? CustomTextStyle()
-                                              .textStyleDesktopkCardColor
-                                          : CustomTextStyle()
-                                              .textStyleTabletkCardColor,
-                                      onDone: () {
-                                        loginResponseController.logout(400);
-                                      },
-                                      duration: cornometerController
-                                          .timerDuration.value,
-                                      durationTitle: DurationTitle.id(),
-                                      icon: const Padding(
-                                        padding: EdgeInsets.only(right: 5),
-                                        child: Icon(
-                                          weight: 0.01,
-                                          grade: 1,
-                                          applyTextScaling: false,
-                                          Icons.alarm,
-                                          color: kCardColor,
-                                          size: 20,
+                                            topLeft: Radius.circular(5),
+                                            bottomRight: Radius.circular(5),
+                                          ),
+                                        ),
+                                        style: Responsive.isDesktop(context)
+                                            ? CustomTextStyle()
+                                                .textStyleDesktopkCardColor
+                                            : CustomTextStyle()
+                                                .textStyleTabletkCardColor,
+                                        onDone: () {
+                                          loginResponseController.logout(400);
+                                        },
+                                        duration:
+                                            controller.timerDuration.value,
+                                        durationTitle: DurationTitle.id(),
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(right: 5),
+                                          child: Icon(
+                                            weight: 0.01,
+                                            grade: 1,
+                                            applyTextScaling: false,
+                                            Icons.alarm,
+                                            color: kCardColor,
+                                            size: 20,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
+                                    );
+                                  },
+                                )
                               ],
                             ),
                             Row(
@@ -702,125 +794,145 @@ class PortalMasterLayout extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Obx(() => basicInfoDashboardController
-                                          .basicDashboardInfo[0]
-                                          .numberOfUpdateNotes >
-                                      0
-                                  ? badges.Badge(
-                                      position: badges.BadgePosition.topEnd(
-                                          top: 0, end: 3),
-                                      showBadge: true,
-                                      ignorePointer: false,
-                                      onTap: () async {
-                                        showDialogApiCallBefore(context);
-                                        await Network().refreshToken();
-                                        await Network()
-                                            .getUpdateNotes(
-                                                accessToken:
-                                                    loginResponseController
-                                                        .accesstoken.text)
-                                            ?.then((value) {
-                                          if (value == false) {
-                                            apiCallAfter(context);
-                                            Network.showInternetError(
-                                                context,
-                                                GeneralConstant()
-                                                    .apiCallFailureMessage);
-                                          } else {
-                                            apiCallAfter(context);
+                                      .basicDashboardInfo.isNotEmpty
+                                  ? basicInfoDashboardController
+                                              .basicDashboardInfo[0]
+                                              .numberOfUpdateNotes >
+                                          0
+                                      ? badges.Badge(
+                                          position: badges.BadgePosition.topEnd(
+                                              top: 0, end: 3),
+                                          showBadge: true,
+                                          ignorePointer: false,
+                                          onTap: () async {
+                                            showDialogApiCallBefore(context);
+                                            await Network().refreshToken();
+                                            await Network()
+                                                .getUpdateNotes(
+                                                    accessToken:
+                                                        loginResponseController
+                                                            .accesstoken.text)
+                                                ?.then((value) {
+                                              if (value == false) {
+                                                apiCallAfter(context);
+                                                Network.showInternetError(
+                                                    context,
+                                                    GeneralConstant()
+                                                        .apiCallFailureMessage);
+                                              } else {
+                                                apiCallAfter(context);
 
-                                            showDialogNotes(
-                                                context,
-                                                basicInfoDashboardController
-                                                    .basicDashboardInfo[0]
-                                                    .numberOfUpdateNotes);
-                                          }
-                                        });
-                                      },
-                                      badgeContent: Text(
-                                        basicInfoDashboardController
-                                            .basicDashboardInfo[0]
-                                            .numberOfUpdateNotes
-                                            .toString(),
-                                        style: CustomTextStyle()
-                                            .textStyleMobileCourierkCardColor,
-                                      ),
-                                      badgeAnimation:
-                                          const badges.BadgeAnimation.rotation(
-                                        animationDuration: Duration(seconds: 1),
-                                        colorChangeAnimationDuration:
-                                            Duration(seconds: 1),
-                                        loopAnimation: false,
-                                        curve: Curves.fastOutSlowIn,
-                                        colorChangeAnimationCurve:
-                                            Curves.easeInCubic,
-                                      ),
-                                      badgeStyle: badges.BadgeStyle(
-                                        shape: badges.BadgeShape.circle,
-                                        badgeColor: kErrorColor,
-                                        borderRadius: BorderRadius.circular(4),
-                                        elevation: 0,
-                                      ),
-                                      child: IconButton(
-                                        tooltip: NoteConstant().notification,
-                                        icon: Icon(Icons.notifications_active,
-                                            size: SideMenuConstant().iconSize +
-                                                5),
-                                        onPressed: () async {
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getUpdateNotes(
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) {
-                                            if (value == false) {
-                                              apiCallAfter(context);
-                                              Network.showInternetError(
-                                                  context,
-                                                  GeneralConstant()
-                                                      .apiCallFailureMessage);
-                                            } else {
-                                              apiCallAfter(context);
+                                                showDialogNotes(
+                                                    context,
+                                                    basicInfoDashboardController
+                                                        .basicDashboardInfo[0]
+                                                        .numberOfUpdateNotes);
+                                              }
+                                            });
+                                          },
+                                          badgeContent: Text(
+                                            basicInfoDashboardController
+                                                        .basicDashboardInfo[0]
+                                                        .numberOfUpdateNotes >
+                                                    9
+                                                ? convertEnToFa('9+')
+                                                : convertEnToFa(
+                                                    basicInfoDashboardController
+                                                        .basicDashboardInfo[0]
+                                                        .numberOfUpdateNotes
+                                                        .toString()),
+                                            style: CustomTextStyle()
+                                                .textStyleMobileCourierkCardColor,
+                                          ),
+                                          badgeAnimation: const badges
+                                              .BadgeAnimation.rotation(
+                                            animationDuration:
+                                                Duration(seconds: 1),
+                                            colorChangeAnimationDuration:
+                                                Duration(seconds: 1),
+                                            loopAnimation: false,
+                                            curve: Curves.fastOutSlowIn,
+                                            colorChangeAnimationCurve:
+                                                Curves.easeInCubic,
+                                          ),
+                                          badgeStyle: badges.BadgeStyle(
+                                            shape: badges.BadgeShape.circle,
+                                            badgeColor: kErrorColor,
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            elevation: 0,
+                                          ),
+                                          child: IconButton(
+                                            tooltip:
+                                                NoteConstant().notification,
+                                            icon: Icon(
+                                                Icons.notifications_active,
+                                                size: SideMenuConstant()
+                                                        .iconSize +
+                                                    5),
+                                            onPressed: () async {
+                                              showDialogApiCallBefore(context);
+                                              await Network().refreshToken();
+                                              await Network()
+                                                  .getUpdateNotes(
+                                                      accessToken:
+                                                          loginResponseController
+                                                              .accesstoken.text)
+                                                  ?.then((value) {
+                                                if (value == false) {
+                                                  apiCallAfter(context);
+                                                  Network.showInternetError(
+                                                      context,
+                                                      GeneralConstant()
+                                                          .apiCallFailureMessage);
+                                                } else {
+                                                  apiCallAfter(context);
 
-                                              showDialogNotes(
-                                                  context,
-                                                  basicInfoDashboardController
-                                                      .basicDashboardInfo[0]
-                                                      .numberOfUpdateNotes);
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    )
+                                                  showDialogNotes(
+                                                      context,
+                                                      basicInfoDashboardController
+                                                          .basicDashboardInfo[0]
+                                                          .numberOfUpdateNotes);
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        )
+                                      : IconButton(
+                                          tooltip: NoteConstant().notification,
+                                          icon: Icon(Icons.notifications,
+                                              size:
+                                                  SideMenuConstant().iconSize +
+                                                      5),
+                                          onPressed: () async {
+                                            showDialogApiCallBefore(context);
+                                            await Network().refreshToken();
+                                            await Network()
+                                                .getUpdateNotes(
+                                                    accessToken:
+                                                        loginResponseController
+                                                            .accesstoken.text)
+                                                ?.then((value) {
+                                              if (value == false) {
+                                                apiCallAfter(context);
+                                                Network.showInternetError(
+                                                    context,
+                                                    GeneralConstant()
+                                                        .apiCallFailureMessage);
+                                              } else {
+                                                apiCallAfter(context);
+
+                                                showDialogNotes(context, 0);
+                                              }
+                                            });
+                                          },
+                                        )
                                   : IconButton(
                                       tooltip: NoteConstant().notification,
                                       icon: Icon(Icons.notifications,
                                           size:
                                               SideMenuConstant().iconSize + 5),
-                                      onPressed: () async {
-                                        showDialogApiCallBefore(context);
-                                        await Network().refreshToken();
-                                        await Network()
-                                            .getUpdateNotes(
-                                                accessToken:
-                                                    loginResponseController
-                                                        .accesstoken.text)
-                                            ?.then((value) {
-                                          if (value == false) {
-                                            apiCallAfter(context);
-                                            Network.showInternetError(
-                                                context,
-                                                GeneralConstant()
-                                                    .apiCallFailureMessage);
-                                          } else {
-                                            apiCallAfter(context);
-
-                                            showDialogNotes(context, 0);
-                                          }
-                                        });
-                                      },
-                                    )),
+                                      onPressed: null)),
                               PopupMenuButton(
                                 tooltip: SideMenuConstant().accountproperties,
                                 popUpAnimationStyle: AnimationStyle.noAnimation,
@@ -919,45 +1031,67 @@ class PortalMasterLayout extends StatelessWidget {
                                   ];
                                 },
                               ),
-                              Obx(
-                                () => Padding(
-                                  padding: EdgeInsets.only(
-                                      left: kDefaultPadding / 2),
-                                  child: SlideCountdown(
-                                    decoration: const BoxDecoration(
+                              GetBuilder<CornometerController>(
+                                builder: (controller) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        left: kDefaultPadding / 2),
+                                    child: SlideCountdown(
+                                      separator: ':',
+                                      separatorStyle:
+                                          Responsive.isDesktop(context)
+                                              ? CustomTextStyle()
+                                                  .textStyleDesktopkCardColor
+                                              : CustomTextStyle()
+                                                  .textStyleTabletkCardColor,
+                                      digitsNumber: [
+                                        convertEnToFa('0'),
+                                        convertEnToFa('1'),
+                                        convertEnToFa('2'),
+                                        convertEnToFa('3'),
+                                        convertEnToFa('4'),
+                                        convertEnToFa('5'),
+                                        convertEnToFa('6'),
+                                        convertEnToFa('7'),
+                                        convertEnToFa('8'),
+                                        convertEnToFa('9')
+                                      ],
+                                      decoration: const BoxDecoration(
                                         color: kPrimaryColor,
                                         border: Border(
-                                            bottom:
-                                                BorderSide(color: kCardColor),
-                                            top: BorderSide(color: kCardColor)),
+                                          bottom: BorderSide(color: kCardColor),
+                                          top: BorderSide(color: kCardColor),
+                                        ),
                                         borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(5),
-                                            bottomRight: Radius.circular(5))),
-                                    style: Responsive.isDesktop(context)
-                                        ? CustomTextStyle()
-                                            .textStyleDesktopkCardColor
-                                        : CustomTextStyle()
-                                            .textStyleTabletkCardColor,
-                                    onDone: () {
-                                      loginResponseController.logout(400);
-                                    },
-                                    duration: cornometerController
-                                        .timerDuration.value,
-                                    durationTitle: DurationTitle.id(),
-                                    icon: const Padding(
-                                      padding: EdgeInsets.only(right: 5),
-                                      child: Icon(
-                                        weight: 0.01,
-                                        grade: 1,
-                                        applyTextScaling: false,
-                                        Icons.alarm,
-                                        color: kCardColor,
-                                        size: 20,
+                                          topLeft: Radius.circular(5),
+                                          bottomRight: Radius.circular(5),
+                                        ),
+                                      ),
+                                      style: Responsive.isDesktop(context)
+                                          ? CustomTextStyle()
+                                              .textStyleDesktopkCardColor
+                                          : CustomTextStyle()
+                                              .textStyleTabletkCardColor,
+                                      onDone: () {
+                                        loginResponseController.logout(400);
+                                      },
+                                      duration: controller.timerDuration.value,
+                                      durationTitle: DurationTitle.id(),
+                                      icon: const Padding(
+                                        padding: EdgeInsets.only(right: 5),
+                                        child: Icon(
+                                          weight: 0.01,
+                                          grade: 1,
+                                          applyTextScaling: false,
+                                          Icons.alarm,
+                                          color: kCardColor,
+                                          size: 20,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  );
+                                },
+                              )
                             ],
                           ),
                           Row(
@@ -1003,7 +1137,8 @@ class PortalMasterLayout extends StatelessWidget {
           () => Row(
             children: [
               Visibility(
-                visible: Get.currentRoute == '/reportview' ? true : false,
+                visible:
+                    Get.currentRoute.contains('/reportview') ? true : false,
                 child: AnimatedContainer(
                     duration: Duration(
                         milliseconds: MainPageConstant().sideMenuDeuration),
@@ -1017,7 +1152,7 @@ class PortalMasterLayout extends StatelessWidget {
                 duration: Duration(
                     milliseconds: MainPageConstant().sideMenuDeuration),
                 curve: Curves.easeIn,
-                width: Get.currentRoute != '/reportview'
+                width: !Get.currentRoute.contains('/reportview')
                     ? !sideMenuController.isEndDrawerOpen.value
                         ? MainPageConstant().openWidthOneSideMenuMainPage
                         : MainPageConstant().closeWidthOneSideMenuMainPage

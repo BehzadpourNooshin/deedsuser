@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class FilterModel {
   FilterModel({
@@ -10,9 +11,11 @@ class FilterModel {
     required this.formItemValidationType,
     required this.formItemInputTypeHint,
     required this.lookupName,
+    required this.parentLookupName,
     this.search = '',
-    this.items = const [],
-    this.itemsTitle = const [],
+    this.selectedItem = '',
+    List<String>? items,
+    List<String>? itemsTitle,
     required this.textEditingController,
   });
 
@@ -23,9 +26,11 @@ class FilterModel {
   late final String formItemValidationType;
   late final String formItemInputTypeHint;
   late final String lookupName;
+  late final String parentLookupName;
   late String search;
-  late List items = [];
-  late List itemsTitle = [];
+  late String selectedItem;
+  late RxList<String> items = <String>[].obs;
+  late RxList<String> itemsTitle = <String>[].obs;
 
   late TextEditingController textEditingController = TextEditingController();
 
@@ -43,6 +48,8 @@ class FilterModel {
       'formItemValidationType': formItemValidationType,
       'formItemInputTypeHint': formItemInputTypeHint,
       'lookupName': lookupName,
+      'parentLookupName': parentLookupName,
+      'selectedItem': selectedItem,
       'items': items,
       'itemsTitle': itemsTitle,
       'search': search,
@@ -59,7 +66,9 @@ class FilterModel {
       formItemValidationType: json['formItemValidationType'],
       formItemInputTypeHint: json['formItemInputTypeHint'],
       lookupName: json['lookupName'],
+      parentLookupName: json['parentLookupName'],
       items: json['items'],
+      selectedItem: json['selectedItem'],
       itemsTitle: json['itemsTitle'],
       search: json['search'],
       textEditingController: json['textEditingController'],

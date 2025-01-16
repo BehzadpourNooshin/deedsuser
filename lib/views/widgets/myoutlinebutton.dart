@@ -1,4 +1,5 @@
 import 'package:deedsuser/utils/constant.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 
 class MyOutlineButton extends StatelessWidget {
@@ -22,16 +23,6 @@ class MyOutlineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
         onPressed: function,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(title, style: mystyle),
-            Icon(
-              myicon,
-              color: iconcolor,
-            )
-          ],
-        ),
         style: OutlinedButton.styleFrom(
           backgroundColor: kCardColor,
           shadowColor: bordercolor,
@@ -41,6 +32,16 @@ class MyOutlineButton extends StatelessWidget {
             color: bordercolor,
             style: BorderStyle.solid,
           ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(title, style: mystyle),
+            Icon(
+              myicon,
+              color: iconcolor,
+            )
+          ],
         ));
   }
 }

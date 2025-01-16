@@ -1,4 +1,5 @@
 import 'package:deedsuser/controllers/resultsearch_controller.dart';
+import 'package:deedsuser/views/widgets/barchart.dart';
 import 'package:deedsuser/views/widgets/columnchart.dart';
 import 'package:deedsuser/views/widgets/linechart.dart';
 import 'package:deedsuser/views/widgets/piechartwidget.dart';
@@ -12,16 +13,10 @@ Future<void> makechartwidgets() async {
   resultSearchController.update();
 
   for (var columnChart in resultSearchController.columnchartdatasource) {
-    Map<String, double> resultMap = {};
-
-    for (var chartData in columnChart.dataSource) {
-      resultMap[chartData.x] = (resultMap[chartData.x] ?? 0) + chartData.y;
-    }
-
     resultSearchController.chartWidget.add(
       MyColumnChartWidget(
         dataSource: columnChart.dataSource,
-        title: '',
+        title: columnChart.title,
         isString: false,
       ),
     );
@@ -30,32 +25,32 @@ Future<void> makechartwidgets() async {
 
   for (var lineChart in resultSearchController.linechartdatasource) {
     resultSearchController.chartWidget.add(
-      MyLineChart(
+      MyLineChartWidget(
         dataSource: lineChart.dataSource,
-        title: '',
-        isString:
-            lineChart.dataSource.first.y.runtimeType == String ? true : false,
+        title: lineChart.title,
+        isString: false,
       ),
     );
     resultSearchController.update();
   }
   for (var pieChart in resultSearchController.piechartdatasource) {
-    Map<String, double> resultMap = {};
-
-    for (var chartData in pieChart.dataSource) {
-      resultMap[chartData.x] = (resultMap[chartData.x] ?? 0) + chartData.y;
-    }
-
-    List<MyPieChartData> finalData = resultMap.entries
-        .map((entry) => MyPieChartData(entry.key, entry.value))
-        .toList();
-
     resultSearchController.chartWidget.add(
       MyPieChartWidget(
-        dataSource: finalData,
-        title: '',
+        dataSource: pieChart.dataSource,
+        title: pieChart.title,
         isString:
             pieChart.dataSource.first.y.runtimeType == String ? true : false,
+      ),
+    );
+    resultSearchController.update();
+  }
+  for (var barChart in resultSearchController.barchartdatasource) {
+    resultSearchController.chartWidget.add(
+      MyBarChartWidget(
+        dataSource: barChart.dataSource,
+        title: barChart.title,
+        isString:
+            barChart.dataSource.first.y.runtimeType == String ? true : false,
       ),
     );
     resultSearchController.update();

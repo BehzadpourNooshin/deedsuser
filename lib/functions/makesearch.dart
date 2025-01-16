@@ -9,7 +9,7 @@ import 'package:deedsuser/models/searchdetail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void makeSearch(BuildContext context) async {
+Future<void> makeSearch(BuildContext context) async {
   FullReportController fullReportController = Get.put(FullReportController());
   OptionSearchController optionSearchController =
       Get.put(OptionSearchController());
@@ -17,6 +17,7 @@ void makeSearch(BuildContext context) async {
   optionSearchController.searchs.clear();
   ResultSearchController resultSearchController =
       Get.put(ResultSearchController());
+
   resultSearchController.datarow.clear();
   resultSearchController.header.clear();
   resultSearchController.update();
@@ -37,28 +38,46 @@ void makeSearch(BuildContext context) async {
           : '';
 
   for (var filter in fullReportController.selectedreport[0].filters) {
-    if (filter.textEditingController.text.isNotEmpty) {
+    if (filter.textEditingController.text.isNotEmpty &&
+        filter.textEditingController.text != filter.formItemDisplayTitle) {
       filterList = [];
       from = '';
       to = '';
       tempFilterItemTitle = '';
       if (filter.formItemInputType == 'Range' &&
-          filter.formItemDisplayTitle.contains('از')) {
+          (filter.formItemDisplayTitle.contains('از') ||
+              filter.formItemDisplayTitle.contains('تا'))) {
         tempFilterItemTitle = filter.formItemTitle;
-        from = filter.textEditingController.text;
+        bool findto = false;
 
         for (var filter2 in fullReportController.selectedreport[0].filters) {
           if (filter2.formItemInputType == 'Range' &&
               filter2.formItemDisplayTitle.contains('تا') &&
               filter2.formItemTitle.contains(tempFilterItemTitle)) {
             to = filter2.textEditingController.text;
+            findto = true;
+            break;
           }
         }
-        optionSearchController.searchDetail.add(SearchDetail(
-            formItemTitle: tempFilterItemTitle,
-            value: filterList,
-            from: from,
-            to: to));
+        filter.formItemDisplayTitle.contains('از') && findto == true
+            ? optionSearchController.searchDetail.add(SearchDetail(
+                formItemTitle: tempFilterItemTitle,
+                value: filterList,
+                from: filter.textEditingController.text,
+                to: to))
+            : filter.formItemDisplayTitle.contains('از') && findto == false
+                ? optionSearchController.searchDetail.add(SearchDetail(
+                    formItemTitle: tempFilterItemTitle,
+                    value: filterList,
+                    from: filter.textEditingController.text,
+                    to: ''))
+                : filter.formItemDisplayTitle.contains('تا')
+                    ? optionSearchController.searchDetail.add(SearchDetail(
+                        formItemTitle: tempFilterItemTitle,
+                        value: filterList,
+                        from: '',
+                        to: to))
+                    : null;
       } else if (filter.formItemInputType == 'MultiChoiceBox') {
         tempFilterItemTitle = filter.formItemTitle;
         filterList = filter.itemsTitle;
@@ -67,7 +86,7 @@ void makeSearch(BuildContext context) async {
             value: filterList,
             from: from,
             to: to));
-      } else if (filter.formItemInputType != 'Range') {
+      } else if (filter.formItemInputType == 'DropDown') {
         filterList.add(findDisplayTitle(
             filter.textEditingController.text, filter.lookupName));
         tempFilterItemTitle = filter.formItemTitle;
@@ -76,14 +95,25 @@ void makeSearch(BuildContext context) async {
             value: filterList,
             from: from,
             to: to));
+        optionSearchController.update();
+      } else if (filter.formItemInputType != 'Range' &&
+          filter.formItemInputType != 'DropDown') {
+        filterList.add(findDisplayTitle(
+            filter.textEditingController.text, filter.lookupName));
+        tempFilterItemTitle = filter.formItemTitle;
+        optionSearchController.searchDetail.add(SearchDetail(
+            formItemTitle: tempFilterItemTitle,
+            value: filterList,
+            from: from,
+            to: to));
+        optionSearchController.update();
       }
-      optionSearchController.update();
     }
   }
 
   optionSearchController.searchs.clear();
   resultSearchController.resetFirstPage();
-  resultSearchController.updatePageSize(10);
+  // resultSearchController.updatePageSize(10);
   resultSearchController.update();
   optionSearchController.update();
   fullReportController.selectedreport[0].report.scope == 'FilterForm'
@@ -104,5 +134,5 @@ void makeSearch(BuildContext context) async {
           sortType: resultSearchController.sortType,
           sortColumn: resultSearchController.columnTitle));
   optionSearchController.update();
-  loadData(context);
+  await loadData(context);
 }

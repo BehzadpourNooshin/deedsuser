@@ -17,13 +17,16 @@ import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
 import 'package:deedsuser/views/pages/portal.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:deedsuser/views/widgets/settingspage.dart';
 import 'package:deedsuser/views/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:persian_tools/persian_tools.dart';
 
 // ignore: must_be_immutable
 class DashboardShowPage extends StatelessWidget {
@@ -33,6 +36,7 @@ class DashboardShowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final farsiNumber = NumberFormat.decimalPattern('fa');
     LoginResponseController loginResponseController =
         Get.put(LoginResponseController());
 
@@ -100,9 +104,9 @@ class DashboardShowPage extends StatelessWidget {
                               value: basicDashboardInfoController
                                       .basicDashboardInfo.isNotEmpty
                                   ? Text(
-                                      basicDashboardInfoController
+                                      convertEnToFa(basicDashboardInfoController
                                           .basicDashboardInfo[0].numberOfReports
-                                          .toString(),
+                                          .toString()),
                                       style: CustomTextStyle()
                                           .textStyleDesktopBigTitrKcardColorColor)
                                   : const CircularProgressIndicator(
@@ -120,9 +124,9 @@ class DashboardShowPage extends StatelessWidget {
                               value: basicDashboardInfoController
                                       .basicDashboardInfo.isNotEmpty
                                   ? Text(
-                                      basicDashboardInfoController
+                                      convertEnToFa(basicDashboardInfoController
                                           .basicDashboardInfo[0].numberOfUsers
-                                          .toString(),
+                                          .toString()),
                                       style: CustomTextStyle()
                                           .textStyleDesktopBigTitrKcardColorColor,
                                     )
@@ -141,10 +145,10 @@ class DashboardShowPage extends StatelessWidget {
                               value: basicDashboardInfoController
                                       .basicDashboardInfo.isNotEmpty
                                   ? Text(
-                                      basicDashboardInfoController
+                                      convertEnToFa(basicDashboardInfoController
                                           .basicDashboardInfo[0]
                                           .numberOfOnlineUsers
-                                          .toString(),
+                                          .toString()),
                                       style: CustomTextStyle()
                                           .textStyleDesktopBigTitrKcardColorColor,
                                     )
@@ -163,10 +167,10 @@ class DashboardShowPage extends StatelessWidget {
                               value: basicDashboardInfoController
                                       .basicDashboardInfo.isNotEmpty
                                   ? Text(
-                                      basicDashboardInfoController
+                                      convertEnToFa(basicDashboardInfoController
                                           .basicDashboardInfo[0]
                                           .numberOfCategories
-                                          .toString(),
+                                          .toString()),
                                       style: CustomTextStyle()
                                           .textStyleDesktopBigTitrKcardColorColor,
                                     )
@@ -233,10 +237,9 @@ class DashboardShowPage extends StatelessWidget {
                                       fullReportController.selectedreport
                                           .clear();
                                       fullReportController.update();
-                                      apiCallController.isLoading =
-                                          !apiCallController.isLoading;
-                                      apiCallController.update();
+
                                       await Network().refreshToken();
+
                                       await Network()
                                           .getreportbyname(
                                               reportName:
@@ -267,11 +270,9 @@ class DashboardShowPage extends StatelessWidget {
                                                       errorhandelingController
                                                           .errorSubTitleMessage
                                                           .value);
+                                        } else {
+                                          Get.toNamed('/reportview');
                                         }
-                                        apiCallController.isLoading =
-                                            !apiCallController.isLoading;
-                                        apiCallController.update();
-                                        Get.toNamed('/reportview');
                                       });
                                     },
                                     child: badges.Badge(

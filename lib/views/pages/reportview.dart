@@ -4,6 +4,7 @@ import 'package:deedsuser/views/widgets/datatablechart.dart';
 import 'package:deedsuser/views/widgets/datatablewithoutchart.dart';
 import 'package:deedsuser/views/widgets/jsonviewer.dart';
 import 'package:deedsuser/views/widgets/jsonviewtable.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:deedsuser/utils/constant.dart';
@@ -65,12 +66,23 @@ class MyReportView extends StatelessWidget {
                         ? fullReportController
                                     .selectedreport[0].report.hasChart ==
                                 'true'
-                            ? const MyDataTableChart()
-                            : const MyDataTable()
+                            ? Padding(
+                                padding: EdgeInsets.all(kDefaultPadding),
+                                child:
+                                    const SizedBox(child: MyDataTableChart()),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.all(kDefaultPadding),
+                                child: const SizedBox(child: MyDataTable()))
                         : fullReportController
                                 .selectedreport[0].report.hasUserPdfExport
-                            ? const MyJsonViewrTable()
-                            : const MyJsonViewr()
+                            ? Padding(
+                                padding: EdgeInsets.all(kDefaultPadding),
+                                child:
+                                    const SizedBox(child: MyJsonViewrTable()))
+                            : Padding(
+                                padding: EdgeInsets.all(kDefaultPadding),
+                                child: const SizedBox(child: MyJsonViewr()))
                     : Container()))
           ]))
     ]));

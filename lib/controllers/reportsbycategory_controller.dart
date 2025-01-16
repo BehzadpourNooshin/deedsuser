@@ -18,6 +18,27 @@ class ReportsByCategoryController extends GetxController {
       <ReportsByCategoryModel>[].obs;
   late RxMap<String, dynamic> objectReportDropDown;
   late bool showReport = true;
+  var openCategory = ''.obs; // ذخیره دسته‌بندی باز شده
+  var selectedReport = ''.obs; // ذخیره گزارش انتخاب‌شده
+
+  // تابع برای باز و بسته کردن دسته‌بندی
+  void toggleCategory(String categoryTitle) {
+    if (openCategory.value == categoryTitle) {
+      openCategory.value = ''; // بستن دسته‌بندی
+    } else {
+      openCategory.value = categoryTitle; // باز کردن دسته‌بندی
+    }
+  }
+
+  void resetOpenCategory() {
+    openCategory.value = ''; // یا هر مقدار دلخواه
+  }
+
+  // تابع برای انتخاب گزارش
+  void selectReport(String reportName) {
+    selectedReport.value = reportName;
+  }
+
   void makeGenerateAllReports() {
     allreports.clear();
     for (var category in reportsbycategory) {

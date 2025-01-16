@@ -4,6 +4,7 @@ import 'package:deedsuser/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:persian_tools/persian_tools.dart';
 
 class MyTextFormFilterFieldMobile extends StatelessWidget {
   final String labelTitle;
@@ -38,7 +39,15 @@ class MyTextFormFilterFieldMobile extends StatelessWidget {
         maxLines: maxLine,
         minLines: 1,
         onChanged: (value) {
-          accountsController.mobileNumberobs.value = value;
+          accountsController.mobileNumberobs.value = convertEnToFa(value);
+          // String newText = convertEnToFa(value);
+
+          // if (newText != myController.text) {
+          //   myController.value = myController.value.copyWith(
+          //     text: newText,
+          //     selection: TextSelection.collapsed(offset: newText.length),
+          //   );
+          // }
           accountsController.update();
           accountsController.validationAccount();
         },
@@ -85,7 +94,7 @@ class MyTextFormFilterFieldMobile extends StatelessWidget {
           labelStyle: Responsive.isDesktop(context)
               ? CustomTextStyle().textStyleDesktopkSecondrayColor
               : CustomTextStyle().textStyleTabletkSecondrayColor,
-          hintText: hintTitle,
+          hintText: convertEnToFa(hintTitle),
           hintStyle: Responsive.isDesktop(context)
               ? CustomTextStyle().textStyleDesktopkSecondrayColor
               : CustomTextStyle().textStyleTabletkSecondrayColor,

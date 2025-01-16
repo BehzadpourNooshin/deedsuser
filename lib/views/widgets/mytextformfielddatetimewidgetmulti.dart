@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:deedsuser/controllers/datatime_controller.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
@@ -39,10 +40,45 @@ class MyMultiTypeTextFormFilterFieldDateTime extends StatelessWidget {
       onPressed: () async {
         //DateTimeController _dateTimeController = Get.put(DateTimeController());
         Jalali? pickedDate = await showPersianDatePicker(
-          context: context,
           initialDate: Jalali.now(),
-          firstDate: Jalali(1400),
-          lastDate: Jalali(1499),
+          context: context,
+          firstDate: (finalName.contains('from') ||
+                      finalName.contains('begin') ||
+                      finalName.contains('start')) &&
+                  _dateTimeController.selectedEndDate.value != 'تاریخ پایان'
+              ? _dateTimeController.selectedTempEndDate.addDays(-30)
+              : Jalali(1400),
+          lastDate: (finalName.contains('to') || finalName.contains('end')) &&
+                  _dateTimeController.selectedStartDate.value != 'تاریخ شروع'
+              ? _dateTimeController.selectedTempStartDate.addDays(30)
+              : Jalali(1499),
+          helpText: 'انتخاب تاریخ',
+          cancelText: 'لغو',
+          confirmText: 'تایید',
+          builder: (context, child) {
+            return Theme(
+                data: ThemeData(
+                  primaryColor: kPrimaryColor,
+                  dialogTheme: DialogTheme(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: kPrimaryColor, // رنگ متن دکمه
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                ),
+                child: child!);
+          },
         );
         var georgeianPickedData = pickedDate?.toGregorian();
         if (pickedDate != null) {
@@ -71,9 +107,15 @@ class MyMultiTypeTextFormFilterFieldDateTime extends StatelessWidget {
           (finalName.contains('from') ||
                   finalName.contains('begin') ||
                   finalName.replaceAll(' ', '').contains('start'))
-              ? _dateTimeController.selectedStartDate.value = selectedDate
+              ? {
+                  _dateTimeController.selectedStartDate.value = selectedDate,
+                  _dateTimeController.selectedTempStartDate = pickedDate
+                }
               : (finalName.contains('to') || finalName.contains('end'))
-                  ? _dateTimeController.selectedEndDate.value = selectedDate
+                  ? {
+                      _dateTimeController.selectedEndDate.value = selectedDate,
+                      _dateTimeController.selectedTempEndDate = pickedDate
+                    }
                   : _dateTimeController.selectedSingleDate.value = selectedDate;
           dateTimeController.text = selectedDate;
           _dateTimeController.update();

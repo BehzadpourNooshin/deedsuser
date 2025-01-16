@@ -14,7 +14,7 @@ class MyChoiceBox extends StatelessWidget {
   final TextEditingController myController;
   final List myItems;
 
-  MyChoiceBox(
+  const MyChoiceBox(
       {super.key,
       required this.labelTitle,
       required this.nameCheckBox,

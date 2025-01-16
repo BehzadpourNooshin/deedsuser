@@ -11,6 +11,7 @@ import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/responsive.dart';
 import 'package:deedsuser/views/widgets/mytextformfieldwidget.dart';
 import 'package:deedsuser/views/widgets/mytextformfieldwidgetpassword.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:deedsuser/views/widgets/publicmasterlayout.dart';
 import 'package:deedsuser/views/widgets/card.dart';
 
@@ -145,9 +146,17 @@ class LoginPage extends StatelessWidget {
 
                       userController.refreshtoken.text =
                           loginresponsecontroller.refreshtoken.text;
+
+                      await userController
+                          .saveEmail(userController.username.text);
+                      await userController
+                          .savePassword(userController.password.text);
                       userController.update();
+
                       updateUserController.update();
+
                       makeUserProperties(userController);
+
                       Get.put(LoginController()).isLogin = true;
                       Get.put(LoginController()).update();
                       apiCallAfter(context);

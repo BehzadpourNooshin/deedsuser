@@ -5,6 +5,7 @@ import 'package:deedsuser/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:persian_tools/persian_tools.dart';
 
 class MyTextFormFieldAddress extends StatelessWidget {
   final String labelTitle;
@@ -38,7 +39,15 @@ class MyTextFormFieldAddress extends StatelessWidget {
             ? CustomTextStyle().textStyleDesktopkSecondrayColor
             : CustomTextStyle().textStyleTabletkSecondrayColor,
         onChanged: (value) {
-          accountsController.addressobs.value = value;
+          accountsController.addressobs.value = convertEnToFa(value);
+          String newText = convertEnToFa(value);
+
+          if (newText != myController.text) {
+            myController.value = myController.value.copyWith(
+              text: newText,
+              selection: TextSelection.collapsed(offset: newText.length),
+            );
+          }
           accountsController.update();
           accountsController.validationAccount();
         },

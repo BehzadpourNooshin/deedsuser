@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  uuid: ^4.1.0
   shrink_sidemenu: ^2.0.0+2-null-safety
   time_chart: ^0.5.4
   flutter:
@@ -88,7 +89,7 @@ dependencies:
   fan_side_drawer: ^1.0.2
   sidebar_drawer: ^0.0.1+2
   collapsible_sidebar: ^2.0.7
-  syncfusion_flutter_charts: ^26.1.38
+  syncfusion_flutter_charts: ^26.2.13
   syncfusion_flutter_datagrid: ^26.1.38
   data_grid: ^0.1.0
   carousel_slider: ^4.2.1
@@ -120,6 +121,8 @@ dependencies:
   slide_countdown: ^1.6.1
   collection: ^1.18.0
   dcdg: ^4.1.0
+  idle_detector_wrapper: ^1.0.0
+  flutter_date_range_picker: ^0.1.1
 dependency_overrides:
   # All these dependencies are for form_builder_asset_picker.
   # Can remove all overrides if not using form_builder_asset_picker package.
@@ -171,13 +174,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-
-  
-     - family: IranSans
+     - family: Yekan
        fonts:
-         - asset: assets/fonts/iransans.ttf 
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+         - asset: assets/fonts/Yekan.ttf  
+     - family: YekanBakhFaNumVF
+       fonts:
+         - asset: assets/fonts/YekanBakhFaNumVF.ttf 
+     - family: YekanBakhNoEnVF
+       fonts:
+         - asset: assets/fonts/YekanBakhNoEnVF.ttf 
+     - family: YekanBakhVF
+       fonts:
+         - asset: assets/fonts/YekanBakhVF.ttf     
      - family: BNazanin
        fonts:
          - asset: assets/fonts/bnazanin.ttf

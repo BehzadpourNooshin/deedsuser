@@ -1,4 +1,5 @@
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -12,7 +13,7 @@ class MyChoiceBox2 extends StatelessWidget {
   final List myItems;
   final bool initialValue;
 
-  MyChoiceBox2(
+  const MyChoiceBox2(
       {super.key,
       required this.labelTitle,
       required this.nameCheckBox,

@@ -1,8 +1,10 @@
+import 'package:deedsuser/controllers/user_controller.dart';
 import 'package:deedsuser/utils/constant.dart';
 
 import 'package:deedsuser/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class MyTextFormField extends StatelessWidget {
   final String labelTitle;
@@ -30,7 +32,9 @@ class MyTextFormField extends StatelessWidget {
       required this.myController});
   @override
   Widget build(BuildContext context) {
+    UserController userController = Get.put(UserController());
     return TextFormField(
+        autofillHints: [userController.loadEmail().toString()],
         style: Responsive.isDesktop(context)
             ? CustomTextStyle().textStyleDesktopkSecondrayColor
             : CustomTextStyle().textStyleTabletkSecondrayColor,

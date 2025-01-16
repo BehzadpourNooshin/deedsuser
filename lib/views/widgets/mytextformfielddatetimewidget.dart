@@ -22,6 +22,7 @@ class MyTextFormFilterFieldDateTime extends StatelessWidget {
     this.secureText = false,
     required this.dateTimeController,
   });
+
   @override
   Widget build(BuildContext context) {
     dateTimeController.text = labelTitle;
@@ -33,43 +34,128 @@ class MyTextFormFilterFieldDateTime extends StatelessWidget {
         focusNode: FocusNode(),
         autofocus: false,
         onPressed: () async {
-          //DateTimeController _dateTimeController = Get.put(DateTimeController());
           Jalali? pickedDate = await showPersianDatePicker(
             context: context,
             initialDate: Jalali.now(),
-            firstDate: Jalali(1400),
-            lastDate: Jalali(1499),
+            firstDate: (labelTitle.contains('از')) &&
+                    _dateTimeController.selectedEndDate.value != 'تاریخ پایان'
+                ? _dateTimeController.selectedTempEndDate.addDays(-30)
+                : Jalali(1400),
+            lastDate: (labelTitle.contains(' تا')) &&
+                    _dateTimeController.selectedStartDate.value != 'تاریخ شروع'
+                ? _dateTimeController.selectedTempStartDate.addDays(30)
+                : Jalali(1499),
+            helpText: 'انتخاب تاریخ',
+            cancelText: 'لغو',
+            confirmText: 'تایید',
+            builder: (context, child) {
+              return Theme(
+                  data: ThemeData(
+                    primaryColor: kPrimaryColor,
+                    dialogTheme: DialogTheme(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: kPrimaryColor, // رنگ متن دکمه
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: child!);
+            },
           );
-          var georgeianPickedData = pickedDate?.toGregorian();
-
           if (pickedDate != null) {
-            String selectedDate = validation.contains('شمسی') ||
-                    validation
-                        .toLowerCase()
-                        .replaceAll(' ', '')
-                        .contains('perisan')
-                ? validation.contains('/')
-                    ? '${pickedDate.year.toString()}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.day.toString().padLeft(2, '0')}'
-                    : validation.contains('-')
-                        ? '${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}'
-                        : '${pickedDate.year.toString()}${pickedDate.month.toString().padLeft(2, '0')}${pickedDate.day.toString().padLeft(2, '0')}'
-                : validation.contains('میلادی') ||
-                        !validation
-                            .toLowerCase()
-                            .replaceAll(' ', '')
-                            .contains('perisan')
-                    ? validation.contains('/')
-                        ? '${georgeianPickedData?.year.toString()}/${georgeianPickedData?.month.toString().padLeft(2, '0')}/${georgeianPickedData?.day.toString().padLeft(2, '0')}'
-                        : validation.contains('-')
-                            ? '${georgeianPickedData?.year.toString()}-${georgeianPickedData?.month.toString().padLeft(2, '0')}-${georgeianPickedData?.day.toString().padLeft(2, '0')}'
-                            : '${georgeianPickedData?.year.toString()}${georgeianPickedData?.month.toString().padLeft(2, '0')}${georgeianPickedData?.day.toString().padLeft(2, '0')}'
-                    : pickedDate.toDateTime().toIso8601String();
+            TimeOfDay? pickedTime = await showPersianTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+              helpText: 'انتخاب زمان',
+              cancelText: 'لغو',
+              confirmText: 'تایید',
+              builder: (context, child) {
+                return Theme(
+                  data: ThemeData(
+                    primaryColor: kPrimaryColor,
+                    dialogTheme: DialogTheme(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    timePickerTheme: TimePickerThemeData(
+                      dialBackgroundColor: Colors.deepPurple.shade50,
+                      dialHandColor: kPrimaryColor,
+                      hourMinuteColor: Colors.deepPurple.shade100,
+                      hourMinuteTextColor: Colors.white,
+                      dayPeriodTextColor: Colors.white,
+                      dayPeriodColor: kDarktBlueColor,
+                    ),
+                    elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: kPrimaryColor, // رنگ متن دکمه
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+            );
 
-            (labelTitle.contains('از')
-                ? _dateTimeController.selectedStartDate.value = selectedDate
-                : _dateTimeController.selectedEndDate.value = selectedDate);
-            dateTimeController.text = selectedDate;
-            _dateTimeController.update();
+            if (pickedTime != null) {
+              DateTime dateTime = pickedDate.toDateTime().add(
+                  Duration(hours: pickedTime.hour, minutes: pickedTime.minute));
+              String selectedDateTime = validation.contains('شمسی') ||
+                      validation
+                          .toLowerCase()
+                          .replaceAll(' ', '')
+                          .contains('persian')
+                  ? validation.contains('/')
+                      ? '${pickedDate.year.toString()}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                      : validation.contains('-')
+                          ? '${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                          : '${pickedDate.year.toString()}${pickedDate.month.toString().padLeft(2, '0')}${pickedDate.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                  : validation.contains('میلادی') ||
+                          !validation
+                              .toLowerCase()
+                              .replaceAll(' ', '')
+                              .contains('persian')
+                      ? validation.contains('/')
+                          ? '${dateTime.year.toString()}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                          : validation.contains('-')
+                              ? '${dateTime.year.toString()}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                              : '${dateTime.year.toString()}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')} ${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}'
+                      : dateTime.toIso8601String();
+
+              (
+                labelTitle.contains('از')
+                    ? {
+                        _dateTimeController.selectedStartDate.value =
+                            selectedDateTime,
+                        _dateTimeController.selectedTempStartDate = pickedDate,
+                      }
+                    : {
+                        _dateTimeController.selectedEndDate.value =
+                            selectedDateTime,
+                        _dateTimeController.selectedTempEndDate = pickedDate
+                      },
+                dateTimeController.text = selectedDateTime
+              );
+              _dateTimeController.update();
+            }
           }
         },
         child: Obx(() => TextFormField(
@@ -96,8 +182,7 @@ class MyTextFormFilterFieldDateTime extends StatelessWidget {
               ),
               suffixIcon: Padding(
                 padding: EdgeInsets.only(
-                    top: kDefaultPadding / 4,
-                    bottom: kDefaultPadding / 4), // add padding to adjust icon
+                    top: kDefaultPadding / 4, bottom: kDefaultPadding / 4),
                 child: IconButton(
                   icon: const Icon(
                     size: 20,
@@ -119,7 +204,6 @@ class MyTextFormFilterFieldDateTime extends StatelessWidget {
               floatingLabelAlignment: FloatingLabelAlignment.center,
               alignLabelWithHint: true,
               border: const OutlineInputBorder(),
-
               labelStyle: Responsive.isDesktop(context)
                   ? CustomTextStyle().textStyleDesktopkSecondrayColor
                   : CustomTextStyle().textStyleTabletkSecondrayColor,
@@ -130,80 +214,25 @@ class MyTextFormFilterFieldDateTime extends StatelessWidget {
               floatingLabelBehavior: FloatingLabelBehavior.always,
               errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kErrorColor),
-                //  borderRadius: BorderRadius.circular(15.0),
               ),
               focusedErrorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kErrorColor),
-                //   borderRadius: BorderRadius.circular(15.0),
               ),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kPrimaryColor),
-                //   borderRadius: BorderRadius.circular(15.0),
               ),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kBlackColor),
-                // borderRadius: BorderRadius.circular(15.0),
               ),
               errorStyle: Responsive.isDesktop(context)
                   ? CustomTextStyle().textStyleDesktopKerrorColor
-                  : CustomTextStyle()
-                      .textStyleTabletKerrorColor, // add padding to adjust icon
+                  : CustomTextStyle().textStyleTabletKerrorColor,
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return (errorTitle);
+                return errorTitle;
               }
-
               return null;
             })));
-
-    // Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-    //   Icon(
-    //     Icons.calendar_month,
-    //     size: SideMenuConstant().iconSize,
-    //     color: kBlackColor,
-    //   ),
-    //   Row(
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     children: [
-    //       Text(
-    //         (labelTitle.contains('از'))
-    //             ? _dateTimeController.selectedStartDate
-    //                 .toString()
-    //                 .substring(
-    //                     0,
-    //                     min(
-    //                         _dateTimeController.selectedStartDate
-    //                             .toString()
-    //                             .length,
-    //                         13))
-    //             : _dateTimeController.selectedEndDate.toString().substring(
-    //                 0,
-    //                 min(
-    //                     _dateTimeController.selectedEndDate
-    //                         .toString()
-    //                         .length,
-    //                     13)),
-    //         style: Responsive.isDesktop(context)
-    //             ? CustomTextStyle().textStyleDesktopkSecondrayColor
-    //             : CustomTextStyle().textStyleTabletkSecondrayColor,
-    //       ),
-    //       IconButton(
-    //           onPressed: () {
-    //             dateTimeController.text = '';
-    //             (labelTitle.contains('از'))
-    //                 ? _dateTimeController.selectedStartDate.value =
-    //                     'تاریخ شروع'
-    //                 : _dateTimeController.selectedEndDate.value =
-    //                     'تاریخ پایان';
-
-    //             _dateTimeController.update();
-    //           },
-    //           icon: Icon(Icons.clear, size: SideMenuConstant().iconSize))
-    //     ],
-    //   ),
-    // ]),
-    //   ),
-    // );
   }
 }

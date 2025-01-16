@@ -7,6 +7,7 @@ import 'package:deedsuser/models/search_model.dart';
 import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,7 +56,7 @@ class MyFormBuilderDropdownPageSize extends StatelessWidget {
           ],
         ),
         items: myItems
-            .map((e) => DropdownMenuItem<int>(
+            .map((e) => DropdownMenuItem<String>(
                 value: e,
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -67,8 +68,8 @@ class MyFormBuilderDropdownPageSize extends StatelessWidget {
             .toList(),
         onChanged: (value) async {
           resultSearchController.resetFirstPage();
-          resultSearchController.pageSize.value = value!;
-          resultSearchController.update();
+          resultSearchController.updatePageSize(value as int);
+
           resultSearchController.datarows.clear();
           resultSearchController.update();
           optionSearchController.searchs.clear();

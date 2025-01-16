@@ -1,6 +1,6 @@
 import 'package:dc_datatable_paginator/dc_datatable_paginator.dart';
 import 'package:deedsuser/models/datashow_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 
 final List<Map<String, dynamic>> datas = [

@@ -22,7 +22,23 @@ class UserController extends GetxController {
   Future<void> saveEmail(String newValue) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('email', newValue);
+
     username.text = newValue;
+    update();
+  }
+
+  Future<void> savePassword(String newValue) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('password', newValue);
+
+    password.text = newValue;
+    update();
+  }
+
+  Future<void> loadPassword() async {
+    final prefs = await SharedPreferences.getInstance();
+    password.text = prefs.getString('password') ?? '';
+
     update();
   }
 

@@ -37,7 +37,7 @@ class MyTextFormFilterFieldDigit extends StatelessWidget {
         decoration: InputDecoration(
           floatingLabelAlignment: FloatingLabelAlignment.center,
           alignLabelWithHint: true,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labelTitle,
           labelStyle: Responsive.isDesktop(context)
               ? CustomTextStyle().textStyleDesktopkSecondrayColor

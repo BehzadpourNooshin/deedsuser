@@ -50,6 +50,7 @@ import 'package:deedsuser/models/tables_model.dart';
 import 'package:deedsuser/models/reportsbycategory_model.dart';
 import 'package:deedsuser/models/updatenotes_model.dart';
 import 'package:deedsuser/utils/constant.dart';
+import 'package:deedsuser/views/widgets/barchart.dart';
 import 'package:deedsuser/views/widgets/columnchart.dart';
 import 'package:deedsuser/views/widgets/linechart.dart';
 import 'package:deedsuser/views/widgets/piechartwidget.dart';
@@ -61,7 +62,7 @@ import 'package:http/http.dart' as http;
 import 'package:deedsuser/models/accounts_model.dart';
 
 class Network {
-  var baseUrl = 'http://10.1.54.51:8088';
+  var baseUrl = 'http://deeds.tci.ir:8088';
   var fixUrl = '/api/v1/';
   static bool isConnect = false;
   LoginResponseController loginresponsecontroller =
@@ -531,13 +532,15 @@ class Network {
                     if (kDebugMode) {
                       print(reporttitles.length);
                     }
-                    reportsByCategoryController.reportsbycategory
-                        .add(ReportsByCategoryModel(
-                      categoryName: categoryName,
-                      categoryDisplayTitle: categoryDisplayTitle,
-                      reports: reporttitles,
-                    ));
-                    reportsByCategoryController.update();
+                    if (reports.isNotEmpty) {
+                      reportsByCategoryController.reportsbycategory
+                          .add(ReportsByCategoryModel(
+                        categoryName: categoryName,
+                        categoryDisplayTitle: categoryDisplayTitle,
+                        reports: reporttitles,
+                      ));
+                      reportsByCategoryController.update();
+                    }
                   }
                   reportsByCategoryController.update();
                   result = true;
@@ -695,13 +698,7 @@ class Network {
                                     description: item['description'])),
                             updateNoteController.update()
                           }
-                        : {
-                            updateNoteController.updateNotes.add(
-                                UpdatenotesModel(
-                                    version: item['version'],
-                                    description: item['description'])),
-                            updateNoteController.update()
-                          };
+                        : null;
                   }
                   updateNoteController.update();
                   result = true;
@@ -1186,14 +1183,15 @@ class Network {
       var formItemValidationType;
       var formItemInputTypeHint;
       var inputServiceInfo = [];
-      var filterForm;
+      var filterForm = [];
       var lookupName;
       var parameterName;
       var parameterType;
       var parameterInputType;
-
+      var parentLookupName = '';
       var reportCategory;
       var dataTableDto;
+      var parentLookups = [];
       var displayTitle;
       filterController.filter.clear();
       filterController.update();
@@ -1201,6 +1199,8 @@ class Network {
       chartController.update();
       dataTableController.table.clear();
       dataTableController.update();
+      fullReportController.parentLookups.clear();
+      fullReportController.update();
       try {
         await http
             .post(
@@ -1336,6 +1336,15 @@ class Network {
                                 formItemInputTypeHint =
                                     filter['formItemInputTypeHint'],
                                 lookupName = filter['lookupName'],
+                                filter['parentLookupName'] != null
+                                    ? {
+                                        parentLookupName =
+                                            filter['parentLookupName'],
+                                        fullReportController.parentLookups
+                                            .add(parentLookupName),
+                                        fullReportController.update(),
+                                      }
+                                    : null,
                                 if (formItemInputType == 'Range')
                                   {
                                     filterController.filter.add(FilterModel(
@@ -1349,6 +1358,7 @@ class Network {
                                         formItemInputTypeHint:
                                             formItemInputTypeHint,
                                         lookupName: lookupName,
+                                        parentLookupName: parentLookupName,
                                         textEditingController:
                                             TextEditingController())),
                                     filterController.filter.add(FilterModel(
@@ -1361,6 +1371,7 @@ class Network {
                                         formItemInputTypeHint:
                                             formItemInputTypeHint,
                                         lookupName: lookupName,
+                                        parentLookupName: parentLookupName,
                                         textEditingController:
                                             TextEditingController(),
                                         formItemTitle: formItemTitle)),
@@ -1378,6 +1389,7 @@ class Network {
                                         formItemInputTypeHint:
                                             formItemInputTypeHint,
                                         lookupName: lookupName,
+                                        parentLookupName: parentLookupName,
                                         textEditingController:
                                             TextEditingController())),
                                   }
@@ -1531,6 +1543,292 @@ class Network {
     }
   }
 
+  Future<bool> getChartData(
+      {required String accessToken,
+      required String dbTableName,
+      required String sumField,
+      required String chartType,
+      required String title,
+      required String groupByField}) async {
+    FullReportController fullReportController = Get.put(FullReportController());
+    var table = fullReportController.selectedreport[0].table[0];
+    if (kDebugMode) {
+      print(table.fields);
+    }
+    bool result = false;
+    late List<MyColumnChartData> myColumnChartData;
+    late List<MyPieChartData> myPieChartData;
+    late List<MyLineChartData> myLineChartData;
+    late List<MyBarChartData> myBarChartData;
+    List<double> sumFieldResult = [];
+    List<String> groupByFieldResult = [];
+
+    // updateUserController.refreshtoken.text =
+    //     'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJiZWh6YWRwb3Vybm9vc2hpbkBnbWFpbC5jb20iLCJpYXQiOjE3MTI4MjIzOTUsImV4cCI6MTcxMjkwODc5NX0.31Iqg0MIAaBDxl3RJQDAR5pe522wzxLFvhivkpwBXiI';
+    try {
+      await http
+          .get(
+            urlWithProperties(
+                'dynamicTable/searchChart?dbTableName=$dbTableName&sumField=$sumField&groupByField=$groupByField'),
+            headers: {
+              'Authorization': 'Bearer $accessToken',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(const Duration(seconds: 50))
+          .then((response) async {
+            if (response.statusCode == 200) {
+              var jsonMap1 = utf8.decode(response.bodyBytes);
+              var jsonMap = jsonDecode(jsonMap1);
+              var code = jsonMap["code"];
+              var data = jsonMap["data"];
+              if (code == '200') {
+                //
+                if (data.isNotEmpty) {
+                  result = true;
+                  for (var item in data) {
+                    sumFieldResult.add(item[sumField]);
+                    groupByFieldResult.add(item[groupByField]);
+                  }
+
+                  if (chartType == 'column') {
+                    myColumnChartData = [];
+
+                    for (int i = 0; i < groupByFieldResult.length; i++) {
+                      myColumnChartData.add(MyColumnChartData(
+                          groupByFieldResult[i], sumFieldResult[i]));
+                    }
+                    _resultSearchController.columnchartdatasource.add(
+                        ColumnChartModel(
+                            dataSource: myColumnChartData, title: title));
+                    _resultSearchController.update();
+                  }
+                  if (chartType == 'line') {
+                    myLineChartData = [];
+
+                    for (int i = 0; i < groupByFieldResult.length; i++) {
+                      myLineChartData.add(MyLineChartData(
+                          groupByFieldResult[i], sumFieldResult[i]));
+                    }
+                    _resultSearchController.linechartdatasource.add(
+                        LineChartModel(
+                            dataSource: myLineChartData, title: title));
+                    _resultSearchController.update();
+                  }
+
+                  if (chartType == 'pie') {
+                    myPieChartData = [];
+
+                    for (int i = 0; i < groupByFieldResult.length; i++) {
+                      myPieChartData.add(MyPieChartData(
+                          groupByFieldResult[i], sumFieldResult[i]));
+                    }
+
+                    _resultSearchController.piechartdatasource.add(
+                        PieChartModel(
+                            dataSource: myPieChartData, title: title));
+                    _resultSearchController.update();
+                  }
+                  if (chartType == 'bar') {
+                    myBarChartData = [];
+
+                    for (int i = 0; i < groupByFieldResult.length; i++) {
+                      myBarChartData.add(MyBarChartData(
+                          groupByFieldResult[i], sumFieldResult[i]));
+                    }
+
+                    _resultSearchController.barchartdatasource.add(
+                        BarChartModel(
+                            dataSource: myBarChartData, title: title));
+                    _resultSearchController.update();
+                  }
+                }
+              } else {
+                var data = jsonMap["data"];
+                // if (data.isNotEmpty) {
+                //   makeErrorHandling(code, data);
+                // }
+              }
+            } else {
+              var jsonMap1 = utf8.decode(response.bodyBytes);
+              var jsonMap = jsonDecode(jsonMap1);
+              var data = jsonMap["data"];
+              var code = jsonMap["code"];
+
+              // if (data.isNotEmpty) {
+              //   makeErrorHandling(code, data);
+              // } else {
+              //   makeErrorHandlingWithHttpStatus(response.statusCode);
+              // }
+            }
+          });
+    } on TimeoutException catch (_) {
+      // Handle timeout exception specifically
+      if (kDebugMode) {
+        print("Request timed out");
+      }
+      // You can handle timeout specific logic here
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return Future<bool>.value(result);
+    //}
+  }
+
+  Future<bool> getItemChild(
+      {required String accessToken,
+      required int index,
+      required String parentGroupName,
+      required String parentTitle,
+      required String groupName}) async {
+    bool result = false;
+
+    fullReportController.fullreports[0].filters[index].items.clear();
+    fullReportController.fullreports[0].filters[index].itemsTitle.clear();
+    fullReportController.update();
+    try {
+      await http
+          .get(
+            urlWithProperties(
+                'lookup/getAllLookupsByParentGroupName/groupName/parentTitle?parentGroupName=$parentGroupName&groupName=$groupName&parentTitle=$parentTitle'),
+            headers: {
+              'Authorization': 'Bearer $accessToken',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(const Duration(seconds: 50))
+          .then((response) async {
+            if (response.statusCode == 200) {
+              var jsonMap1 = utf8.decode(response.bodyBytes);
+              var jsonMap = jsonDecode(jsonMap1);
+              var code = jsonMap["code"];
+              var data = jsonMap["data"];
+
+              if (code == '200') {
+                if (data.isNotEmpty) {
+                  for (var child in data) {
+                    fullReportController
+                        .fullreports[0].filters[index].itemsTitle
+                        .add(child['title']);
+                    fullReportController.fullreports[0].filters[index].items
+                        .add(child['displayTitle']);
+                    fullReportController.update();
+                  }
+
+                  result = true;
+                }
+              } else {
+                var data = jsonMap["data"];
+                if (data.isNotEmpty) {
+                  makeErrorHandling(code, data);
+                }
+              }
+            } else {
+              var jsonMap1 = utf8.decode(response.bodyBytes);
+              var jsonMap = jsonDecode(jsonMap1);
+              var data = jsonMap["data"];
+              var code = jsonMap["code"];
+
+              if (data.isNotEmpty) {
+                makeErrorHandling(code, data);
+              } else {
+                makeErrorHandlingWithHttpStatus(response.statusCode);
+              }
+            }
+          });
+    } on TimeoutException catch (_) {
+      // Handle timeout exception specifically
+      if (kDebugMode) {
+        print("Request timed out");
+      }
+      // You can handle timeout specific logic here
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return Future<bool>.value(result);
+    //}
+  }
+
+  Future<bool> getAllItemChild(
+      {required String accessToken,
+      required int index,
+      required String groupName}) async {
+    bool result = false;
+
+    fullReportController.fullreports[0].filters[index].items.clear();
+    fullReportController.fullreports[0].filters[index].itemsTitle.clear();
+    fullReportController.update();
+    try {
+      await http
+          .post(
+            urlWithProperties('reporting/getAllLookupsByGroupName'),
+            headers: {
+              'Authorization': 'Bearer $accessToken',
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode({'groupName': groupName}),
+          )
+          .timeout(const Duration(seconds: 50))
+          .then((response) async {
+        if (response.statusCode == 200) {
+          var jsonMap1 = utf8.decode(response.bodyBytes);
+          var jsonMap = jsonDecode(jsonMap1);
+          var code = jsonMap["code"];
+          var data = jsonMap["data"];
+
+          if (code == '200') {
+            if (data.isNotEmpty) {
+              for (var child in data) {
+                fullReportController.fullreports[0].filters[index].itemsTitle
+                    .add(child['title']);
+                fullReportController.fullreports[0].filters[index].items
+                    .add(child['displayTitle']);
+                fullReportController.update();
+              }
+
+              result = true;
+            }
+          } else {
+            var data = jsonMap["data"];
+            if (data.isNotEmpty) {
+              makeErrorHandling(code, data);
+            }
+          }
+        } else {
+          var jsonMap1 = utf8.decode(response.bodyBytes);
+          var jsonMap = jsonDecode(jsonMap1);
+          var data = jsonMap["data"];
+          var code = jsonMap["code"];
+
+          if (data.isNotEmpty) {
+            makeErrorHandling(code, data);
+          } else {
+            makeErrorHandlingWithHttpStatus(response.statusCode);
+          }
+        }
+      });
+    } on TimeoutException catch (_) {
+      // Handle timeout exception specifically
+      if (kDebugMode) {
+        print("Request timed out");
+      }
+      // You can handle timeout specific logic here
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return Future<bool>.value(result);
+    //}
+  }
+
   Future<bool> getData({
     required String accessToken,
     required OptionSearchController optionSearchController,
@@ -1572,8 +1870,8 @@ class Network {
           var jsonMap = jsonDecode(jsonMap1);
           var code = jsonMap["code"];
           var data = jsonMap["data"];
+
           if (code == '200') {
-            //
             if (data.isNotEmpty) {
               if (data['empty'] == false) {
                 totalPages = data['totalPages'];
@@ -1594,8 +1892,12 @@ class Network {
                   for (var column in table.fields) {
                     if (column.columnDBFieldName
                             .toString()
+                            .toLowerCase()
                             .replaceAll(' ', '') ==
-                        header[i].toString().replaceAll(' ', '')) {
+                        header[i]
+                            .toString()
+                            .toLowerCase()
+                            .replaceAll(' ', '')) {
                       header[i] = column.columnTitle;
                     }
                   }
@@ -1683,27 +1985,27 @@ class Network {
   }) async {
     bool result = false;
     List header = [];
+    List<String> partialTitle = [];
     List dataRows = [];
     List<int> priority = [];
     int totalPages = 0;
     int number = 0;
     int totalElements = 0;
     bool last = false;
-    late List<MyColumnChartData> myColumnChartData;
-    late List<MyPieChartData> myPieChartData;
-    late List<MyLineChartData> myLineChartData;
+
     FullReportController fullReportController = Get.put(FullReportController());
     var table = fullReportController.selectedreport[0].table[0];
     if (kDebugMode) {
       print(table.fields);
     }
-    _resultSearchController.headersForProperties.clear();
-    _resultSearchController.datarowsForProperties.clear();
-    _resultSearchController.resultForProperties.clear();
     _resultSearchController.columnchartdatasource.clear();
     _resultSearchController.piechartdatasource.clear();
     _resultSearchController.linechartdatasource.clear();
+    _resultSearchController.barchartdatasource.clear();
     _resultSearchController.chartWidget.clear();
+
+    _resultSearchController.headersForProperties.clear();
+    _resultSearchController.datarowsForProperties.clear();
     _resultSearchController.update();
     // updateUserController.refreshtoken.text =
     //     'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJiZWh6YWRwb3Vybm9vc2hpbkBnbWFpbC5jb20iLCJpYXQiOjE3MTI4MjIzOTUsImV4cCI6MTcxMjkwODc5NX0.31Iqg0MIAaBDxl3RJQDAR5pe522wzxLFvhivkpwBXiI';
@@ -1797,179 +2099,87 @@ class Network {
                 _resultSearchController.update();
                 result = true;
                 if (fullReportController.selectedreport[0].chart.isNotEmpty) {
+                  var dbTableName = fullReportController
+                      .selectedreport[0].table[0].dbTableName;
+                  var sumField = '';
+                  var groupByField = '';
+
                   for (int m = 0;
                       m < fullReportController.selectedreport[0].chart.length;
                       m++) {
-                    List<int> elements = [];
-                    if (fullReportController
-                            .selectedreport[0].chart[m].chartType
-                            .toString()
-                            .replaceAll(' ', '') ==
-                        'column') {
-                      myColumnChartData = [];
+                    partialTitle = [];
+                    sumField = 'nothing';
+                    groupByField = 'nothing';
+                    for (int k = 0;
+                        k <
+                            fullReportController
+                                .selectedreport[0].chart[m].chartFields.length;
+                        k++) {
                       for (int j = 0;
                           j <
-                              _resultSearchController
-                                  .headersForProperties.length;
-                          j++) {
-                        for (int k = 0;
-                            k <
-                                fullReportController.selectedreport[0].chart[m]
-                                    .chartFields.length;
-                            k++) {
-                          if (_resultSearchController.headersForProperties[j]
-                                  .toString()
-                                  .replaceAll(' ', '') ==
                               fullReportController
+                                  .selectedreport[0].table[0].fields.length;
+                          j++) {
+                        if (fullReportController.selectedreport[0].table[0]
+                                .fields[j].columnTitle
+                                .toString()
+                                .toLowerCase()
+                                .replaceAll(' ', '') ==
+                            fullReportController
+                                .selectedreport[0].chart[m].chartFields[k]
+                                .toString()
+                                .toLowerCase()
+                                .replaceAll(' ', '')) {
+                          for (int n = 0;
+                              n <
+                                  fullReportController
+                                      .selectedreport[0].filters.length;
+                              n++) {
+                            if (fullReportController.selectedreport[0].table[0]
+                                    .fields[j].columnDBFieldName
+                                    .toString()
+                                    .toLowerCase()
+                                    .replaceAll(' ', '') ==
+                                fullReportController
+                                    .selectedreport[0].filters[n].formItemTitle
+                                    .toString()
+                                    .toLowerCase()
+                                    .replaceAll(' ', '')) {
+                              partialTitle.add(fullReportController
                                   .selectedreport[0].chart[m].chartFields[k]
                                   .toString()
-                                  .replaceAll(' ', '')) {
-                            elements.add(j);
+                                  .toLowerCase());
+                              if (fullReportController.selectedreport[0]
+                                      .filters[n].formItemType ==
+                                  'String') {
+                                groupByField = fullReportController
+                                    .selectedreport[0]
+                                    .table[0]
+                                    .fields[j]
+                                    .columnDBFieldName;
+                              } else {
+                                sumField = fullReportController
+                                    .selectedreport[0]
+                                    .table[0]
+                                    .fields[j]
+                                    .columnDBFieldName;
+                              }
+                            }
                           }
                         }
                       }
-
-                      for (int i = 0;
-                          i <
-                              _resultSearchController
-                                  .datarowsForProperties.length;
-                          i++) {
-                        myColumnChartData.add(MyColumnChartData(
-                            _resultSearchController.datarowsForProperties[i]
-                                [elements[1]],
-                            _resultSearchController.datarowsForProperties[i]
-                                [elements[0]]));
-                      }
-                      _resultSearchController.columnchartdatasource
-                          .add(ColumnChartModel(dataSource: myColumnChartData));
-                      _resultSearchController.update();
                     }
 
-                    if (fullReportController
-                            .selectedreport[0].chart[m].chartType
-                            .toString()
-                            .replaceAll(' ', '') ==
-                        'line') {
-                      myLineChartData = [];
-                      for (int j = 0;
-                          j <
-                              _resultSearchController
-                                  .headersForProperties.length;
-                          j++) {
-                        for (int k = 0;
-                            k <
-                                fullReportController.selectedreport[0].chart[m]
-                                    .chartFields.length;
-                            k++) {
-                          if (_resultSearchController.headersForProperties[j]
-                                  .toString()
-                                  .replaceAll(' ', '') ==
-                              fullReportController
-                                  .selectedreport[0].chart[m].chartFields[k]
-                                  .toString()
-                                  .replaceAll(' ', '')) {
-                            elements.add(j);
-                          }
-                        }
-                      }
-
-                      for (int i = 0;
-                          i <
-                              _resultSearchController
-                                  .datarowsForProperties.length;
-                          i++) {
-                        myLineChartData.add(MyLineChartData(
-                            int.parse(_resultSearchController
-                                .datarowsForProperties[i][elements[1]]),
-                            double.parse(_resultSearchController
-                                .datarowsForProperties[i][elements[0]])));
-                      }
-
-                      _resultSearchController.linechartdatasource
-                          .add(LineChartModel(dataSource: myLineChartData));
-                      _resultSearchController.update();
-                    }
-                    if (fullReportController
-                            .selectedreport[0].chart[m].chartType
-                            .toString()
-                            .replaceAll(' ', '') ==
-                        'pie') {
-                      myPieChartData = [];
-                      for (int j = 0;
-                          j <
-                              _resultSearchController
-                                  .headersForProperties.length;
-                          j++) {
-                        for (int k = 0;
-                            k <
-                                fullReportController.selectedreport[0].chart[m]
-                                    .chartFields.length;
-                            k++) {
-                          if (_resultSearchController.headersForProperties[j]
-                                  .toString()
-                                  .replaceAll(' ', '') ==
-                              fullReportController
-                                  .selectedreport[0].chart[m].chartFields[k]
-                                  .toString()
-                                  .replaceAll(' ', '')) {
-                            elements.add(j);
-                          }
-                        }
-                      }
-                      // var titles = [];
-                      // for (int i = 0;
-                      //     i <
-                      //         _resultSearchController
-                      //             .datarowsForProperties.length;
-                      //     i++) {
-                      //   titles.add(_resultSearchController
-                      //       .datarowsForProperties[i][elements[0]]);
-                      // }
-                      // var titles2 = titles.toSet().toList();
-                      // for (var title in titles) {
-                      //   bool find = false;
-                      //   if (titles2.isEmpty) {
-                      //     titles2.add(title);
-                      //   } else {
-                      //     for (var myTitle in titles2) {
-                      //       if (myTitle
-                      //               .toString()
-                      //               .toLowerCase()
-                      //               .replaceAll(' ', '') ==
-                      //           title
-                      //               .toString()
-                      //               .toLowerCase()
-                      //               .replaceAll(' ', '')) {
-                      //         find = true;
-                      //       }
-                      //     }
-                      //     if (find == false) {
-                      //       titles2.add(title);
-                      //     }
-                      //   }
-                      // }
-                      // print(titles2.length);
-                      // for (var title in titles2) {
-                      //   print(title);
-                      // }
-                      // double groupTo = max(1, titles2.length.toDouble() - 1);
-                      // print(groupTo);
-
-                      for (int i = 0;
-                          i <
-                              _resultSearchController
-                                  .datarowsForProperties.length;
-                          i++) {
-                        myPieChartData.add(MyPieChartData(
-                            _resultSearchController.datarowsForProperties[i]
-                                [elements[0]],
-                            _resultSearchController.datarowsForProperties[i]
-                                [elements[1]]));
-                      }
-
-                      _resultSearchController.piechartdatasource
-                          .add(PieChartModel(dataSource: myPieChartData));
-                      _resultSearchController.update();
+                    if (sumField != 'nothing' && groupByField != 'nothing') {
+                      await Network().getChartData(
+                          accessToken: accessToken,
+                          dbTableName: dbTableName,
+                          title:
+                              'نمودار ${partialTitle[1]} برحسب ${partialTitle[0]}',
+                          sumField: sumField,
+                          chartType: fullReportController
+                              .selectedreport[0].chart[m].chartType,
+                          groupByField: groupByField);
                     }
                   }
                 }
@@ -2015,6 +2225,7 @@ class Network {
     required OptionSearchController optionSearchController,
   }) async {
     bool result = false;
+    List tempHeader = [];
     List header = [];
     List dataRows = [];
 
@@ -2053,62 +2264,62 @@ class Network {
                 result = true;
                 jsonController.jsonText.value = jsonEncode(body);
                 jsonController.update();
-                var finalContent;
-                var content1 = content['result'];
-                var content2 = content1['data'];
-
-                // if (content3.isNotEmpty) {
-                //   finalContent = content3;
-                // } else
-                if (content2.isNotEmpty) {
-                  finalContent = content2;
-                } else if (content1.isNotEmpty) {
-                  finalContent = content1;
-                } else {
-                  finalContent = content;
-                }
                 result = true;
+                var data2;
                 var flatJson = data["flatJson"];
-                if (flatJson.isNotEmpty) {
-                  var data2 = data["flatJson"];
-                  data2.forEach((element) {
-                    element.forEach((key, value) {
+                if (flatJson == null) {
+                  data2 = content["result"];
+
+                  data2 = data2["data"];
+                } else {
+                  data2 = flatJson;
+
+                  if (data2 != null) {
+                    data2 = flatJson["data"];
+                  }
+                }
+                data2.forEach((element) {
+                  element.forEach((key, value) {
+                    var tempKey = key.toString().replaceAll('.', '-');
+                    tempKey = tempKey
+                        .toString()
+                        .replaceAll(RegExp(r'data\-\[\d+\]\-'), '');
+                    if (tempKey != 'message') {
+                      header.add(tempKey);
                       dataRows.add(value);
-
-                      header.add(key.toString().replaceAll('.', '-'));
-                    });
+                    }
                   });
+                });
 
-                  for (var title in header) {
-                    if (jsonController.headers.isEmpty) {
-                      jsonController.headers.add(title);
-                      jsonController.update();
-                    } else {
-                      bool find = false;
-                      for (var head in jsonController.headers) {
-                        if (head == title) {
-                          find = true;
-                        }
-                      }
-                      if (find == false) {
-                        jsonController.headers.add(title);
-                        jsonController.update();
+                for (var title in header) {
+                  if (jsonController.headers.isEmpty) {
+                    jsonController.headers.add(title);
+                    jsonController.update();
+                  } else {
+                    bool find = false;
+                    for (var head in jsonController.headers) {
+                      if (head == title) {
+                        find = true;
                       }
                     }
+                    if (find == false) {
+                      jsonController.headers.add(title);
+                      jsonController.update();
+                    }
                   }
+                }
 
-                  int chunkSize = jsonController.headers.length;
-                  for (var i = 0; i < dataRows.length; i += chunkSize) {
-                    jsonController.datarows.add(dataRows.sublist(
-                        i,
-                        i + chunkSize > dataRows.length
-                            ? dataRows.length
-                            : i + chunkSize));
-                    jsonController.update();
-                  }
-
+                int chunkSize = jsonController.headers.length;
+                for (var i = 0; i < dataRows.length; i += chunkSize) {
+                  jsonController.datarows.add(dataRows.sublist(
+                      i,
+                      i + chunkSize > dataRows.length
+                          ? dataRows.length
+                          : i + chunkSize));
                   jsonController.update();
                 }
+
+                jsonController.update();
               }
             }
           } else {
@@ -2174,8 +2385,8 @@ class Network {
           }
           var code = jsonMap["code"];
           var data = jsonMap["data"];
-          var items = [];
-          var itemsTitle = [];
+          late RxList<String> items = <String>[].obs;
+          late RxList<String> itemsTitle = <String>[].obs;
 
           if (code == '200') {
             if (data.isNotEmpty) {
@@ -2187,8 +2398,10 @@ class Network {
                   itemsTitle.add(item['title']);
                 }
               }
+
               filterController.filter[index].items = items;
               filterController.filter[index].itemsTitle = itemsTitle;
+
               filterController.update();
             }
           } else {
@@ -2283,10 +2496,9 @@ class Network {
                 }
               }
             } else {
-              var jsonMap1 = utf8.decode(response.bodyBytes);
-              var jsonMap = jsonDecode(jsonMap1);
-              var data = jsonMap["data"];
+              var jsonMap = json.decode(response.body);
               var code = jsonMap["code"];
+              var data = jsonMap["data"];
 
               if (data.isNotEmpty) {
                 makeErrorHandling(code, data);

@@ -3,11 +3,13 @@ import 'package:deedsuser/controllers/errorhandeling_controller.dart';
 import 'package:deedsuser/controllers/loginresponse_controller.dart';
 import 'package:deedsuser/models/fullreport_model.dart';
 import 'package:deedsuser/utils/api_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FullReportController extends GetxController {
   RxList<FullReportModel> fullreports = <FullReportModel>[].obs;
+  RxList<String> parentLookups = <String>[].obs;
   RxList<FullReportModel> selectedreport = <FullReportModel>[].obs;
   var reportname = ''.obs;
   bool isAdd = false;
@@ -16,6 +18,16 @@ class FullReportController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('reportname', newValue);
     reportname.value = newValue;
+  }
+
+  var rebuildKey = UniqueKey().obs;
+
+  void rebuildPage() {
+    rebuildKey = UniqueKey().obs;
+  }
+
+  Future<void> refreshToken() async {
+    await Network().refreshToken();
   }
 
   Future<void> loadReportName() async {

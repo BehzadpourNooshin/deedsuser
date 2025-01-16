@@ -13,7 +13,7 @@ class BasicDashboardInfoController extends GetxController {
   Future<void> getBasicinfo() async {
     LoginResponseController loginResponseController =
         Get.put(LoginResponseController());
-    await loginResponseController.loadAccessToken();
+
     ErrorhandelingController errorhandelingController =
         Get.put(ErrorhandelingController());
     CornometerController cornometerController = Get.put(CornometerController());
@@ -22,9 +22,9 @@ class BasicDashboardInfoController extends GetxController {
     await userController.loadEmail();
     await loginResponseController.loadIsLoggedIn();
     cornometerController.loadTimerDuration();
-    loginResponseController.update();
-    userController.update();
-    await Network().refreshToken();
+    // loginResponseController.update();
+    // userController.update();
+    // await Network().refreshToken();
     await Network()
         .getBasiInfo(accessToken: loginResponseController.accesstoken.text)
         ?.then((value) async {

@@ -26,10 +26,14 @@ class LoginResponseController extends GetxController {
   }
 
   Future<void> saveAccessToken(String newValue) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('accesstoken', newValue);
+    if (newValue.isNotEmpty) {
+      final prefs = await SharedPreferences.getInstance();
 
-    accesstokenstorage.value = newValue;
+      await prefs.setString('accesstoken', newValue);
+
+      accesstokenstorage.value = newValue;
+      accesstoken.text = newValue;
+    }
   }
 
   Future<void> saveIsLoggedIn(bool newValue) async {
@@ -104,6 +108,8 @@ class LoginResponseController extends GetxController {
         colorText: kCardColor,
       );
     }
+    // await prefs.remove('email');
+    await prefs.remove('accesstoken');
     await Get.deleteAll(force: true);
 
     await Get.offAllNamed('/');

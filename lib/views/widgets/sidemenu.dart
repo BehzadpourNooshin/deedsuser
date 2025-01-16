@@ -14,6 +14,7 @@ import 'package:deedsuser/controllers/reportbasecategory_controller.dart';
 import 'package:deedsuser/controllers/reportsbycategory_controller.dart';
 import 'package:deedsuser/controllers/resultsearch_controller.dart';
 import 'package:deedsuser/controllers/search_controller.dart';
+import 'package:deedsuser/controllers/selectedcategory_controller.dart';
 import 'package:deedsuser/controllers/updateuser_controller.dart';
 import 'package:deedsuser/controllers/user_controller.dart';
 import 'package:deedsuser/functions/dialog.dart';
@@ -22,8 +23,11 @@ import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
 import 'package:deedsuser/views/widgets/mysidebartextbutton.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:persian_tools/persian_tools.dart';
 import 'dart:async';
 import '../../controllers/offlinemenu_controller.dart';
 import '../../controllers/onlinemenu_controller.dart';
@@ -75,6 +79,8 @@ class CollapsibleSidebar extends GetView<CategoryController> {
 
   APICallController apiCallController = Get.put(APICallController());
   ExpantionController expantionController = Get.put(ExpantionController());
+  final SelectedCategoryController selectedCategoryController =
+      Get.put(SelectedCategoryController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,213 +134,225 @@ class CollapsibleSidebar extends GetView<CategoryController> {
                             ),
                             SideMenuConstant().sizedBoxSideMenu,
                             MyTextButtonSideBar(
-                                myicon: Icon(
-                                  SideMenuConstant().report['icon'],
-                                  size: SideMenuConstant().iconSize,
-                                  color: kCardColor,
-                                ),
-                                name: SideMenuConstant().report['name'],
-                                function: () async {
+                              myicon: Icon(
+                                SideMenuConstant().report['icon'],
+                                size: SideMenuConstant().iconSize,
+                                color: kCardColor,
+                              ),
+                              name: SideMenuConstant().report['name'],
+                              function: () async {
+                                reportsByCategoryController
+                                        .categoriesLoading.value =
+                                    !reportsByCategoryController
+                                        .categoriesLoading.value;
+
+                                reportsByCategoryController.update();
+                                if (reportsByCategoryController
+                                    .categoriesLoading.value) {
+                                  showDialogApiCallBefore(context);
                                   reportsByCategoryController
-                                          .categoriesLoading.value =
-                                      !reportsByCategoryController
-                                          .categoriesLoading.value;
-
+                                      .reportsbycategoryshow
+                                      .clear();
+                                  reportsByCategoryController
+                                      .reportsbycategoryshowmarketplace
+                                      .clear();
                                   reportsByCategoryController.update();
-                                  if (reportsByCategoryController
-                                      .categoriesLoading.value) {
-                                    showDialogApiCallBefore(context);
-                                    reportsByCategoryController
-                                        .reportsbycategoryshow
-                                        .clear();
-                                    reportsByCategoryController
-                                        .reportsbycategoryshowmarketplace
-                                        .clear();
-                                    reportsByCategoryController.update();
-                                    expantionController.resetSelectedCategory();
-                                    dateTimeController.resetDateTime();
+                                  expantionController.resetSelectedCategory();
+                                  dateTimeController.resetDateTime();
+                                  dateTimeController.update();
 
-                                    dateTimeController.update();
-
-                                    await Network().refreshToken();
-                                    await Network()
-                                        .allreportbasetcategory(
-                                            accessToken: loginResponseController
-                                                .accesstoken.text)!
-                                        .then((value) async {
-                                      if (value == false) {
-                                        apiCallAfter(context);
-                                        errorhandelingController
-                                                    .errorTitleMessage.value ==
-                                                'خطای نشست'
-                                            ? {
-                                                await loginResponseController
-                                                    .logout(409)
-                                              }
-                                            : errorhandelingController
-                                                        .errorTitleMessage
-                                                        .value ==
-                                                    'خطای توکن'
-                                                ? {
-                                                    await loginResponseController
-                                                        .logout(401)
-                                                  }
-                                                : Network.showInternetError(
-                                                    context,
-                                                    errorhandelingController
-                                                        .errorSubTitleMessage
-                                                        .value);
+                                  await Network().refreshToken();
+                                  await Network()
+                                      .allreportbasetcategory(
+                                          accessToken: loginResponseController
+                                              .accesstoken.text)!
+                                      .then((value) async {
+                                    if (value == false) {
+                                      apiCallAfter(context);
+                                      if (errorhandelingController
+                                              .errorTitleMessage.value ==
+                                          'خطای نشست') {
+                                        await loginResponseController
+                                            .logout(409);
+                                      } else if (errorhandelingController
+                                              .errorTitleMessage.value ==
+                                          'خطای توکن') {
+                                        await loginResponseController
+                                            .logout(401);
                                       } else {
-                                        apiCallAfter(context);
-                                        for (var category
-                                            in reportsByCategoryController
-                                                .reportsbycategory) {
-                                          reportsByCategoryController
-                                              .reportsbycategoryshow
-                                              .add(category);
-                                          reportsByCategoryController
-                                              .reportsbycategoryshowmarketplace
-                                              .add(category);
-                                          reportsByCategoryController.update();
-                                        }
+                                        Network.showInternetError(
+                                            context,
+                                            errorhandelingController
+                                                .errorSubTitleMessage.value);
+                                      }
+                                    } else {
+                                      apiCallAfter(context);
+                                      for (var category
+                                          in reportsByCategoryController
+                                              .reportsbycategory) {
+                                        reportsByCategoryController
+                                            .reportsbycategoryshow
+                                            .add(category);
+                                        reportsByCategoryController
+                                            .reportsbycategoryshowmarketplace
+                                            .add(category);
                                         reportsByCategoryController.update();
                                       }
-                                    });
-                                  } else {
-                                    reportsByCategoryController
-                                        .reportsbycategoryshow
-                                        .clear();
+                                    }
+                                  });
+                                } else {
+                                  reportsByCategoryController
+                                      .reportsbycategoryshow
+                                      .clear();
+                                  reportsByCategoryController
+                                      .reportsbycategoryshowmarketplace
+                                      .clear();
+                                  reportsByCategoryController.update();
+                                  for (var category
+                                      in reportsByCategoryController
+                                          .reportsbycategory) {
                                     reportsByCategoryController
                                         .reportsbycategoryshowmarketplace
-                                        .clear();
-                                    reportsByCategoryController.update();
-                                    for (var category
-                                        in reportsByCategoryController
-                                            .reportsbycategory) {
-                                      reportsByCategoryController
-                                          .reportsbycategoryshowmarketplace
-                                          .add(category);
-                                      reportsByCategoryController.update();
-                                    }
+                                        .add(category);
                                     reportsByCategoryController.update();
                                   }
+                                }
 
+                                if (!Get.currentRoute.contains('/reportview')) {
                                   Get.toNamed('/reportmarketplace');
-                                }),
+                                }
+                              },
+                            ),
                             for (var item in reportsByCategoryController
                                 .reportsbycategoryshow) ...[
                               SingleChildScrollView(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    expantionController.selectedCategory.add(
-                                        item.categoryDisplayTitle.toString());
-                                    expantionController.update();
-                                  },
-                                  child: ExpansionTile(
-                                    collapsedIconColor: kCardColor,
-                                    iconColor: kCardColor,
-                                    title: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          item.categoryDisplayTitle,
-                                          style: Responsive.isDesktop(context)
-                                              ? CustomTextStyle()
-                                                  .textStyleDesktopkCardColor
-                                              : CustomTextStyle()
-                                                  .textStyleTabletkCardColor,
-                                        ),
-                                      ],
+                                child: Obx(() {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      expantionController.selectedCategory.add(
+                                          item.categoryDisplayTitle.toString());
+                                      expantionController.update();
+                                    },
+                                    child: ExpansionTile(
+                                      collapsedIconColor: kCardColor,
+                                      iconColor: kCardColor,
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            item.categoryDisplayTitle,
+                                            style: Responsive.isDesktop(context)
+                                                ? CustomTextStyle()
+                                                    .textStyleTabletkCardColorSideMenu
+                                                : CustomTextStyle()
+                                                    .textStyleTabletkCardColorSideMenu,
+                                          ),
+                                        ],
+                                      ),
+                                      // وضعیت باز و بسته بودن دسته‌بندی با استفاده از GetX
+                                      initiallyExpanded:
+                                          reportsByCategoryController
+                                                  .openCategory.value ==
+                                              item.categoryDisplayTitle,
+                                      onExpansionChanged: (isOpen) {
+                                        reportsByCategoryController
+                                            .toggleCategory(
+                                                item.categoryDisplayTitle);
+                                      },
+                                      children: item.reports.map((report) {
+                                        return ListTile(
+                                          hoverColor:
+                                              kCardColor.withOpacity(0.2),
+                                          tileColor: reportsByCategoryController
+                                                      .selectedReport.value ==
+                                                  report.displayTitle
+                                              ? kCardColor.withOpacity(0.2)
+                                              : kPrimaryColor,
+                                          title: Text(
+                                            report.displayTitle,
+                                            textAlign: TextAlign.right,
+                                            style: Responsive.isDesktop(context)
+                                                ? CustomTextStyle()
+                                                    .textStyleTabletkCardColorSideMenu
+                                                : CustomTextStyle()
+                                                    .textStyleTabletkCardColorSideMenu,
+                                          ),
+                                          onTap: () async {
+                                            // انتخاب گزارش و به‌روزرسانی وضعیت
+                                            reportsByCategoryController
+                                                .selectReport(
+                                                    report.displayTitle);
+
+                                            jsonController.jsonText.value = '';
+                                            jsonController.headers.clear();
+                                            jsonController.datarows.clear();
+                                            jsonController.update();
+                                            resultSearchController.datarows
+                                                .clear();
+                                            resultSearchController.headers
+                                                .clear();
+                                            optionSearchController.searchs
+                                                .clear();
+                                            fullReportController.selectedreport
+                                                .clear();
+                                            fullReportController.update();
+
+                                            TextEditingController controller =
+                                                TextEditingController();
+                                            controller.text =
+                                                report.reportName.toString();
+                                            fullReportController.saveReportName(
+                                                controller.text);
+
+                                            showDialogApiCallBefore(context);
+                                            await Network().refreshToken();
+                                            await Network()
+                                                .getreportbyname(
+                                              reportName:
+                                                  report.reportName.toString(),
+                                              accessToken:
+                                                  loginResponseController
+                                                      .accesstoken.text,
+                                            )
+                                                ?.then((value) async {
+                                              if (formController
+                                                  .filter.isEmpty) {
+                                                apiCallAfter(context);
+                                                if (errorhandelingController
+                                                        .errorTitleMessage
+                                                        .value ==
+                                                    'خطای نشست') {
+                                                  await loginResponseController
+                                                      .logout(409);
+                                                } else if (errorhandelingController
+                                                        .errorTitleMessage
+                                                        .value ==
+                                                    'خطای توکن') {
+                                                  await loginResponseController
+                                                      .logout(401);
+                                                } else {
+                                                  Network.showInternetError(
+                                                      context,
+                                                      errorhandelingController
+                                                          .errorSubTitleMessage
+                                                          .value);
+                                                }
+                                              } else {
+                                                apiCallAfter(context);
+                                                fullReportController
+                                                    .saveReportName(report
+                                                        .reportName
+                                                        .toString());
+                                                Get.toNamed('/reportview');
+                                              }
+                                            });
+                                          },
+                                        );
+                                      }).toList(),
                                     ),
-                                    children: item.reports.map((report) {
-                                      return ListTile(
-                                        hoverColor: kCardColor.withOpacity(0.2),
-                                        tileColor: kPrimaryColor,
-
-                                        title: Text(
-                                          textAlign: TextAlign.right,
-                                          report.displayTitle,
-                                          style: Responsive.isDesktop(context)
-                                              ? CustomTextStyle()
-                                                  .textStyleDesktopkCardColor
-                                              : CustomTextStyle()
-                                                  .textStyleTabletkCardColor,
-                                        ),
-                                        onTap: () async {
-                                          jsonController.jsonText.value = '';
-                                          jsonController.headers.clear();
-                                          jsonController.datarows.clear();
-                                          jsonController.update();
-                                          resultSearchController.datarows
-                                              .clear();
-                                          resultSearchController.headers
-                                              .clear();
-                                          optionSearchController.searchs
-                                              .clear();
-                                          fullReportController.selectedreport
-                                              .clear();
-
-                                          fullReportController.update();
-
-                                          // apiCallController.isLoading = !apiCallController.isLoading;
-                                          // apiCallController.update();
-
-                                          TextEditingController controller =
-                                              TextEditingController();
-                                          controller.text =
-                                              report.reportName.toString();
-                                          fullReportController
-                                              .saveReportName(controller.text);
-                                          showDialogApiCallBefore(context);
-                                          await Network().refreshToken();
-                                          await Network()
-                                              .getreportbyname(
-                                                  reportName: report.reportName
-                                                      .toString(),
-                                                  accessToken:
-                                                      loginResponseController
-                                                          .accesstoken.text)
-                                              ?.then((value) async {
-                                            if (formController.filter.isEmpty) {
-                                              apiCallAfter(context);
-                                              errorhandelingController
-                                                          .errorTitleMessage
-                                                          .value ==
-                                                      'خطای نشست'
-                                                  ? {
-                                                      await loginResponseController
-                                                          .logout(409)
-                                                    }
-                                                  : errorhandelingController
-                                                              .errorTitleMessage
-                                                              .value ==
-                                                          'خطای توکن'
-                                                      ? {
-                                                          await loginResponseController
-                                                              .logout(401)
-                                                        }
-                                                      : Network.showInternetError(
-                                                          context,
-                                                          errorhandelingController
-                                                              .errorSubTitleMessage
-                                                              .value);
-                                            } else {
-                                              apiCallAfter(context);
-                                              fullReportController
-                                                  .saveReportName(report
-                                                      .reportName
-                                                      .toString());
-                                              Get.toNamed('/reportview');
-                                            }
-                                            // apiCallController.isLoading = !apiCallController.isLoading;
-                                            // apiCallController.update();
-                                          });
-                                        },
-                                        // updateUserController();
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
+                                  );
+                                }),
                               )
                             ],
                             SideMenuConstant().sidemenudivider,
@@ -358,6 +376,7 @@ class CollapsibleSidebar extends GetView<CategoryController> {
                                 function: () async {
                                   showDialogApiCallBefore(context);
                                   await Network().refreshToken();
+
                                   await Network()
                                       .allreportbasetcategory(
                                           accessToken: loginResponseController
@@ -467,7 +486,7 @@ class CollapsibleSidebar extends GetView<CategoryController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'نسخه 0.1',
+                                  convertEnToFa('3.0.1'),
                                   style: Responsive.isDesktop(context)
                                       ? CustomTextStyle()
                                           .textStyleDesktopkCardColorSideMenu
@@ -592,8 +611,9 @@ class CollapsibleSidebar extends GetView<CategoryController> {
                                   }
                                   reportsByCategoryController.update();
                                 }
-
-                                Get.toNamed('/reportmarketplace');
+                                Get.currentRoute.contains('/reportview')
+                                    ? null
+                                    : Get.toNamed('/reportmarketplace');
                               }),
                           SideMenuConstant().sidemenudivider,
                           SideMenuConstant().sizedBoxSideMenu,
@@ -662,7 +682,7 @@ class CollapsibleSidebar extends GetView<CategoryController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'نسخه 0.1',
+                                'نسخه 2.0.1',
                                 style: Responsive.isDesktop(context)
                                     ? CustomTextStyle()
                                         .textStyleDesktopkCardColorSideMenu

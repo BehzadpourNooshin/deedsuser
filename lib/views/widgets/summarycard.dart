@@ -1,5 +1,6 @@
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -105,11 +106,11 @@ class SummaryCardInfoReport extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  overflow: TextOverflow.fade,
+                  overflow: TextOverflow.ellipsis,
                   value,
-                  style: textTheme.labelLarge!.copyWith(
-                    color: textColor,
-                  ),
+                  style: Responsive.isDesktop(context)
+                      ? CustomTextStyle().textStyleDesktopKprimaryColor
+                      : CustomTextStyle().textStyleTabletKprimaryColor,
                 ),
               ),
             ]),

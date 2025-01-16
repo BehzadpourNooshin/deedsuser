@@ -11,6 +11,13 @@ class FilterController extends GetxController {
   final formItemInputTypeHint = TextEditingController();
   final selectedItem = TextEditingController();
   final isLoading = TextEditingController();
+  RxList<String> items = <String>[].obs;
+  RxList<String> itemsTitle = <String>[].obs;
+  var isRefreshed = false.obs;
+
+  void refreshPage() {
+    isRefreshed.value = !isRefreshed.value;
+  }
 
   final List filterValidator = [
     'Not null',

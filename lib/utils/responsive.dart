@@ -11,11 +11,11 @@ class Responsive extends StatelessWidget {
   final Widget desktop;
 
   const Responsive({
-    Key? key,
+    super.key,
     required this.mobile,
     this.tablet,
     required this.desktop,
-  }) : super(key: key);
+  });
 
 // This size work fine on my design, maybe you need some customization depends on your design
 
@@ -33,13 +33,13 @@ class Responsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     // If our width is more than 1100 then we consider it a desktop
-    if (_size.width >= 1100) {
+    if (size.width >= 1100) {
       return desktop;
     }
     // If width it less then 1100 and more then 850 we consider it as tablet
-    else if (_size.width >= 850 && tablet != null) {
+    else if (size.width >= 850 && tablet != null) {
       return tablet!;
     }
     // Or less then that we called it mobile
@@ -156,192 +156,235 @@ class CustomTextStyle {
   TextStyle textStyleDesktopKprimaryColorTitrdrop = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeMiddleTitrDesktop,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopKprimaryColorTitr = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeMiddleTitrDesktop,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopKprimaryColor = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopBigTitrKcardColorColor = TextStyle(
       color: kCardColor,
+      locale: const Locale('fa'),
       fontSize: FontSize().fontSizeBigTitrDesktop,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF');
   TextStyle textStyleDesktopBigTitrKprimaryColor = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeBigTitrDesktop,
-      fontFamily: 'BTitr');
+      wordSpacing: 10,
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopBigTitrKblackcolor = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeBigTitrDesktop,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopKsuccessColorTitr = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopsuccessColor = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopKerrorColorTitr = TextStyle(
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopKerrorColor = TextStyle(
       height: 0.1,
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkCardColorSideMenu = TextStyle(
       color: kCardColor,
-      fontSize: FontSize().fontSizeDesktop + 2,
-      fontFamily: 'BNazanin');
+      fontSize: FontSize().fontSizeDesktop,
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkCardColorSideMenu = TextStyle(
       color: kCardColor,
-      fontSize: FontSize().fontSizeTablet + 2,
-      fontFamily: 'BNazanin');
+      fontSize: FontSize().fontSizeTablet,
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkCardColor = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkCardColorTitr = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkSecondrayColorTitr = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkSecondrayColor = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkBlackColorTitr = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleDesktopkBlackColor = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletKprimaryColorTitr = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeTablet,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletKsuccessColorTitr = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletsuccessColor = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletKerrorColorTitr = TextStyle(
       height: 0.1,
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletKerrorColor = TextStyle(
       height: 0.1,
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletKprimaryColor = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeTablet,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkCardColor = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeTablet,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkCardColorTitr = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeTablet,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkSecondrayColorTitr = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeTablet,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkSecondrayColor = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeTablet,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkBlackColorTitr = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeTablet,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleTabletkBlackColor = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeTablet,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobileKprimaryColorTitr = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeMobile,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobileKsuccessColorTitr = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilesuccessColor = TextStyle(
       color: kSuccessColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobileKprimaryColor = TextStyle(
       color: kPrimaryColor,
       fontSize: FontSize().fontSizeMobile,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobileKerrorColorTitr = TextStyle(
       height: 0.1,
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobileKerrorColor = TextStyle(
       color: kErrorColor,
       fontSize: FontSize().fontSizeDesktop,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekCardColor = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeMobile,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekCardColorTitr = TextStyle(
       color: kCardColor,
       fontSize: FontSize().fontSizeMobile,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekSecondrayColorTitr = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeMobile,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekSecondrayColor = TextStyle(
       color: kSecondaryColor,
       fontSize: FontSize().fontSizeMobile,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekBlackColorTitr = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeMobile,
       fontWeight: FontWeight.bold,
-      fontFamily: 'BTitr');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
   TextStyle textStyleMobilekBlackColor = TextStyle(
       color: kBlackColor,
       fontSize: FontSize().fontSizeMobile,
-      fontFamily: 'BNazanin');
+      fontFamily: 'YekanBakhFaNumVF',
+      locale: const Locale('fa'));
 }
 
 class ResponsiveSizedBox {

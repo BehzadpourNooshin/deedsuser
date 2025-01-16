@@ -13,12 +13,14 @@ Future<void> loadData(BuildContext context) async {
   final fullReportController = Get.find<FullReportController>();
   final loginResponseController = Get.find<LoginResponseController>();
   final errorHandelingController = Get.find<ErrorhandelingController>();
+
   // ignore: unused_local_variable
 
   if (optionSearchController.searchs.isNotEmpty &&
       fullReportController.selectedreport[0].report.scope == 'FilterForm') {
     showDialogApiCallBefore(context);
     await Network().refreshToken();
+
     await Network()
         .getData(
       optionSearchController: optionSearchController,
@@ -37,6 +39,7 @@ Future<void> loadData(BuildContext context) async {
                   );
       } else {
         await loadDataForProperties(context);
+        // ignore: use_build_context_synchronously
         apiCallAfter(context);
       }
     });

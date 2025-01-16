@@ -17,7 +17,7 @@ class AppDataTableTheme extends ThemeExtension<AppDataTableTheme> {
         elevation: 0.0,
       ),
       dataTableThemeData: themeData.dataTableTheme.copyWith(
-        headingRowColor: MaterialStateProperty.all(kPrimaryColor),
+        headingRowColor: WidgetStateProperty.all(kPrimaryColor),
         headingTextStyle: TextStyle(color: themeData.colorScheme.onPrimary),
       ),
     );

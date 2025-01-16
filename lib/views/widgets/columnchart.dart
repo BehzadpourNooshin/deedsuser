@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../utils/constant.dart';
+
 class MyColumnChartData {
   MyColumnChartData(
     this.x,
@@ -14,6 +16,7 @@ class MyColumnChartWidget extends StatelessWidget {
   final List<MyColumnChartData> dataSource;
   final String title;
   final bool isString;
+
   const MyColumnChartWidget(
       {super.key,
       required this.dataSource,
@@ -23,28 +26,24 @@ class MyColumnChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      palette: const [kPrimaryColor, kCardColor, kBlackColor, kCyanColor],
       enableAxisAnimation: true,
       tooltipBehavior: TooltipBehavior(enable: true),
-      legend: const Legend(isVisible: true, position: LegendPosition.bottom),
-      zoomPanBehavior: ZoomPanBehavior(
-        enablePanning: true,
+      primaryXAxis: const CategoryAxis(
+        interval: 1,
+        labelIntersectAction: AxisLabelIntersectAction.wrap,
       ),
-      // plotAreaBackgroundColor: kCardColor,
-      // backgroundColor: kCardColor,
-      //  borderWidth: 10,
-      //  borderColor: kPrimaryColor,
       title: ChartTitle(text: title),
-      series: [
-        isString
-            ? ColumnSeries<MyColumnChartData, String>(
-                dataSource: dataSource,
-                xValueMapper: (MyColumnChartData dataSource, _) => dataSource.x,
-                yValueMapper: (MyColumnChartData dataSource, _) => dataSource.y)
-            : ColumnSeries<MyColumnChartData, double>(
-                dataSource: dataSource,
-                xValueMapper: (MyColumnChartData dataSource, _) =>
-                    double.parse(dataSource.x),
-                yValueMapper: (MyColumnChartData dataSource, _) => dataSource.y)
+      series: <CartesianSeries<MyColumnChartData, String>>[
+        ColumnSeries<MyColumnChartData, String>(
+          dataSource: dataSource,
+          xValueMapper: (MyColumnChartData dataSource, _) => dataSource.x,
+          yValueMapper: (MyColumnChartData dataSource, _) => dataSource.y,
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          dataLabelSettings: const DataLabelSettings(
+            isVisible: true, // نمایش مقدار داده‌ها روی بارها
+          ),
+        )
       ],
     );
   }

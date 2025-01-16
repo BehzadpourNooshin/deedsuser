@@ -3,12 +3,13 @@ import 'package:deedsuser/controllers/json_controller.dart';
 import 'package:deedsuser/controllers/resultsearch_controller.dart';
 import 'package:deedsuser/controllers/search_controller.dart';
 import 'package:deedsuser/controllers/serviceinputinfo_controller.dart';
+import 'package:deedsuser/functions/finddisplaytitle.dart';
 import 'package:deedsuser/functions/loaddata.dart';
 import 'package:deedsuser/models/serviceinput_model.dart';
 import 'package:deedsuser/models/serviceinputfinal_model.dart';
 import 'package:get/get.dart';
 
-void makeSearchApi(context) {
+Future<void> makeSearchApi(context) async {
   FullReportController fullReportController = Get.put(FullReportController());
   OptionSearchController optionSearchController =
       Get.put(OptionSearchController());
@@ -38,7 +39,11 @@ void makeSearchApi(context) {
               parameterName: serviceInput.parameterName,
               parameterType: serviceInput.parameterType,
               parameterInputType: serviceInput.parameterInputType,
-              parameterValue: filter.textEditingController.text));
+              parameterValue: (filter.formItemInputType == 'DropDown' ||
+                      filter.formItemInputType == 'MultiChoiceBox')
+                  ? findDisplayTitle(
+                      filter.textEditingController.text, filter.lookupName)
+                  : filter.textEditingController.text));
           optionSearchController.update();
         }
       }
@@ -55,5 +60,5 @@ void makeSearchApi(context) {
   jsonController.datarows.clear();
   jsonController.update();
 
-  loadData(context);
+  await loadData(context);
 }

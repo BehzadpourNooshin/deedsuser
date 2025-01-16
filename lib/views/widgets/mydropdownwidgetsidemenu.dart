@@ -12,6 +12,7 @@ import 'package:deedsuser/functions/dialog.dart';
 import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class MySideMenuFormBuilderDropdown extends StatelessWidget {
   final String nameDropDown;
   final String errorTitle;
   final TextEditingController myController;
+  // ignore: prefer_typing_uninitialized_variables
   final myItems;
   final String hintTitle;
   final UpdateUserController updateUserController;

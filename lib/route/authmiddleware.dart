@@ -7,12 +7,7 @@ class AuthMiddleware extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     final loginResponseController = Get.find<LoginResponseController>();
 
-    print(loginResponseController.isLoggedIn.value);
-    print(loginResponseController.accesstokenstorage.value);
-    print(loginResponseController.accesstoken.text);
-    if (loginResponseController.accesstoken.text == '') {
-      print("hellooooooooooo");
-    }
+    if (loginResponseController.accesstoken.text == '') {}
     return null;
   }
 }

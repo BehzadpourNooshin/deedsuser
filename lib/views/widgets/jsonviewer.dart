@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:deedsuser/controllers/json_controller.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:json_view/json_view.dart';
@@ -17,7 +18,7 @@ class MyJsonViewr extends StatelessWidget {
     JsonController jsonController = Get.put(JsonController());
 
     return Obx(() => jsonController.jsonText.value.isEmpty
-        ? const Text('')
+        ? Text('')
         : Padding(
             padding: EdgeInsets.all(kDefaultPadding),
             child: SingleChildScrollView(

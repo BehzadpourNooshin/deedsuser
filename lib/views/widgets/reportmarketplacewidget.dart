@@ -11,6 +11,7 @@ import 'package:deedsuser/functions/dialog.dart';
 import 'package:deedsuser/utils/api_service.dart';
 import 'package:deedsuser/utils/constant.dart';
 import 'package:deedsuser/utils/responsive.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:deedsuser/views/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

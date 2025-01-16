@@ -36,11 +36,7 @@ Future<void> loadDataForProperties(BuildContext context) async {
       sortColumn: resultSearchController.columnTitle));
   optionSearchController.update();
 
-  // Create a list of charts to display in the PageView
-
   final loginResponseController = Get.find<LoginResponseController>();
-
-  // ignore: unused_local_variable
 
   if (optionSearchController.searchForProperties.isNotEmpty) {
     if (fullReportController.selectedreport[0].report.scope == 'FilterForm') {

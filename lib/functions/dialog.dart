@@ -18,10 +18,12 @@ import 'package:deedsuser/views/widgets/mytextformfieldwidgetlastname.dart';
 import 'package:deedsuser/views/widgets/mytextformfieldwidgetmobile.dart';
 import 'package:deedsuser/views/widgets/mytextformfieldwidgetnewpassword.dart';
 import 'package:deedsuser/views/widgets/mytextformfieldwidgetpasswordconfirm.dart';
+import 'package:deedsuser/views/widgets/persiannumbertext.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collection/collection.dart';
+import 'package:persian_tools/persian_tools.dart';
 
 void showExitConfirmationDialog(BuildContext context) {
   showDialog(
@@ -388,13 +390,13 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
               },
               icon: SideMenuConstant().dialog['icon'],
             ),
-            Text(NoteConstant().notes['name'],
+            Text(convertEnToFa(NoteConstant().notes['name']),
                 style: Responsive.isDesktop(context)
                     ? CustomTextStyle().textStyleDesktopBigTitrKprimaryColor
                     : CustomTextStyle().textStyleTabletKprimaryColorTitr),
           ],
         ),
-        content: Container(
+        content: SizedBox(
           width: Get.width * 0.2,
           height: Get.height * 0.4,
           child: Scrollbar(
@@ -408,7 +410,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   controller: horizontalScrollController,
-                  child: Container(
+                  child: SizedBox(
                     width: Get.width * 0.2, // Adjust width as necessary
                     child: Wrap(
                       children: indexedGroupedByVersion.map((group) {
@@ -440,16 +442,19 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      SelectableText(
-                                        group['version'] as String,
+                                      Text(
+                                        convertEnToFa(
+                                            group['version'].toString()),
                                         style: Responsive.isDesktop(context)
                                             ? CustomTextStyle()
                                                 .textStyleDesktopKprimaryColorTitr
                                             : CustomTextStyle()
                                                 .textStyleTabletKprimaryColorTitr,
                                       ),
-                                      SelectableText(
-                                        NoteConstant().version,
+                                      Text(
+                                        convertEnToFa(
+                                          NoteConstant().version,
+                                        ),
                                         style: Responsive.isDesktop(context)
                                             ? CustomTextStyle()
                                                 .textStyleDesktopKprimaryColorTitr
@@ -488,7 +493,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.end,
                                                 children: [
-                                                  SelectableText(
+                                                  Text(
                                                     note.description,
                                                     style: Responsive.isDesktop(
                                                             context)
@@ -509,8 +514,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
                                             ),
                                           ],
                                         ),
-                                      ))
-                                  .toList(),
+                                      )),
                             ],
                           ),
                         );
@@ -534,7 +538,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
 //                       child: Row(
 //                           mainAxisAlignment: MainAxisAlignment.end,
 //                           children: [
-//                             SelectableText(
+//                             PersianText(
 //                                 style: i < unread
 //                                     ? Responsive.isDesktop(context)
 //                                         ? CustomTextStyle()
@@ -548,7 +552,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
 //                                             .textStyleDesktopkCardColor,
 //                                 updateNoteController.updateNotes[i].description
 //                                     .toString()),
-//                             SelectableText(
+//                             PersianText(
 //                                 textAlign: TextAlign.left,
 //                                 textDirection: TextDirection.ltr,
 //                                 style: i < unread
@@ -564,7 +568,7 @@ Future<void> showDialogNotes(BuildContext context, int unread) async {
 //                                             .textStyleDesktopkCardColor,
 //                                 updateNoteController.updateNotes[i].version
 //                                     .toString()),
-//                             SelectableText(
+//                             PersianText(
 //                                 style: i < unread
 //                                     ? Responsive.isDesktop(context)
 //                                         ? CustomTextStyle()
